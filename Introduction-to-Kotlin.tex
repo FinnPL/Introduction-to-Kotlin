@@ -1,0 +1,47 @@
+\documentclass[a4paper, 11pt]{article}
+\input{config.tex}
+
+\title{\huge \bfseries Introduction to Kotlin}
+\author{
+  Christian Konersmann, Finn Paul Lippok, Paul Lukas \\ 
+  \\
+  RWTH Aachen University, Germany \\
+  \texttt{\{christian.konersmann,finn.lippok,paul.lukas\}@rwth-aachen.de}
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  This paper is an Introduction to Kotlin, a statically typed, object-oriented Programming language designed to be fully interoperable with Java and the Java Virtual Machine (JVM).
+  Kotlin offers a concise syntax, functional programming paradigms and safety improvements compared to Java. In 2019 Google announced, that Kotlin replaced Java as their preferred language for Android development.
+\end{abstract}
+
+\section{Introduction}
+  Introduction, Motivation and Goals of this Paper.
+  This paper assumes that the reader is familiar with the fundamentals of Java.
+  This paper was written as part of the \textit{Proseminar: Advanced Programming Concepts}.
+
+\section{Code formatting test}
+\renewcommand{\lstlistingname}{Java}
+\begin{lstlisting}[language=Java,title={Hello World in Java}]
+public class Main {
+  public static void main(String[] args) {
+    System.out.println("Hello, World!");
+  }
+}
+\end{lstlisting}
+
+\renewcommand{\lstlistingname}{Kotlin}
+\begin{lstlisting}[language=Kotlin,title={Hello World in Kotlin}]
+fun main() {
+  println("Hello, World!")
+}
+\end{lstlisting}
+
+
+\section*{Acknowledgements}
+  We would like to thank our instructor
+
+\end{document}
