@@ -14,34 +14,65 @@
 \maketitle
 
 \begin{abstract}
-  This paper is an Introduction to Kotlin, a statically typed, object-oriented Programming language designed to be fully interoperable with Java and the Java Virtual Machine (JVM).
-  Kotlin offers a concise syntax, functional programming paradigms and safety improvements compared to Java. In 2019 Google announced, that Kotlin replaced Java as their preferred language for Android development.
+  This paper is an introduction to Kotlin, a statically typed, object-oriented programming language designed to be fully interoperable with Java and the Java Virtual Machine (JVM).
+  Kotlin offers a concise syntax, functional programming paradigms, and safety improvements compared to Java. In 2019, Google announced that Kotlin replaced Java as their preferred language for Android development.
 \end{abstract}
 
 \section{Introduction}
-  Introduction, Motivation and Goals of this Paper.
+  Introduction, motivation, and goals of this paper.
   This paper assumes that the reader is familiar with the fundamentals of Java.
   This paper was written as part of the \textit{Proseminar: Advanced Programming Concepts}.
 
-\section{Code formatting test}
-\renewcommand{\lstlistingname}{Java}
-\begin{lstlisting}[language=Java,title={Hello World in Java}]
+\section{Main Method}
+  The main method is the entry point of every Java and Kotlin program.
+  Java enforces object-oriented programming, thus requiring the main method to be declared inside a class.
+  For the main method to be directly executable, the method must be declared as static and public.
+  If the main method were non-static, it would require an instance of the class to be created before it could be called, which in turn would require code execution before the main method could be called, thus creating a circular dependency.
+\begin{lstlisting}[language=Java,title={Java main method}]
 public class Main {
   public static void main(String[] args) {
     System.out.println("Hello, World!");
   }
 }
 \end{lstlisting}
-
-\renewcommand{\lstlistingname}{Kotlin}
-\begin{lstlisting}[language=Kotlin,title={Hello World in Kotlin}]
+  Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions.
+  These top-level functions can be called directly without the need to create an instance of a class, similar to static methods in Java\footnote{When compiling Kotlin to Java bytecode, top-level functions are compiled to static methods in a class named after the file name.} but without class affiliation.
+  Kotlin further reduces boilerplate code by changing the default visibility to public and allowing the main method to be declared without arguments passed as an array.
+  Some further basic syntactical changes include making the semicolon optional and introducing the \textit{fun} keyword for defining functions.
+\begin{lstlisting}[language=Kotlin,title={Kotlin main method}]
 fun main() {
   println("Hello, World!")
 }
 \end{lstlisting}
 
+\section{TODO}
+\subsection{General}
+  Come up with an example that shows the differences between Java and Kotlin and highlights the advantages of Kotlin.
+\subsection{Introduction}
+  Android development, improvements over, and interoperability with Java.
+  Introduce an example to show differences/translation between Java and Kotlin.
+\subsection{Basic Syntax}
+\begin{itemize}
+  \item Data types, return types
+  \item Everything is an object (no primitives, functions are objects)
+  \item Explain the absence of static methods (out of scope for introduction?) (use \texttt{@JvmStatic} annotation for interoperability)
+\end{itemize}
+
+\subsection{New Features}
+\begin{itemize}
+  \item Type inference
+  \item Null safety
+  \item Properties (Getters, Setters)
+  \item Extension functions (not as important)
+  \item \textit{if} and \textit{when} as expressions (not as important, only if it fits)
+\end{itemize}
+
+\subsection{Android}
+\begin{itemize}
+  \item Discuss Kotlin's advantages for Android development
+\end{itemize}
 
 \section*{Acknowledgements}
-  We would like to thank our instructor
+  We would like to thank our instructor.
 
 \end{document}
