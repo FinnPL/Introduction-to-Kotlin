@@ -27,6 +27,11 @@ jobs:
       # Move the compiled PDF to the deployment directory.
       - name: Move PDF to gh-pages directory
         run: mv Introduction-to-Kotlin.pdf gh-pages/
+      
+      # Create a simple index.html to redirect to the PDF
+      - name: Create redirect to PDF
+        run: |
+          echo '<html><head><meta http-equiv="refresh" content="0; url=ntroduction-to-Kotlin.pdf"></head></html>' > gh-pages/index.html
 
       # Deploy the content of the 'gh-pages' folder to the gh-pages branch.
       - name: Deploy to GitHub Pages
