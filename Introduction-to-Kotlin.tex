@@ -31,7 +31,7 @@
   Java enforces object-oriented programming, thus requiring the main method to be declared inside a class.
   For the main method to be directly executable, the method must be declared as static and public.
   %If the main method were non-static, it would require an instance of the class to be created before it could be called, which in turn would require code execution before the main method could be called, thus creating a circular dependency.
-  % ^ relevant? 
+  % ^ relevant? i would think so
   \begin{lstlisting}[language=Java,title={Java main method}]
 public class Main {
   public static void main(String[] args) {
@@ -92,13 +92,32 @@ fun main() {
 \subsection{Properties}
 \subsection{String Interpolation}
 \subsection{Null Safety}
-\subsubsection{Smart Casts}
-\subsubsection{Null Safety Operators}
+  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of an non-nullable type never can be null. Unlike Java, this is enforced by the compiler at compile-time, therfor reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime both types are treated the same.
+  
+  In Kotlin, every type is non-nullable by default, so variables are considered non-nullable unless explicitly declared otherwise. To declare a variable as nullable, a questionmark has to be added to the type.\footnote{This works with both mutable and immutable variables.}
 
+  \begin{lstlisting}[language=Kotlin]
+    var a: String = "a is non-nullable"
+    var b: String? = "b is nullable"
+  \end{lstlisting}
+  % When a non-nullable variable is set to null, the compiler throws an error and code will not compile. - müssen wir das dazu sagen oder ist das klar? und wenn mit beispiel oder nit?
+
+\subsubsection{Null Safety Operators}
+  When working with nullable types, you cannot directly access properties or methods because the value could be null, potentially causing an NPE. Whenever a nullable type is used, the value must be checked in some way to prevent the program from encountering an NPE. To avoid excessive use of if statements, Kotlin provides the safe call operator as a shortcut.
+
+  The safe call operator consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone.
+
+  \begin{lstlisting}[language=Kotlin,title={Using the safe call operator in comparison to an if statement}]
+    var couldBeNull: String? = null
+    var a = if (couldBeNull == null) null else couldBeNull.length
+    var b = couldBeNull?.length // Safe call operator
+  \end{lstlisting}
+
+  An od snfnsifn isnefin n is the elvis Operator.
+\subsubsection{Smart Casts}
+  Smart casts are another way to simplify the usage of nullable variables.
 \section{Interoperability}
 \section{Android}
-
-
 
 \section{TODO}
 \subsection{General}
