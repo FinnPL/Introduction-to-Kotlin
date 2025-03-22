@@ -95,18 +95,17 @@ fun main() {
 \subsection{Null Safety}
   Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of an non-nullable type can be null. Unlike Java, this is enforced by the compiler at compile-time, therfor reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime both types are treated the same.
   
-  In Kotlin, every type is non-nullable by default, so variables are considered non-nullable unless explicitly declared otherwise. To declare a variable as nullable, a questionmark has to be added to the type.\footnote{This works with both mutable and immutable variables.}
+  By default, all types in Kotlin are non-nullable, meaning variables cannot hold a null value unless explicitly specified. To allow nullability, a question mark is appended to the type declaration.\footnote{This applies to both mutable and immutable variables.}
 
   \begin{lstlisting}[language=Kotlin]
     var a: String = "a is non-nullable"
     var b: String? = "b is nullable"
   \end{lstlisting}
-  % When a non-nullable variable is set to null, the compiler throws an error and code will not compile. - müssen wir das dazu sagen oder ist das klar? und wenn mit beispiel oder nit?
-
+  
 \subsubsection{Null Safety Operators}
   When working with nullable types, you cannot directly access properties or methods because the value could be null, potentially causing an NPE. Whenever a nullable type is used, the value must be checked in some way to prevent the program from encountering an NPE. To avoid excessive use of if statements, Kotlin provides the safe call operator as a shortcut.
 
-  The \textit{safe call operator} consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone. 
+  The \textit{safe call operator} consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone.
 
   \begin{lstlisting}[language=Kotlin,title={Using the safe call operator in comparison to an if statement}]
     var couldBeNull: String? = null
