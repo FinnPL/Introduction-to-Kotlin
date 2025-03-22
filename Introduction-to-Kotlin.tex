@@ -90,7 +90,7 @@ fun main() {
   This section will illustrate Kotlin's advantages using a list of salespersons as an example and comparing it to Java.
   The example should represent a linked list of salespersons containing multiple attributes.
 \subsection{Classes}
-  In Java and Kotlin classes are declared using the \textit{class} keyword. They can contain attributes, methods, and constructors.
+  In Java and Kotlin, classes are declared using the \textit{class} keyword. They can contain attributes, methods, and constructors.
   In this example, we will declare a class to hold information about a salesperson.
 \begin{lstlisting}[language=Java,title={Java Class Declaration}]
 public class SalesPerson {
@@ -98,30 +98,30 @@ public class SalesPerson {
   private final int commissionRate;
   private double salesVolume;
   
-  public SalesPeron(String name, int commissionRate, double transferAmount) {
+  public SalesPerson(String name, int commissionRate, double transferAmount) {
       this.name = name;
       this.commissionRate = commissionRate;
       this.salesVolume = transferAmount;
     }
   }
 \end{lstlisting}
-  Kotlin improves upon Java by allowing the constructor to be declared directly within the class definition. As a reminder public is the default visibility in Kotlin. In addition classes are also final per default, meaning they cannot be inherited from unless explicitly declared as open.
+  Kotlin improves upon Java by allowing the constructor to be declared directly within the class definition. As a reminder, public is the default visibility in Kotlin. In addition, classes are also final by default, meaning they cannot be inherited from unless explicitly declared as open.
   Furthermore, Kotlin allows for the declaration of attributes and their visibility directly within the constructor by adding the \textit{val} or \textit{var} keyword and the private keyword, resulting in a syntax very similar to Java records.
 \begin{lstlisting}[language=Kotlin,title={Kotlin Class Declaration}]
   class SalesPerson(val name: String, private val commissionRate: Int, transferAmount: Double = 0.0) {
     var salesVolume: Double = transferAmount
   }
 \end{lstlisting}
-  In this example both \textit{name} and \textit{commissionRate} are attributes, while \textit{transferAmount} is a normal constructor parameter. These constructor parameters can be used to initialize attributes of the class.
+  In this example, both \textit{name} and \textit{commissionRate} are attributes, while \textit{transferAmount} is a normal constructor parameter. These constructor parameters can be used to initialize attributes of the class.
   It is still possible to declare attributes outside of the constructor, like \textit{salesVolume} in this example.
-  In addition, Kotlin allows for default values for parameters in constructor and functions, which would require overloading in Java.
+  In addition, Kotlin allows for default values for parameters in constructors and functions, which would require overloading in Java.
   
   %named parameters
 \subsection{Properties}
 \subsection{String Interpolation}
 
 \subsection{Null Safety}
-  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of an non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therfor reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime both types are treated the same.
+  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of a non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therefore reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime, both types are treated the same.
   
   By default, all types in Kotlin are non-nullable, meaning variables cannot hold a null value unless explicitly specified. To allow nullability, a question mark is appended to the type declaration.\footnote{This applies to both mutable and immutable variables.}
 
@@ -142,10 +142,10 @@ public class SalesPerson {
   \end{lstlisting}
   We can use multiple safe call operators and chain them together. The compiler evaluates the expression from left to right, checking each operator sequentially. If any value is null, the entire expression evaluates to null.
   Furthermore, the operator can also be used on the left side of an assignment. If the safe call operator evaluates to null, the assignment will be skipped. Otherwise, the value will be assigned as usual.
-  % Wir sollten das Beispiel anpassen und die formulierung in den zwei absätzen drüber checken
+  % Wir sollten das Beispiel anpassen und die Formulierung in den zwei Absätzen drüber checken
   \begin{lstlisting}[language=Kotlin]
-    var age:Int? = rwth?.ceo?.age // chained safe call operators
-    rwth?.ceo?.age = 20 // asssigment with chained operator
+    var age: Int? = rwth?.ceo?.age // chained safe call operators
+    rwth?.ceo?.age = 20 // assignment with chained operator
   \end{lstlisting}
 
   In Java, there is no safe call operator or anything comparable. To prevent NPE in Java, you have to explicitly check with an if-statement for the value to not be null. This is very inconvenient, hard to read, and prone to errors.
@@ -156,7 +156,7 @@ public class SalesPerson {
   \end{lstlisting}
   \hfill \break
 
-  The \textit{Elvis operator} is an extension of the safe call operator. The Elvis operator is mostly used in combination with the Safe call operator. If the left side is null, the value will be set to a default value. Otherwise the expression to the right-hand side will just be evaluated... TODO
+  The \textit{Elvis operator} is an extension of the safe call operator. The Elvis operator is mostly used in combination with the safe call operator. If the left side is null, the value will be set to a default value. Otherwise, the expression to the right-hand side will just be evaluated... TODO
 
 \subsubsection{Smart Casts}
   Smart casts are another way to simplify the usage of nullable variables.
