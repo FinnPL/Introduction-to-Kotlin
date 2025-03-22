@@ -94,13 +94,12 @@ fun main() {
 \subsection{Null Safety}
   Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of a non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therefore reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime, both types are treated the same.
   
-  In Kotlin, every type is non-nullable by default, so variables are considered non-nullable unless explicitly declared otherwise. To declare a variable as nullable, a question mark has to be added to the type.\footnote{This works with both mutable and immutable variables.}
+  By default, all types in Kotlin are non-nullable, meaning variables cannot hold a null value unless explicitly specified. To allow nullability, a question mark is appended to the type declaration.\footnote{This applies to both mutable and immutable variables.}
 
   \begin{lstlisting}[language=Kotlin]
     var a: String = "a is non-nullable"
     var b: String? = "b is nullable"
   \end{lstlisting}
-  Trying to assign null to a non-nullable variable will result in a compile-time error.
   
 \subsubsection{Null Safety Operators}
   When working with nullable types, you cannot directly access properties or methods because the value could be null, potentially causing an NPE. Whenever a nullable type is used, the value must be checked in some way to prevent the program from encountering an NPE. To avoid excessive use of if statements, Kotlin provides the safe call operator as a shortcut.
