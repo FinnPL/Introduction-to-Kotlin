@@ -41,7 +41,7 @@ public class Main {
 \end{lstlisting}
   Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions.
   These top-level functions can be called directly without the need to create an instance of a class, similar to static methods in Java\footnote{When compiling Kotlin to Java bytecode, top-level functions are compiled to static methods in a class named after the file name.} but without class affiliation.
-  Kotlin further reduces boilerplate code by changing the default visibility to public and allowing the main method to be declared without arguments passed as an array.
+  Kotlin further reduces boilerplate code by changing the default visibility of everything to public and allowing the main method to be declared without arguments passed as an array.
   Some further basic syntactical changes include making the semicolon optional and introducing the \textit{fun} keyword for defining functions.
   These changes lead to a more concise and readable main method and syntax in general.
 \begin{lstlisting}[language=Kotlin,title={Kotlin main method}]
@@ -88,7 +88,35 @@ fun main() {
 \section{New Language Constructs}
   This section focuses on the most important new language constructs that are not present in Java. 
   This section will illustrate Kotlin's advantages using a list of salespersons as an example and comparing it to Java.
+  The example should represent a linked list of salespersons containing multiple attributes.
 \subsection{Classes}
+  In Java and Kotlin classes are declared using the \textit{class} keyword. They can contain attributes, methods, and constructors.
+  In this example, we will declare a class to hold information about a salesperson.
+\begin{lstlisting}[language=Java,title={Java Class Declaration}]
+public class SalesPerson {
+  private final String name;
+  private final int commissionRate;
+  private double salesVolume;
+  
+  public SalesPeron(String name, int commissionRate, double transferAmount) {
+      this.name = name;
+      this.commissionRate = commissionRate;
+      this.salesVolume = transferAmount;
+    }
+  }
+\end{lstlisting}
+  Kotlin improves upon Java by allowing the constructor to be declared directly within the class definition. As a reminder public is the default visibility in Kotlin. In addition classes are also final per default, meaning they cannot be inherited from unless explicitly declared as open.
+  Furthermore, Kotlin allows for the declaration of attributes and their visibility directly within the constructor by adding the \textit{val} or \textit{var} keyword and the private keyword, resulting in a syntax very similar to Java records.
+\begin{lstlisting}[language=Kotlin,title={Kotlin Class Declaration}]
+  class SalesPerson(val name: String, private val commissionRate: Int, transferAmount: Double = 0.0) {
+    var salesVolume: Double = transferAmount
+  }
+\end{lstlisting}
+  In this example both \textit{name} and \textit{commissionRate} are attributes, while \textit{transferAmount} is a normal constructor parameter. These constructor parameters can be used to initialize attributes of the class.
+  It is still possible to declare attributes outside of the constructor, like \textit{salesVolume} in this example.
+  In addition, Kotlin allows for default values for parameters in constructor and functions, which would require overloading in Java.
+  
+  %named parameters
 \subsection{Properties}
 \subsection{String Interpolation}
 
