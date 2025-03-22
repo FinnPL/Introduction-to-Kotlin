@@ -91,8 +91,9 @@ fun main() {
 \subsection{Classes}
 \subsection{Properties}
 \subsection{String Interpolation}
+
 \subsection{Null Safety}
-  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of an non-nullable type never can be null. Unlike Java, this is enforced by the compiler at compile-time, therfor reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime both types are treated the same.
+  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of an non-nullable type can be null. Unlike Java, this is enforced by the compiler at compile-time, therfor reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime both types are treated the same.
   
   In Kotlin, every type is non-nullable by default, so variables are considered non-nullable unless explicitly declared otherwise. To declare a variable as nullable, a questionmark has to be added to the type.\footnote{This works with both mutable and immutable variables.}
 
@@ -105,17 +106,35 @@ fun main() {
 \subsubsection{Null Safety Operators}
   When working with nullable types, you cannot directly access properties or methods because the value could be null, potentially causing an NPE. Whenever a nullable type is used, the value must be checked in some way to prevent the program from encountering an NPE. To avoid excessive use of if statements, Kotlin provides the safe call operator as a shortcut.
 
-  The safe call operator consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone.
+  The \textit{safe call operator} consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone. 
 
   \begin{lstlisting}[language=Kotlin,title={Using the safe call operator in comparison to an if statement}]
     var couldBeNull: String? = null
-    var a = if (couldBeNull == null) null else couldBeNull.length
-    var b = couldBeNull?.length // Safe call operator
+    println(if (couldBeNull == null) null else couldBeNull.length)
+    println(couldBeNull?.length)    // Safe call operator
+  \end{lstlisting}
+  We can use multiple safe call operators and chain them together. The compiler evaluates the expression from left to right, checking each operator sequentially. If any value is null, the entire expression evaluates to null.
+  Furthermore, the operator can also be used on the left side of an assignment. If the safe call operator evaluates to null, the assignment will be skipped. Otherwise, the value will be assigned as usual.
+  % Wir sollten das Beispiel anpassen und die formulierung in den zwei absätzen drüber checken
+  \begin{lstlisting}[language=Kotlin]
+    var age:Int? = rwth?.ceo?.age // chained safe call operators
+    rwth?.ceo?.age = 20 // asssigment with chained operator
   \end{lstlisting}
 
-  An od snfnsifn isnefin n is the elvis Operator.
+  In Java, there is no safe call operator or anything comparable. To prevent NPE in Java, you have to explicitly check with an if-statement for the value to not be null. This is very inconvenient, hard to read, and prone to errors.
+  \begin{lstlisting}[language=Java,title={Prevent NPE in Java}]
+    String couldBeNull = null;
+    if (couldBeNull == null) System.out.println("null");
+    else System.out.println(couldBeNull.length());
+  \end{lstlisting}
+  \hfill \break
+
+  The \textit{Elvis operator} is an extension of the safe call operator. The Elvis operator is mostly used in combination with the Safe call operator. If the left side is null, the value will be set to a default value. Otherwise the expression to the right-hand side will just be evaluated... TODO
+
 \subsubsection{Smart Casts}
   Smart casts are another way to simplify the usage of nullable variables.
+
+
 \section{Interoperability}
 \section{Android}
 
