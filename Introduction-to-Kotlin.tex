@@ -93,7 +93,7 @@ fun main() {
 \subsection{String Interpolation}
 
 \subsection{Null Safety}
-  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of an non-nullable type can be null. Unlike Java, this is enforced by the compiler at compile-time, therfor reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime both types are treated the same.
+  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of an non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therfor reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime both types are treated the same.
   
   By default, all types in Kotlin are non-nullable, meaning variables cannot hold a null value unless explicitly specified. To allow nullability, a question mark is appended to the type declaration.\footnote{This applies to both mutable and immutable variables.}
 
