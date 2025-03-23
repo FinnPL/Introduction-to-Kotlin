@@ -164,15 +164,23 @@ public class SalesPerson {
     println(couldBeNull?.length ?: 0)   // Elvis operator
   \end{lstlisting}
 
-  Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. % Soll ich das mit java-byte code belegen?
+  Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. It simply makes the code significantly shorter and easier to read. % Soll ich das mit java-byte code belegen?
 
 \subsubsection{Not-null assertion}
 
 \subsubsection{Let function}
 
 \subsubsection{Safe casts}
-  Smart casts are another way to simplify the usage of nullable variables.
-
+  Safe casts are another way to handle nullable objects. But in order to understand the Safe cast, we have to look at how Kotlin handles type casts in general. The principle behind casting is the same as in java, only the syntax is diffrent. Kotlin uses the \texttt{as} keyword behind the expression followed by the new type to cast one type into another. In java the new type had to be written in round brakets before the expression.
+  \begin{lstlisting}[language=Kotlin,title={Casting in Kotlin}]
+    var a: Any = "Replace this example"
+    var b:String = a as String
+  \end{lstlisting} % Beispiel für casting in java adden? Sollte eig aus Vorlesung mehr als bekannt sein tbh und darauf sollte auch nit der Schwerpunkt liegen
+  Safe Cast is used to prevent a ClassCastException when a given object does not match the target type. The Safe Cast operator extends the standard cast keyword by adding a question mark and is applied in the same manner as a regular cast. If the object is not of the target type, instead of throwing an exception, the expression evaluates to null. This significantly simplifies casting, eliminating the need to catch potential exceptions or perform type checks beforehand. The functionality of the operator can also be replicated using if statements, further demonstrating its benefits for code readability and maintainability.
+  \begin{lstlisting}[language=Kotlin,title={Usage of the safe cast operator}]
+    var a: String = "Also replace *this* example"
+    var b:Int? = a as? Int // evaluates to null
+  \end{lstlisting}
 
 \section{Interoperability}
 
