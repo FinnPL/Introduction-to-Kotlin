@@ -149,21 +149,20 @@ public class SalesPerson {
     rwth?.ceo?.age = 20 // assignment with chained operator
   \end{lstlisting}
 
-  In Java, there is no safe call operator or anything comparable. To prevent NPE in Java, you have to explicitly check with an if-statement for the value to not be null. This is very inconvenient, hard to read, and prone to errors.
-  \begin{lstlisting}[language=Java,title={Prevent NPE in Java}]
-    String couldBeNull = null;
-    if (couldBeNull == null) System.out.println("null");
-    else System.out.println(couldBeNull.length());
-  \end{lstlisting}
-  \hfill \break
-
   The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability. % improve paragraph
   \begin{lstlisting}[language=Kotlin,title={Using the Elvis operator in comparison to an if statement}]
     var couldBeNull: String? = null
     println(if (couldBeNull == null) 0 else couldBeNull.length)
     println(couldBeNull?.length ?: 0)   // Elvis operator
   \end{lstlisting}
-
+  \hfill \break
+  Java does not have a safe call operator, an Elvis operator, or any equivalent feature. To prevent NPE in Java, you have to explicitly check with an if-statement for the value to not be null. This is very inconvenient, hard to read, and prone to errors.
+  \begin{lstlisting}[language=Java,title={Prevent NPE in Java}]
+    String couldBeNull = null;
+    if (couldBeNull == null) System.out.println("null");
+    else System.out.println(couldBeNull.length());
+  \end{lstlisting}
+  \hfill \break
   Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. It simply makes the code significantly shorter and easier to read. % Soll ich das mit java-byte code belegen?
 
 \subsubsection{Not-null assertion}
