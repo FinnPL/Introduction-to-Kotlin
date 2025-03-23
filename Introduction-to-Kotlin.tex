@@ -156,7 +156,12 @@ public class SalesPerson {
   \end{lstlisting}
   \hfill \break
 
-  The \textit{Elvis operator} is an extension of the safe call operator. The Elvis operator is mostly used in combination with the safe call operator. If the left side is null, the value will be set to a default value. Otherwise, the expression to the right-hand side will just be evaluated... TODO
+  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability.
+  \begin{lstlisting}[language=Kotlin,title={Using the Elvis operator in comparison to an if statement}]
+    var couldBeNull: String? = null
+    println(if (couldBeNull == null) 0 else couldBeNull.length)
+    println(couldBeNull?.length ?: 0)   // Elvis operator
+  \end{lstlisting}
 
 \subsubsection{Smart Casts}
   Smart casts are another way to simplify the usage of nullable variables.
