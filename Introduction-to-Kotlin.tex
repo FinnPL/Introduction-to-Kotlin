@@ -119,6 +119,7 @@ public class SalesPerson {
   %named parameters
 \subsection{Properties}
 \subsection{String Interpolation}
+\subsection{Extension functions}
 
 \subsection{Null Safety}
   Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of a non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therefore reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime, both types are treated the same.
@@ -156,34 +157,27 @@ public class SalesPerson {
   \end{lstlisting}
   \hfill \break
 
-  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability.
+  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability. % improve paragraph
   \begin{lstlisting}[language=Kotlin,title={Using the Elvis operator in comparison to an if statement}]
     var couldBeNull: String? = null
     println(if (couldBeNull == null) 0 else couldBeNull.length)
     println(couldBeNull?.length ?: 0)   // Elvis operator
   \end{lstlisting}
 
-\subsubsection{Smart Casts}
+  Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. % Soll ich das mit java-byte code belegen?
+
+\subsubsection{Not-null assertion}
+
+\subsubsection{Let function}
+
+\subsubsection{Safe casts}
   Smart casts are another way to simplify the usage of nullable variables.
 
 
 \section{Interoperability}
-\section{Android}
 
 \section{TODO}
-\subsection{General}
-  Come up with an example that shows the differences between Java and Kotlin and highlights the advantages of Kotlin.
 
-\subsection{Introduction}
-  Android development, improvements over, and interoperability with Java.
-  Introduce an example to show differences/translation between Java and Kotlin.
-
-\subsection{Basic Syntax}
-\begin{itemize}
-  \item Methods
-  \item Everything is an object (no primitives, functions are objects)
-  \item Explain the absence of static methods (out of scope for introduction?) (use \texttt{@JvmStatic} annotation for interoperability)
-\end{itemize}
 
 \subsection{Interoperability}
   \begin{itemize}
@@ -197,12 +191,9 @@ public class SalesPerson {
   \item Null safety
   \item Properties (Getters, Setters)
   \item Extension functions (not as important)
+  \item This exrpession
+  \item Destructuring declarations
   \item \textit{if} and \textit{when} as expressions (not as important, only if it fits)
-\end{itemize}
-
-\subsection{Android}
-\begin{itemize}
-  \item Discuss Kotlin's advantages for Android development
 \end{itemize}
 
 \section*{Acknowledgements}
