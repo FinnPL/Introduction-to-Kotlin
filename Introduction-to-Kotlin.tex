@@ -165,8 +165,6 @@ public class SalesPerson {
   \hfill \break
   Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. It simply makes the code significantly shorter and easier to read. % Soll ich das mit java-byte code belegen?
 
-\subsubsection{Let function}
-
 \subsubsection{Safe casts}
   Safe casts are another way to handle nullable objects. But in order to understand the Safe cast, we have to look at how Kotlin handles type casts in general. The principle behind casting is the same as in java, only the syntax is diffrent. Kotlin uses the \texttt{as} keyword behind the expression followed by the new type to cast one type into another. In java the new type had to be written in round brakets before the expression.
   \begin{lstlisting}[language=Kotlin,title={Casting in Kotlin}]
@@ -185,14 +183,23 @@ public class SalesPerson {
     var a:Int? = str as? Int // evaluates to null
   \end{lstlisting}
     As mentioned above there is nothing like the safe cast operator in Java. If you wanted to achieve the same result, you either had to catch the ClassCastException or  had to check for nullability before casting. This once again demonstrates how Kotlin's concise and well-designed syntax significantly simplifies programming compared to Java.
-  \begin{lstlisting}[language=Java,title={functionality of safe call operator in java}]
+  \begin{lstlisting}[language=Java,title={Functionality of safe call operator in java}]
     Object obj = null;
     String str = null;
     if (obj != null && obj instanceof String s) str = s;
   \end{lstlisting}
 
   \subsubsection{Not-null assertion}
-  
+    The \textit{not-null assertion operator} consists of two exclamation marks (!!). It is used to convert nullable types to non-nullable types by instructing the compiler to treat the value as non-null. However, if the value is actually null, a NullPointerException (NPE) will be thrown. This operator contradicts the concept of null safety and should only be used when you are certain that the value cannot be null, but the compiler is unable to guarantee it.
+  \begin{lstlisting}[language=Kotlin,title={Usage of the not-null assertion}]
+    var couldBeNull: String? = null
+    var b: String = couldBeNull!!
+  \end{lstlisting}
+  % Compareison with Java cast / assertion ??
+
+  \subsubsection{Other nullable operators}
+    => let function, filterNotNull()
+    => Nullable receiver?
 
 \section{Interoperability}
 
