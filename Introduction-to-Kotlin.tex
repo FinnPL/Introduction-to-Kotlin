@@ -40,11 +40,12 @@ public class Main {
   }
 }
 \end{lstlisting}
-  Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions.
+  Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions.\cite{kotlin-functions-scope}
   These top-level functions can be called directly without the need to create an instance of a class, similar to static methods in Java\footnote{When compiling Kotlin to Java bytecode, top-level functions are compiled to static methods in a class named after the file name.} but without class affiliation.
-  Kotlin further reduces boilerplate code by changing the default visibility of everything to public and allowing the main method to be declared without arguments passed as an array.
+  Kotlin further reduces boilerplate code by changing the default visibility of everything to public and allowing the main method to be declared without arguments passed as an array.\cite{visibility-modifiers,program-entry-point}
   Some further basic syntactical changes include making the semicolon optional and introducing the \textit{fun} keyword for defining functions.
   These changes lead to a more concise and readable main method and syntax in general.
+
 \begin{lstlisting}[language=Kotlin,title={Kotlin main method}]
 fun main() {
   println("Hello, World!")
@@ -203,7 +204,7 @@ public class SalesPerson {
   \item Discuss Kotlin's advantages for Android development
 \end{itemize}
 
-\section*{Acknowledgements}
-  We would like to thank our instructor.
+\newpage
+\printbibliography[]
 
 \end{document}
