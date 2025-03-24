@@ -179,11 +179,20 @@ public class SalesPerson {
     var a:Int? = str as? Int // evaluates to null
     var b:Int? = if (str is Int) str else null // no need for the `as Int` here due to smart casting
   \end{lstlisting}
-  But the safe cast operator is like the other two null safety operators very usefull at handling nullable objects. If the argument of the safe cast is null, instead of throwing a NPE the expression evaluates to null as well. Therefore the code is less prone to errors.
-  % Comparison to Java -> -> ->
+  But the safe cast operator is like the other two null safety operators very usefull at handling nullable objects. If the argument of the safe cast is null, instead of throwing a NPE the expression evaluates to null as well. Therefore the code is less prone to errors. If you want to enhance null safety, you can combine the safe cast operator with the Elvis operator to provide a fallback value when the safe cast operator returns null due to a type mismatch or a null reference.
+  \begin{lstlisting}[language=Kotlin,title={Usage of the safe cast operator on a nullable value}]
+    var str:Any? = null
+    var a:Int? = str as? Int // evaluates to null
+  \end{lstlisting}
+    As mentioned above there is nothing like the safe cast operator in Java. If you wanted to achieve the same result, you either had to catch the ClassCastException or  had to check for nullability before casting. This once again demonstrates how Kotlin's concise and well-designed syntax significantly simplifies programming compared to Java.
+  \begin{lstlisting}[language=Java,title={functionality of safe call operator in java}]
+    Object obj = null;
+    String str = null;
+    if (obj != null && obj instanceof String s) str = s;
+  \end{lstlisting}
 
   \subsubsection{Not-null assertion}
-
+  
 
 \section{Interoperability}
 
