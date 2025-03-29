@@ -24,13 +24,13 @@
   Introduction, motivation, and goals of this paper.
   This paper assumes that the reader is familiar with the fundamentals of Java.
 \section{Basic Syntax}
-  This section will cover the basic syntax of Kotlin and highlight the changes compared to Java.
-  The goal of this section is to provide a brief overview, focusing on the most important differences.
+  This section covers the basic syntax of Kotlin and highlights the differences compared to Java.
+  The goal is to provide a brief overview focused on the most important distinctions.
 
 \subsection{Main Method}
   The main method is the entry point of every Java and Kotlin program.
   Java enforces object-oriented programming, thus requiring the main method to be declared inside a class.
-  For the main method to be directly executable, the method must be declared as static and public.
+  For the main method to be directly executable, the method must be declared as \textit{public} and \textit{static}.
   %If the main method were non-static, it would require an instance of the class to be created before it could be called, which in turn would require code execution before the main method could be called, thus creating a circular dependency.
   % ^ relevant? i would think so
   \begin{lstlisting}[language=Java,title={Java main method}]
@@ -53,7 +53,7 @@ fun main() {
 \end{lstlisting}
 
 \subsection{Type Declaration}
-  In Kotlin, a variable declaration starts with the keyword \textit{val} for immutable variables or \textit{var} for mutable variables, similar to Java's \textit{final} and non-final variables.
+  In Kotlin, variables are declared using the keyword \textit{val} for immutable variables or \textit{var} for mutable variables, similar to Java's \textit{final} and non-final variables.
   The type of a variable is declared after the variable name, separated by a colon.
 \begin{lstlisting}[language=Java,title={Java data types}]
     final String name = "John Doe";
@@ -65,7 +65,7 @@ fun main() {
   \end{lstlisting}
 
 \subsection{Type Inference}
-  Kotlin also supports type inference, allowing the compiler to infer the type of a variable based on its initializer.
+  Kotlin supports type inference, allowing the compiler to infer the type of a variable based on its initializer.
   \begin{lstlisting}[language=Kotlin]
     val name = "John Doe" // type is inferred as String
     var age = 42 // type is inferred as Int
@@ -86,14 +86,14 @@ fun main() {
 
 \subsection{Everything is an Object}
   In Kotlin, there are no primitive types.\footnote{Certain types may be optimized to use primitives during runtime for performance reasons.} All types are objects and inherit from the \texttt{Any} class.\cite{basic-types}
-  This allows for a more consistent object-oriented programming style and eliminates the need for wrapper classes.
+  This approach creates a more consistent object-oriented programming model and eliminates the need for wrapper classes.
   \begin{lstlisting}[language=Java,title={Java Integer Wrapper}]
     Integer.valueOf(42).hashCode();
   \end{lstlisting}
   \begin{lstlisting}[language=Kotlin,title={Kotlin direct usage of Int}]
     42.hashCode()
   \end{lstlisting}
-  Furthermore, functions are also objects in Kotlin, allowing for higher-order functions and functional programming paradigms. This means that functions can be passed as arguments, returned from other functions, and assigned to variables.
+  Furthermore, functions in Kotlin are also objects. This enables higher-order functions and functional programming paradigms, meaning that functions can be passed as arguments, returned from other functions, and assigned to variables.
   %Add a short example here.
 
 \section{New Language Constructs} %Unhappy with the title, but not sure what to use instead (Not everything new, just not present in Java)
@@ -101,8 +101,8 @@ fun main() {
   This section will illustrate Kotlin's advantages using a list of salespersons as an example and comparing it to Java.
   The example should represent a linked list of salespersons containing multiple attributes.
 \subsection{Classes}
-  In Java and Kotlin, classes are declared using the \textit{class} keyword. They can contain attributes, methods, and constructors.
-  In this example, we will declare a class to hold information about a salesperson.
+In both Java and Kotlin, classes are declared using the \textit{class} keyword and can contain attributes, methods, and constructors. In this example, we declare a class to hold information about a salesperson.
+
 \begin{lstlisting}[language=Java,title={Java Class Declaration}]
 public class SalesPerson {
   private final String name;
@@ -123,10 +123,8 @@ public class SalesPerson {
     var salesVolume: Double = transferAmount
   }
 \end{lstlisting}
-  In this example, both \textit{name} and \textit{commissionRate} are attributes, while \textit{transferAmount} is a normal constructor parameter. These constructor parameters can be used to initialize attributes of the class.
-  It is still possible to declare attributes outside of the constructor, like \textit{salesVolume} in this example.
-  In addition, Kotlin allows for default values for parameters in constructors and functions, which would require overloading in Java.
-  
+In this example, \textit{name} and \textit{commissionRate} become properties of the class, while \textit{transferAmount} is a constructor parameter used to initialize the property \textit{salesVolume}. It is still possible to declare attributes outside of the constructor, as demonstrated by \textit{salesVolume}. In addition, Kotlin allows default parameter values in constructors and functions, a feature that would otherwise require method overloading in Java.
+
   %named parameters
 \subsection{Properties}
   Explain properties, getters, and setters.
