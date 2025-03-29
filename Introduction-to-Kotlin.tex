@@ -178,10 +178,9 @@ TODO(
  Kotlin based Ui Tool Kit 
 JC automaticly updates Ui hierarchy
 functions with @Composable /composables
-
+)
  \subsection{Coroutines}
-Now Imagine we want to create an App where you can see the Sales Volume of a certain Sales Person live. To achieve this we would need to check the Sales Volume every second which would freeze our App every second until the Data of the Sales Person is sucessfully downloaded. 
-So the smartest solution is to multi thread this process
+Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
 
 What are threads? -> explenation ... todo
 best case with graphic
@@ -198,7 +197,8 @@ new Thread(new Runnable() { //opens a new thread
     }
 }).start();
 \end{lstlisting}
-In Kotlin threads are called Coroutines and they are not only easy to read as you see in the following:
+In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
+So, we could check thousands of sales personnel at once without running out of memory.
 \begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
 GlobalScope.launch { //opens a new thread
     val sales = getSalesVolume() 
@@ -208,8 +208,7 @@ GlobalScope.launch { //opens a new thread
 }
 
 \end{lstlisting}
-but are also very light-weight wich means we can run way more Kotlin Coroutines than Java Threads before running out of memmory or loosing to much Time.
-So we could check up to thousands of Sales Personall at once without running out of Memmory
+
 
 
  \subsection{Extensions}
