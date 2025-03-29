@@ -85,9 +85,18 @@ fun main() {
   \end{lstlisting}
 
 \subsection{Everything is an Object}
-  In Kotlin, everything is an object, including primitive types and functions.
+  In Kotlin, there are no primitive types.\footnote{Certain types may be optimized to use primitives during runtime for performance reasons.} All types are objects and inherit from the \texttt{Any} class.\cite{basic-types}
+  This allows for a more consistent object-oriented programming style and eliminates the need for wrapper classes.
+  \begin{lstlisting}[language=Java,title={Java Integer Wrapper}]
+    Integer.valueOf(42).hashCode();
+  \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin,title={Kotlin direct usage of Int}]
+    42.hashCode()
+  \end{lstlisting}
+  Furthermore, functions are also objects in Kotlin, allowing for higher-order functions and functional programming paradigms. This means that functions can be passed as arguments, returned from other functions, and assigned to variables.
+  %Add a short example here.
 
-\section{New Language Constructs}
+\section{New Language Constructs} %Unhappy with the title, but not sure what to use instead (Not everything new, just not present in Java)
   This section focuses on the most important new language constructs that are not present in Java. 
   This section will illustrate Kotlin's advantages using a list of salespersons as an example and comparing it to Java.
   The example should represent a linked list of salespersons containing multiple attributes.
@@ -120,7 +129,29 @@ public class SalesPerson {
   
   %named parameters
 \subsection{Properties}
+  Explain properties, getters, and setters.
+  Build off the previous example and show how to use properties in Kotlin (visibility modifiers, custom getters, and setters).
+
+\begin{lstlisting}[language=Kotlin,title={Kotlin Properties}]
+var salesVolume: Double = transferAmount
+  private set(value) {
+    if (value < 0)
+      throw IllegalArgumentException("Sales volume must be positive")
+    field = value
+  }
+
+val commission: Double
+  get() = salesVolume * commissionRate
+\end{lstlisting}
+
 \subsection{String Interpolation}
+A very short introduction to string interpolation.
+
+\begin{lstlisting}[language=Kotlin,title={String Interpolation}]
+fun printSalesPerson() {
+  println("Name: $name, Sales in USD: ${salesVolume * 1.2}\$")
+}
+\end{lstlisting}
 
 \subsection{Null Safety}
   Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of a non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therefore reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime, both types are treated the same.
@@ -169,8 +200,10 @@ public class SalesPerson {
 
 \section{TODO}
 \subsection{General}
-  Come up with an example that shows the differences between Java and Kotlin and highlights the advantages of Kotlin.
-
+  \begin{itemize}
+    \item Add citations
+    \item Fix formatting (especially indentation in the code snippets)
+  \end{itemize}
 \subsection{Introduction}
   Android development, improvements over, and interoperability with Java.
   Introduce an example to show differences/translation between Java and Kotlin.
@@ -178,7 +211,7 @@ public class SalesPerson {
 \subsection{Basic Syntax}
 \begin{itemize}
   \item Methods
-  \item Everything is an object (no primitives, functions are objects)
+  \item Example for Top-Level Functions
   \item Explain the absence of static methods (out of scope for introduction?) (use \texttt{@JvmStatic} annotation for interoperability)
 \end{itemize}
 
@@ -191,10 +224,10 @@ public class SalesPerson {
 
 \subsection{New Features}
 \begin{itemize}
-  \item Null safety
+  \item Change Null Safety example to build off the previous example
   \item Properties (Getters, Setters)
   \item Extension functions (not as important)
-  \item This exrpession (interessant, auch nicht zu lang)
+  \item This expression (interesting, also not too long)
   \item Destructuring declarations
   \item Infix notation for functions
   \item \textit{if} and \textit{when} as expressions (not as important, only if it fits)
