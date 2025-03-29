@@ -167,9 +167,7 @@ public class SalesPerson {
   In this context, interoperability means that the two languages are compatible with each other. Kotlin was designed to allow seamless integration of Java code in Kotlin and vice versa. This is possible because both languages compile to Java bytecode.This concept is especially useful when working with libraries. There are already countless libraries written in Java that can now be used in Kotlin, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
 
   \subsection{Call Java in Kotlin}
-    One of the Key-Aspects is the interoperability with Java. This means we can use Java-written code inside of our Kotlin-Project.
-    % Translate to english
-    Kotlin wurde so designed, dass man in Kotlin jeglichen Java-code benutzen und ausführen kann. Nehmen wir an wir haben folgendes Beispiel einer Klasse, in der wir lediglich einfache Informationen speichern wollen.
+    One of the key aspects of Kotlin is its interoperability with Java. This means that Kotlin was specifically designed to support the use and execution of any Java code within a Kotlin project. To illustrate how Java code can be accessed, the following example features a Salesman class that stores basic information using getters and setters.
     \begin{lstlisting}[language=Java,title={Example java class}]
       public class Salesman {
         private final String name;
@@ -187,14 +185,14 @@ public class SalesPerson {
         public void setSalary(int salary) { this.salary = salary; }
       }
     \end{lstlisting}
-    Wenn wir in Kotlin jetzt auf diese Klasse zugreifen möchten und ein Objekt dieser erstellen wollen, so können wir mit der uns bekannten Kotlin-Syntax ein neues Objekt erstellen und darauf zugreifen. Da in Kotlin getter- und setter Methoden überflüssig sind, werden diese, sofern sie den java conventions bezüglich getter und setter methoden folgen, umgewandelt und können auch durch die Kotlin getter / setter erreicht werden. Wir nennen die dadurch entstehenden Attribute synthetic properties. Falls die Getter / Setter nicht nach den Java conventions geschrieben wurden, so lassen sich diese immernoch als normale Methoden aufrufen.
+    If we want to access this class from Kotlin and create an instance of it, we can use the familiar Kotlin syntax to instantiate the object and access its properties. There is no syntactical difference between calling or creating a Java class and a Kotlin class. Since getter and setter methods are unnecessary in Kotlin, they are automatically converted if they follow Java conventions for getter and setter methods. This allows them to be accessed using Kotlin's property syntax. The resulting attributes are called synthetic properties. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
     \begin{lstlisting}[language=Kotlin, title={Access the Salesman class in Kotlin}]
       var carl = Salesman("carl mueller", 4500)
       println(carl.name) // prints 'carl mueller'
       carl.salary = 4600 // sets salary to 4600
       carl.setSalary(4600) // alternivly to the above
     \end{lstlisting}
-    Kotlin erkennt, dass in der Java-Klasse das name-field final ist und nur ein Getter und kein Setter für dieses existiert. Dementsprechend wirft der compiler einen Fehler, wenn man dennoch versucht den Wert zu ändern. Die getter und setter verhalten sich also wie die aus Kotlin. Wenn nur ein Stter für das field existieren würde, so würde die Methode nicht zu einer synthetic propertie umgewandelt werden, da Kotlin keine set-only properties unterstützt. (Zitat?)
+    Kotlin detects that the name field in the Java class is final and has a getter but no setter. As a result, the compiler throws an error if an attempt is made to modify its value, ensuring that the getters and setters behave the same way as in Kotlin. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties. % Zitat von Kotlin website, wortlaut sehr ähnlich
     
     There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java; therefore, they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with this code through the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
     \begin{lstlisting}[language=Kotlin]
