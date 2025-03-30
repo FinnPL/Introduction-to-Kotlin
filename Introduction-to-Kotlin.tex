@@ -190,21 +190,30 @@ public class SalesPerson {
   \end{lstlisting}
 
   \subsubsection{Not-null assertion}
-    The \textit{not-null assertion operator} consists of two exclamation marks (!!). It is used to convert nullable types to non-nullable types by instructing the compiler to treat the value as non-null. However, if the value is actually null, a NullPointerException (NPE) will be thrown. This operator contradicts the concept of null safety and should only be used when you are certain that the value cannot be null, but the compiler is unable to guarantee it.
+    The \textit{not-null assertion operator} consists of two exclamation marks (!!). It is used to convert nullable types to non-nullable types by instructing the compiler to treat the value as non-null. However, if the value is actually null, a NullPointerException (NPE) will be thrown. This operator contradicts the concept of null safety and should only be used when the programmer is certain that the value cannot be null, but the compiler is unable to guarantee it.
   \begin{lstlisting}[language=Kotlin,title={Usage of the not-null assertion}]
     var couldBeNull: String? = null
     var b: String = couldBeNull!!
   \end{lstlisting}
   % Compareison with Java cast / assertion ??
 
-  \subsubsection{Other nullable operators}
-    => let function, filterNotNull()
-    => Nullable receiver?
+  \subsubsection{Nullable receiver}
+  \begin{itemize}
+    \item berufen auf Extension functions
+    \item zeigen wie man diese sinvoll einsetzen kann
+    \item zeigen wie man eine solche extetnsion function definieren kann
+  \end{itemize}
+
+  \subsubsection{Collections of nullable types}
+  \begin{itemize}
+    \item let function
+    \item .filterNotNull() function
+  \end{itemize}
+  Diesen Abschnitt können wir weglassen, wenn wir zu viele Seiten haben, das ist kein wichtiges Thema. Alternativ kann man dies kurz in einer Fußnote o.ä. erwähnen.
 
 \section{Interoperability}
 
 \section{TODO}
-
 
 \subsection{Interoperability}
   \begin{itemize}
@@ -215,7 +224,6 @@ public class SalesPerson {
 
 \subsection{New Features}
 \begin{itemize}
-  \item Null safety
   \item Properties (Getters, Setters)
   \item Extension functions (not as important)
   \item This exrpession
