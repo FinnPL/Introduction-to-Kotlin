@@ -241,97 +241,99 @@ fun printSalesPerson() {
     \item let function
     \item .filterNotNull() function
   \end{itemize}
-  Diesen Abschnitt können wir weglassen, wenn wir zu viele Seiten haben, das ist kein wichtiges Thema. Alternativ kann man dies kurz in einer Fußnote o.ä. erwähnen.
+  -- Diesen Abschnitt können wir weglassen, wenn wir zu viele Seiten haben, das ist kein wichtiges Thema. Alternativ kann man dies kurz in einer Fußnote o.ä. erwähnen. --
 
 \section{Interoperability}
 
 \section{Multiplatform development}
-	\subsection{Expected and actual declarations﻿}
-	\subsection{Hierarchical project structure﻿}
+	\subsection{Expected and actual declarations}
+	\subsection{Hierarchical project structure}
+
 \section{Android}
 	This sections concentrates on the benefits Kotlin has in the Android enviorment and gives examples based on the salesperson example from New Language Constructs along the way.
- \subsection{Android KTX}
+  \subsection{Android KTX}
  
- \subsection{Jetpack Compose}
-TODO(
- Kotlin based Ui Tool Kit 
-JC automaticly updates Ui hierarchy
-functions with @Composable /composables
-)
- \subsection{Coroutines}
-Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
+  \subsection{Jetpack Compose}
+  TODO(
+  Kotlin based Ui Tool Kit 
+  JC automaticly updates Ui hierarchy
+  functions with @Composable /composables
+  )
+  \subsection{Coroutines}
+    Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
 
-What are threads? -> explenation ... todo
-best case with graphic
+    What are threads? -> explenation ... todo
+    best case with graphic
 
-\begin{lstlisting}[language = Java, title = Java Background Threads]
-new Thread(new Runnable() { //opens a new thread
-    public void run() {
-        double sales = getSalesVolume();
-        runOnUiThread(new Runnable() { //switches to main thread
-            public void run() {
-                textView.setText(sales.toString());
-            }
-        });
+    \begin{lstlisting}[language=Java, title={Java Background Threads}]
+    new Thread(new Runnable() { //opens a new thread
+        public void run() {
+            double sales = getSalesVolume();
+            runOnUiThread(new Runnable() { //switches to main thread
+                public void run() {
+                    textView.setText(sales.toString());
+                }
+            });
+        }
+    }).start();
+    \end{lstlisting}
+    In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
+    So, we could check thousands of sales personnel at once without running out of memory.
+    \begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
+    GlobalScope.launch { //opens a new thread
+        val sales = getSalesVolume() 
+        withContext(Dispatchers.Main) { //switches to main thread
+            textView.text = sales 
+        }
     }
-}).start();
-\end{lstlisting}
-In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
-So, we could check thousands of sales personnel at once without running out of memory.
-\begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
-GlobalScope.launch { //opens a new thread
-    val sales = getSalesVolume() 
-    withContext(Dispatchers.Main) { //switches to main thread
-        textView.text = sales 
-    }
-}
+    \end{lstlisting}
 
-\end{lstlisting}
+  \subsection{Extensions}
 
 
-
- \subsection{Extensions}
 \section{TODO}
-\subsection{General}
-  \begin{itemize}
-    \item Add citations
-    \item Fix formatting (especially indentation in the code snippets)
-  \end{itemize}
-\subsection{Introduction}
-  Android development, improvements over, and interoperability with Java.
-  Introduce an example to show differences/translation between Java and Kotlin.
 
-\subsection{Basic Syntax}
-\begin{itemize}
-  \item Methods
-  \item Example for Top-Level Functions
-  \item Explain the absence of static methods (out of scope for introduction?) (use \texttt{@JvmStatic} annotation for interoperability)
-\end{itemize}
+  \subsection{General}
+    \begin{itemize}
+      \item Add citations
+      \item Fix formatting (especially indentation in the code snippets)
+    \end{itemize}
 
-\subsection{Interoperability}
-  \begin{itemize}
-    \item Explain the interoperability between Java and Kotlin (e.g. Using Java libraries in Kotlin)
-    \item Use of annotations (e.g. \texttt{@JvmStatic}, \texttt{@JvmField}, \texttt{@JvmName}, \texttt{@JvmOverloads}) (out of scope for introduction?)
-    \item Compile to other languages (e.g. JavaScript, Native) (out of scope for introduction?)
-  \end{itemize}
+  \subsection{Introduction}
+    Android development, improvements over, and interoperability with Java.
+    Introduce an example to show differences/translation between Java and Kotlin.
 
-\subsection{New Features}
-\begin{itemize}
-  \item Change Null Safety example to build off the previous example
-  \item Properties (Getters, Setters)
-  \item Extension functions (not as important)
-  \item This expression (interesting, also not too long)
-  \item Destructuring declarations
-  \item Infix notation for functions
-  \item \textit{if} and \textit{when} as expressions (not as important, only if it fits)
-\end{itemize}
+  \subsection{Basic Syntax}
+    \begin{itemize}
+      \item Methods
+      \item Example for Top-Level Functions
+      \item Explain the absence of static methods (out of scope for introduction?) (use \texttt{@JvmStatic} annotation for interoperability)
+    \end{itemize}
 
-\subsection{Multiplatform development}
-\subsection{Android}
+  \subsection{Interoperability}
+    \begin{itemize}
+      \item Explain the interoperability between Java and Kotlin (e.g. Using Java libraries in Kotlin)
+      \item Use of annotations (e.g. \texttt{@JvmStatic}, \texttt{@JvmField}, \texttt{@JvmName}, \texttt{@JvmOverloads}) (out of scope for introduction?)
+      \item Compile to other languages (e.g. JavaScript, Native) (out of scope for introduction?)
+    \end{itemize}
 
-\begin{itemize}
-  \item Discuss Kotlin's advantages for Android development
-\end{itemize}
+  \subsection{New Features}
+    \begin{itemize}
+      \item Change Null Safety example to build off the previous example
+      \item Properties (Getters, Setters)
+      \item Extension functions (not as important)
+      \item This expression (interesting, also not too long)
+      \item Destructuring declarations
+      \item Infix notation for functions
+      \item \textit{if} and \textit{when} as expressions (not as important, only if it fits)
+    \end{itemize}
+
+  \subsection{Multiplatform development}
+  
+  \subsection{Android}
+    \begin{itemize}
+      \item Discuss Kotlin's advantages for Android development
+    \end{itemize}
 
 \newpage
 \printbibliography[]
