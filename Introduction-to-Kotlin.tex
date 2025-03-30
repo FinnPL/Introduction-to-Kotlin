@@ -243,47 +243,47 @@ fun printSalesPerson() {
   \end{itemize}
   -- Diesen Abschnitt können wir weglassen, wenn wir zu viele Seiten haben, das ist kein wichtiges Thema. Alternativ kann man dies kurz in einer Fußnote o.ä. erwähnen. --
 
-  \section{Interoperability}
+\section{Interoperability}
   In this chapter, the focus will be on interoperability between Java and Kotlin.
   In this context, interoperability means that the two languages are compatible with each other. Kotlin was designed to allow seamless integration of Java code in Kotlin and vice versa. This is possible because both languages compile to Java bytecode.This concept is especially useful when working with libraries. There are already countless libraries written in Java that can now be used in Kotlin, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
 
-  \subsection{Call Java in Kotlin}
-    One of the key aspects of Kotlin is its interoperability with Java. This means that Kotlin was specifically designed to support the use and execution of any Java code within a Kotlin project. To illustrate how Java code can be accessed, the following example features a Salesman class that stores basic information using getters and setters.
-    \begin{lstlisting}[language=Java,title={Example java class}]
-      public class Salesman {
-        private final String name;
-        private int salary;
+\subsection{Call Java in Kotlin}
+  One of the key aspects of Kotlin is its interoperability with Java. This means that Kotlin was specifically designed to support the use and execution of any Java code within a Kotlin project. To illustrate how Java code can be accessed, the following example features a Salesman class that stores basic information using getters and setters.
+  \begin{lstlisting}[language=Java,title={Example java class}]
+    public class Salesman {
+      private final String name;
+      private int salary;
 
-        public Salesman(String name, String title, int salary) {
-          this.name = name;
-          this.salary = salary;
-        }
-
-        public String getName() { return name; }
-
-        public int getSalary() { return salary; }
-
-        public void setSalary(int salary) { this.salary = salary; }
+      public Salesman(String name, String title, int salary) {
+        this.name = name;
+        this.salary = salary;
       }
-    \end{lstlisting}
-    If we want to access this class from Kotlin and create an instance of it, we can use the familiar Kotlin syntax to instantiate the object and access its properties. There is no syntactical difference between calling or creating a Java class and a Kotlin class. Since getter and setter methods are unnecessary in Kotlin, they are automatically converted if they follow Java conventions for getter and setter methods. This allows them to be accessed using Kotlin's property syntax. The resulting attributes are called synthetic properties. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
-    \begin{lstlisting}[language=Kotlin, title={Access the Salesman class in Kotlin}]
-      var carl = Salesman("carl mueller", 4500)
-      println(carl.name) // prints 'carl mueller'
-      carl.salary = 4600 // sets salary to 4600
-      carl.setSalary(4600) // alternivly to the above
-    \end{lstlisting}
-    Kotlin detects that the name field in the Java class is final and has a getter but no setter. As a result, the compiler throws an error if an attempt is made to modify its value, ensuring that the getters and setters behave the same way as in Kotlin. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties. % Zitat von Kotlin website, wortlaut sehr ähnlich
-    
-    There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java; therefore, they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with this code through the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
-    \begin{lstlisting}[language=Kotlin]
-      var salesman = Salesman("freddy", 1300)
-      salesman.`in`(list)
-    \end{lstlisting}
 
-  \subsection{Call Kotlin in Java}
-    It is possible to call Kotlin-Files in Java-code as well.
-    
+      public String getName() { return name; }
+
+      public int getSalary() { return salary; }
+
+      public void setSalary(int salary) { this.salary = salary; }
+    }
+  \end{lstlisting}
+  If we want to access this class from Kotlin and create an instance of it, we can use the familiar Kotlin syntax to instantiate the object and access its properties. There is no syntactical difference between calling or creating a Java class and a Kotlin class. Since getter and setter methods are unnecessary in Kotlin, they are automatically converted if they follow Java conventions for getter and setter methods. This allows them to be accessed using Kotlin's property syntax. The resulting attributes are called synthetic properties. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
+  \begin{lstlisting}[language=Kotlin, title={Access the Salesman class in Kotlin}]
+    var carl = Salesman("carl mueller", 4500)
+    println(carl.name) // prints 'carl mueller'
+    carl.salary = 4600 // sets salary to 4600
+    carl.setSalary(4600) // alternivly to the above
+  \end{lstlisting}
+  Kotlin detects that the name field in the Java class is final and has a getter but no setter. As a result, the compiler throws an error if an attempt is made to modify its value, ensuring that the getters and setters behave the same way as in Kotlin. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties. % Zitat von Kotlin website, wortlaut sehr ähnlich
+  
+  There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java; therefore, they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with this code through the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
+  \begin{lstlisting}[language=Kotlin]
+    var salesman = Salesman("freddy", 1300)
+    salesman.`in`(list)
+  \end{lstlisting}
+
+\subsection{Call Kotlin in Java}
+  It is possible to call Kotlin-Files in Java-code as well.
+
 
 \section{Multiplatform development}
 	\subsection{Expected and actual declarations}
@@ -291,46 +291,46 @@ fun printSalesPerson() {
 
 \section{Android}
 	This sections concentrates on the benefits Kotlin has in the Android enviorment and gives examples based on the salesperson example from New Language Constructs along the way.
-  \subsection{Android KTX}
- 
-  \subsection{Jetpack Compose}
+\subsection{Android KTX}
+
+\subsection{Jetpack Compose}
   TODO(
   Kotlin based Ui Tool Kit 
   JC automaticly updates Ui hierarchy
   functions with @Composable /composables
   )
-  \subsection{Coroutines}
-    Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
+\subsection{Coroutines}
+  Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
 
-    What are threads? -> explenation ... todo
-    best case with graphic
+  What are threads? -> explenation ... todo
+  best case with graphic
 
-    \begin{lstlisting}[language=Java, title={Java Background Threads}]
-    new Thread(new Runnable() { //opens a new thread
-        public void run() {
-            double sales = getSalesVolume();
-            runOnUiThread(new Runnable() { //switches to main thread
-                public void run() {
-                    textView.setText(sales.toString());
-                }
-            });
-        }
-    }).start();
-    \end{lstlisting}
-    In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
-    So, we could check thousands of sales personnel at once without running out of memory.
-    \begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
-    GlobalScope.launch { //opens a new thread
-        val sales = getSalesVolume() 
-        withContext(Dispatchers.Main) { //switches to main thread
-            textView.text = sales 
-        }
-    }
-    \end{lstlisting}
+  \begin{lstlisting}[language=Java, title={Java Background Threads}]
+  new Thread(new Runnable() { //opens a new thread
+      public void run() {
+          double sales = getSalesVolume();
+          runOnUiThread(new Runnable() { //switches to main thread
+              public void run() {
+                  textView.setText(sales.toString());
+              }
+          });
+      }
+  }).start();
+  \end{lstlisting}
+  In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
+  So, we could check thousands of sales personnel at once without running out of memory.
+  \begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
+  GlobalScope.launch { //opens a new thread
+      val sales = getSalesVolume() 
+      withContext(Dispatchers.Main) { //switches to main thread
+          textView.text = sales 
+      }
+  }
+  \end{lstlisting}
 
-  \subsection{Extensions}
+\subsection{Extensions}
 
-
+\newpage
 \section{TODO}
 
   \subsection{General}
@@ -377,5 +377,33 @@ fun printSalesPerson() {
 
 \newpage
 \printbibliography[]
+
+\newpage
+\section{Kommentar}
+Sehr geehrter Herr Kassing,
+\hfill \break
+
+oben finden Sie den aktuellen Stand unserer Arbeit. Wir haben bereits einige Absätze geschrieben und kommen soweit auch ziemlich gut voran. Unter den noch nicht beschriebenen oder bislang unvollständigen Abschnitten haben wir kleine Notizen hinterlassen, die festhalten, was in den jeweiligen Abschnitten noch behandelt werden soll.
+\hfill \break
+
+Als Beispiel haben wir die Klasse Salesman gewählt. Unter dem Kontext des Salesman möchten wir alle möglichen Beispiele gestalten, aber darauf lag bisher noch nicht der Fokus. Wir planen, alle Beispiele noch einmal zu überarbeiten und entsprechend anzupassen. Erste Versuche, dieses Beispiel einzubeziehen, finden sich im Abschnitt 'Classes'.
+\hfill \break
+
+Die finale Struktur der Abschnitte soll ähnlich zur aktuellen sein, allerdings sind wir uns bei einigen Punkten noch nicht ganz sicher. So möchten wir beispielsweise eine andere Überschrift für 'New Language Constructs' finden, da der Titel unserer Meinung nach nicht treffend formuliert ist. Die Konzepte wurden nicht neu erfunden, sondern existieren lediglich nicht in Java.
+\hfill \break
+
+Wir sind uns außerdem unsicher, inwieweit wir uns an den originalen Formulierungen orientieren dürfen. Diese sind meist bereits sehr treffend und prägnant verfasst, sodass eine alternative Umschreibung oft nicht angemessen erscheint. Daher klingen unsere formulierungen teilweise ähnlich zu denen aus den offiziellen Dokumentationen. Das kann man vorallem in einigen Abschnitten unter 'Null Safety' sehen.
+\hfill \break
+
+Wir haben bereits festgestellt, dass wir einiges streichen oder kürzen müssen. Einige essenzielle Abschnitte fehlen noch, aber dennoch haben wir bereits knapp neun Seiten verfasst.
+\hfill \break
+
+Um Themen wie eine angemessene Schriftart, Formatierung und korrekte Rechtschreibung kümmern wir uns, sobald die inhaltliche Ausarbeitung abgeschlossen ist. Auch an den Formulierungen arbeiten wir kontinuierlich, da wir mit einigen Stellen noch nicht ganz zufrieden sind.
+\hfill \break
+
+Die entsprechenden Quellen werden wir ebenfalls noch an den passenden Stellen einfügen. Zitate aus einer offiziellen Dokumentation einzubringen, empfinden wir als etwas schwierig, da wir nicht genau wissen, wo diese am besten untergebracht werden sollten. Hauptsächlich werden wir Verweise auf die Dokumentation nutzen.
+\hfill \break
+
+Mit freundlichen Grüßen
 
 \end{document}
