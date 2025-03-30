@@ -194,8 +194,53 @@ fun printSalesPerson() {
 
 
 \section{Interoperability}
-\section{Android}
 
+\section{Multiplatform development}
+	\subsection{Expected and actual declarations﻿}
+	\subsection{Hierarchical project structure﻿}
+\section{Android}
+	This sections concentrates on the benefits Kotlin has in the Android enviorment and gives examples based on the salesperson example from New Language Constructs along the way.
+ \subsection{Android KTX}
+ 
+ \subsection{Jetpack Compose}
+TODO(
+ Kotlin based Ui Tool Kit 
+JC automaticly updates Ui hierarchy
+functions with @Composable /composables
+)
+ \subsection{Coroutines}
+Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
+
+What are threads? -> explenation ... todo
+best case with graphic
+
+\begin{lstlisting}[language = Java, title = Java Background Threads]
+new Thread(new Runnable() { //opens a new thread
+    public void run() {
+        double sales = getSalesVolume();
+        runOnUiThread(new Runnable() { //switches to main thread
+            public void run() {
+                textView.setText(sales.toString());
+            }
+        });
+    }
+}).start();
+\end{lstlisting}
+In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
+So, we could check thousands of sales personnel at once without running out of memory.
+\begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
+GlobalScope.launch { //opens a new thread
+    val sales = getSalesVolume() 
+    withContext(Dispatchers.Main) { //switches to main thread
+        textView.text = sales 
+    }
+}
+
+\end{lstlisting}
+
+
+
+ \subsection{Extensions}
 \section{TODO}
 \subsection{General}
   \begin{itemize}
@@ -231,7 +276,9 @@ fun printSalesPerson() {
   \item \textit{if} and \textit{when} as expressions (not as important, only if it fits)
 \end{itemize}
 
+\subsection{Multiplatform development}
 \subsection{Android}
+
 \begin{itemize}
   \item Discuss Kotlin's advantages for Android development
 \end{itemize}
