@@ -151,6 +151,8 @@ fun printSalesPerson() {
 }
 \end{lstlisting}
 
+\subsection{Extension functions}
+
 \subsection{Null Safety}
   Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of a non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therefore reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime, both types are treated the same.
   
@@ -179,19 +181,67 @@ fun printSalesPerson() {
     rwth?.ceo?.age = 20 // assignment with chained operator
   \end{lstlisting}
 
-  In Java, there is no safe call operator or anything comparable. To prevent NPE in Java, you have to explicitly check with an if-statement for the value to not be null. This is very inconvenient, hard to read, and prone to errors.
+  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability. % improve paragraph
+  \begin{lstlisting}[language=Kotlin,title={Using the Elvis operator in comparison to an if statement}]
+    var couldBeNull: String? = null
+    println(if (couldBeNull == null) 0 else couldBeNull.length)
+    println(couldBeNull?.length ?: 0)   // Elvis operator
+  \end{lstlisting}
+  \hfill \break
+  Java does not have a safe call operator, an Elvis operator, or any equivalent feature. To prevent NPE in Java, you have to explicitly check with an if-statement for the value to not be null. This is very inconvenient, hard to read, and prone to errors.
   \begin{lstlisting}[language=Java,title={Prevent NPE in Java}]
     String couldBeNull = null;
     if (couldBeNull == null) System.out.println("null");
     else System.out.println(couldBeNull.length());
   \end{lstlisting}
   \hfill \break
+  Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. It simply makes the code significantly shorter and easier to read. % Soll ich das mit java-byte code belegen?
 
-  The \textit{Elvis operator} is an extension of the safe call operator. The Elvis operator is mostly used in combination with the safe call operator. If the left side is null, the value will be set to a default value. Otherwise, the expression to the right-hand side will just be evaluated... TODO
+\subsubsection{Safe casts}
+  Safe casts are another way to handle nullable objects. But in order to understand the Safe cast, we have to look at how Kotlin handles type casts in general. The principle behind casting is the same as in java, only the syntax is diffrent. Kotlin uses the \texttt{as} keyword behind the expression followed by the new type to cast one type into another. In java the new type had to be written in round brakets before the expression.
+  \begin{lstlisting}[language=Kotlin,title={Casting in Kotlin}]
+    var a: Any = "Replace this example"
+    var b:String = a as String
+  \end{lstlisting} % Beispiel für casting in java adden? Sollte eig aus Vorlesung mehr als bekannt sein tbh und darauf sollte auch nit der Schwerpunkt liegen
+  \textit{Safe cast} is used to prevent a ClassCastException when a given object does not match the target type. The safe cast operator extends the standard cast keyword by adding a question mark and is applied in the same manner as a regular cast. If the object is not of the target type, instead of throwing an exception, the expression evaluates to null. This significantly simplifies casting, eliminating the need to catch potential exceptions or perform type checks \footnote{Type checks in Kotlin are performed using the is and !is keywords, which function similarly to the instanceof keyword in Java.} beforehand. The functionality of the operator can also be replicated using if statements, further demonstrating its benefits for code readability and maintainability.
+  \begin{lstlisting}[language=Kotlin,title={Usage of the safe cast operator in comparisopn to an if statement}]
+    var str:Any? = "Also replace *this* example"
+    var a:Int? = str as? Int // evaluates to null
+    var b:Int? = if (str is Int) str else null // no need for the `as Int` here due to smart casting
+  \end{lstlisting}
+  But the safe cast operator is like the other two null safety operators very usefull at handling nullable objects. If the argument of the safe cast is null, instead of throwing a NPE the expression evaluates to null as well. Therefore the code is less prone to errors. If you want to enhance null safety, you can combine the safe cast operator with the Elvis operator to provide a fallback value when the safe cast operator returns null due to a type mismatch or a null reference.
+  \begin{lstlisting}[language=Kotlin,title={Usage of the safe cast operator on a nullable value}]
+    var str:Any? = null
+    var a:Int? = str as? Int // evaluates to null
+  \end{lstlisting}
+    As mentioned above there is nothing like the safe cast operator in Java. If you wanted to achieve the same result, you either had to catch the ClassCastException or  had to check for nullability before casting. This once again demonstrates how Kotlin's concise and well-designed syntax significantly simplifies programming compared to Java.
+  \begin{lstlisting}[language=Java,title={Functionality of safe call operator in java}]
+    Object obj = null;
+    String str = null;
+    if (obj != null && obj instanceof String s) str = s;
+  \end{lstlisting}
 
-\subsubsection{Smart Casts}
-  Smart casts are another way to simplify the usage of nullable variables.
+  \subsubsection{Not-null assertion}
+    The \textit{not-null assertion operator} consists of two exclamation marks (!!). It is used to convert nullable types to non-nullable types by instructing the compiler to treat the value as non-null. However, if the value is actually null, a NullPointerException (NPE) will be thrown. This operator contradicts the concept of null safety and should only be used when the programmer is certain that the value cannot be null, but the compiler is unable to guarantee it.
+  \begin{lstlisting}[language=Kotlin,title={Usage of the not-null assertion}]
+    var couldBeNull: String? = null
+    var b: String = couldBeNull!!
+  \end{lstlisting}
+  % Compareison with Java cast / assertion ??
 
+  \subsubsection{Nullable receiver}
+  \begin{itemize}
+    \item berufen auf Extension functions
+    \item zeigen wie man diese sinvoll einsetzen kann
+    \item zeigen wie man eine solche extetnsion function definieren kann
+  \end{itemize}
+
+  \subsubsection{Collections of nullable types}
+  \begin{itemize}
+    \item let function
+    \item .filterNotNull() function
+  \end{itemize}
+  Diesen Abschnitt können wir weglassen, wenn wir zu viele Seiten haben, das ist kein wichtiges Thema. Alternativ kann man dies kurz in einer Fußnote o.ä. erwähnen.
 
 \section{Interoperability}
 
