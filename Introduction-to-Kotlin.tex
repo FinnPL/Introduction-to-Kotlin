@@ -198,11 +198,15 @@ public class SalesPerson {
   % Compareison with Java cast / assertion ??
 
   \subsubsection{Nullable receiver}
-  \begin{itemize}
-    \item berufen auf Extension functions
-    \item zeigen wie man diese sinvoll einsetzen kann
-    \item zeigen wie man eine solche extetnsion function definieren kann
-  \end{itemize}
+    We have already covered extension functions in the chapter on Classes. As a brief reminder, extension functions are external additions to a class that introduce new methods, which can be called on an instance of the class using dot notation.
+
+    Since extension functions are not actually part of the class itself but merely an extension that can be called using dot notation, it is possible for the object to be null while still being able to call the extension method. To achieve this, the function must have a so-called \textit{nullable receiver} type, which is indicated by a question mark after the class the extension function is defined for. As a result, the method remains accessible even if the object is null. This allows values of a nullable type to be accessed without checking for null beforehand, as the null case is handled within the method itself.
+    \begin{lstlisting}[language=Kotlin,title={Usage of an extension function}]
+      /** TODO: Insert example here
+      * sollte zeigen wie man nullable receiver definiert
+      * sollte zeigen, wie man damit null safety sichert in methode
+      */
+    \end{lstlisting}
 
   \subsubsection{Collections of nullable types}
   \begin{itemize}
