@@ -270,46 +270,74 @@ fun printSalesPerson() {
   In this context, interoperability means that the two languages are compatible with each other. Kotlin was designed to allow seamless integration of Java code in Kotlin and vice versa. This is possible because both languages compile to Java bytecode.This concept is especially useful when working with libraries. There are already countless libraries written in Java that can now be used in Kotlin, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
 
 \subsection{Call Java in Kotlin}
-  One of the key aspects of Kotlin is its interoperability with Java. This means that Kotlin was specifically designed to support the use and execution of any Java code within a Kotlin project. To illustrate how Java code can be accessed, the following example features a Salesman class that stores basic information using getters and setters.
-  \begin{lstlisting}[language=Java,title={Example java class}]
-    public class Salesman {
-      private final String name;
-      private int salary;
 
-      public Salesman(String name, String title, int salary) {
-        this.name = name;
-        this.salary = salary;
+  \subsubsection{Create and acces objects}
+    One of the key aspects of Kotlin is its interoperability with Java. This means that Kotlin was specifically designed to support the use and execution of any Java code within a Kotlin project. To illustrate how Java code can be accessed, the following example features a Salesman class that stores basic information using getters and setters.
+    \begin{lstlisting}[language=Java,title={Example java class}]
+      public class Salesman {
+        private final String name;
+        private int salary;
+
+        public Salesman(String name, String title, int salary) {
+          this.name = name;
+          this.salary = salary;
+        }
+
+        public String getName() { return name; }
+
+        public int getSalary() { return salary; }
+
+        public void setSalary(int salary) { this.salary = salary; }
       }
-
-      public String getName() { return name; }
-
-      public int getSalary() { return salary; }
-
-      public void setSalary(int salary) { this.salary = salary; }
-    }
-  \end{lstlisting}
-  If we want to access this class from Kotlin and create an instance of it, we can use the familiar Kotlin syntax to instantiate the object and access its properties. There is no syntactical difference between calling or creating a Java class and a Kotlin class. Since getter and setter methods are unnecessary in Kotlin, they are automatically converted if they follow Java conventions for getter and setter methods. This allows them to be accessed using Kotlin's property syntax. The resulting attributes are called synthetic properties. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
-  \begin{lstlisting}[language=Kotlin, title={Access the Salesman class in Kotlin}]
-    var carl = Salesman("carl mueller", 4500)
-    println(carl.name) // prints 'carl mueller'
-    carl.salary = 4600 // sets salary to 4600
-    carl.setSalary(4600) // alternivly to the above
-  \end{lstlisting}
-  Kotlin detects that the name field in the Java class is final and has a getter but no setter. As a result, the compiler throws an error if an attempt is made to modify its value, ensuring that the getters and setters behave the same way as in Kotlin. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties. % Zitat von Kotlin website, wortlaut sehr ähnlich
+    \end{lstlisting}
+    If we want to access this class from Kotlin and create an instance of it, we can use the familiar Kotlin syntax to instantiate the object and access its properties. There is no syntactical difference between calling or creating a Java class and a Kotlin class. Since getter and setter methods are unnecessary in Kotlin, they are automatically converted if they follow Java conventions for getter and setter methods. This allows them to be accessed using Kotlin's property syntax. The resulting attributes are called synthetic properties. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
+    \begin{lstlisting}[language=Kotlin, title={Access the Salesman class in Kotlin}]
+      var carl = Salesman("carl mueller", 4500)
+      println(carl.name) // prints 'carl mueller'
+      carl.salary = 4600 // sets salary to 4600
+      carl.setSalary(4600) // alternivly to the above
+    \end{lstlisting}
+    Kotlin detects that the name field in the Java class is final and has a getter but no setter. As a result, the compiler throws an error if an attempt is made to modify its value, ensuring that the getters and setters behave the same way as in Kotlin. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties. % Zitat von Kotlin website, wortlaut sehr ähnlich
   
-  There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java; therefore, they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with this code through the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
-  \begin{lstlisting}[language=Kotlin]
-    var salesman = Salesman("freddy", 1300)
-    salesman.`in`(list)
-  \end{lstlisting}
+  \subsubsection{Interference between Kotlin keywords and Java identifiers}
+    There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java; therefore, they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with this code through the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
+    \begin{lstlisting}[language=Kotlin]
+      var salesman = Salesman("freddy", 1300)
+      salesman.`in`(list)
+    \end{lstlisting}
+
+  \subsubsection{Mapped types}
+    By default, when objects of a Java class are used in Kotlin, they are loaded as Java objects. However, some Java types have a corresponding Kotlin counterpart, and the Java object is automatically replaced with the equivalent Kotlin type. For example, 'java.lang.Integer' is converted to 'kotlin.Int?' because Java wrapper types can be nullable. This applies to all Java wrapper classes and some important types, such as 'java.lang.Object', which is mapped to 'kotlin.Any!'\footnote{The exclamation mark indicates that this is a platform type. More on this in the next chapter.}. Collections like Lists, Maps, and Arrays are also converted. Additionally, all Java primitive types are mapped to their non-nullable Kotlin counterparts, as primitive types cannot be null in Java. For instance, the Java 'int' is converted to 'kotlin.Int'. For a complete list of all mapped types, refer to the official documentation.
+
+  \subsubsection{Null safety with Java}
+    Because Java dosent provide the concept of null safety, every object wich gets returned from Java code can be null, so working with Java objects with Kotlins strict null safety...
+    - platform types
+
 
   \begin{itemize}
     \item null safety with Java-Classes
     \item annotations
-    \item mapped Types
     \item access static members
-    \item arrays
+    \item arrays ???
   \end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Call Kotlin in Java}
   It is possible to call Kotlin-Files in Java-code as well.
@@ -379,7 +407,7 @@ fun printSalesPerson() {
 \newpage
 \printbibliography[]
 
-
+% End of Documment
 
 
 
