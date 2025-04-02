@@ -266,10 +266,10 @@ fun printSalesPerson() {
 
 
 \section{Interoperability}
-  In this chapter, the focus will be on interoperability between Java and Kotlin.
-  In this context, interoperability means that the two languages are compatible with each other. Kotlin was designed to allow seamless integration of Java code in Kotlin and vice versa. This is possible because both languages compile to Java bytecode.This concept is especially useful when working with libraries. There are already countless libraries written in Java that can now be used in Kotlin, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
+  This chapter focuses on interoperability between Java and Kotlin. In this context, interoperability refers to the seamless compatibility between the two languages. Kotlin was designed to integrate smoothly with Java code and vice versa, making it easy to use both within the same project. This is possible because both languages compile to Java bytecode.
 
 \subsection{Call Java in Kotlin}
+  Everything written in Java is accessible in Kotlin, but interoperability is especially useful when working with Java libraries. There are already countless libraries written in Java that can now be used in Kotlin, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
 
   \subsubsection{Create and acces objects}
     One of the key aspects of Kotlin is its interoperability with Java. This means that Kotlin was specifically designed to support the use and execution of any Java code within a Kotlin project. To illustrate how Java code can be accessed, the following example features a Salesman class that stores basic information using getters and setters.
@@ -298,13 +298,6 @@ fun printSalesPerson() {
       carl.setSalary(4600) // alternivly to the above
     \end{lstlisting}
     Kotlin detects that the name field in the Java class is final and has a getter but no setter. As a result, the compiler throws an error if an attempt is made to modify its value, ensuring that the getters and setters behave the same way as in Kotlin. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties. % Zitat von Kotlin website, wortlaut sehr ähnlich
-  
-  \subsubsection{Interference between Kotlin keywords and Java identifiers}
-    There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java; therefore, they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with this code through the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
-    \begin{lstlisting}[language=Kotlin]
-      var salesman = Salesman("freddy", 1300)
-      salesman.`in`(list)
-    \end{lstlisting}
 
   \subsubsection{Mapped types}
     By default, when objects of a Java class are used in Kotlin, they are loaded as Java objects. However, some Java types have a corresponding Kotlin counterpart, and the Java object is automatically replaced with the equivalent Kotlin type. For example, 'java.lang.Integer' is converted to 'kotlin.Int?' because Java wrapper types can be nullable. This applies to all Java wrapper classes and some important types, such as 'java.lang.Object', which is mapped to 'kotlin.Any!'\footnote{The exclamation mark indicates that this is a platform type. More on this in the next chapter.}. Collections like Lists, Maps and Arrays are also converted. Additionally, all Java primitive types are mapped to their non-nullable Kotlin counterparts, as primitive types cannot be null in Java. For instance, the Java 'int' is converted to 'kotlin.Int'. For a complete list of all mapped types, refer to the official documentation.
@@ -341,18 +334,14 @@ fun printSalesPerson() {
       val str: String = Salesman.getString() // non-nullable type
     \end{lstlisting}
 
-  \begin{itemize}
-    \item access static members
-    \item arrays ???
-  \end{itemize}
+    \subsubsection{Java-Arrays in Kotlin}
 
-
-
-
-
-
-
-
+    \subsubsection{Interference between Kotlin keywords and Java identifiers}
+    There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java, therefore they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with it using the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
+    \begin{lstlisting}[language=Kotlin]
+      var salesman = Salesman("freddy", 1300)
+      salesman.`in`(list)
+    \end{lstlisting}
 
 
 
@@ -466,7 +455,6 @@ fun printSalesPerson() {
 
   \subsection{Interoperability}
     \begin{itemize}
-      \item Explain the interoperability between Java and Kotlin (e.g. Using Java libraries in Kotlin)
       \item Use of annotations (e.g. \texttt{@JvmStatic}, \texttt{@JvmField}, \texttt{@JvmName}, \texttt{@JvmOverloads}) (out of scope for introduction?)
       \item Compile to other languages (e.g. JavaScript, Native) (out of scope for introduction?)
     \end{itemize}
