@@ -307,16 +307,41 @@ fun printSalesPerson() {
     \end{lstlisting}
 
   \subsubsection{Mapped types}
-    By default, when objects of a Java class are used in Kotlin, they are loaded as Java objects. However, some Java types have a corresponding Kotlin counterpart, and the Java object is automatically replaced with the equivalent Kotlin type. For example, 'java.lang.Integer' is converted to 'kotlin.Int?' because Java wrapper types can be nullable. This applies to all Java wrapper classes and some important types, such as 'java.lang.Object', which is mapped to 'kotlin.Any!'\footnote{The exclamation mark indicates that this is a platform type. More on this in the next chapter.}. Collections like Lists, Maps, and Arrays are also converted. Additionally, all Java primitive types are mapped to their non-nullable Kotlin counterparts, as primitive types cannot be null in Java. For instance, the Java 'int' is converted to 'kotlin.Int'. For a complete list of all mapped types, refer to the official documentation.
+    By default, when objects of a Java class are used in Kotlin, they are loaded as Java objects. However, some Java types have a corresponding Kotlin counterpart, and the Java object is automatically replaced with the equivalent Kotlin type. For example, 'java.lang.Integer' is converted to 'kotlin.Int?' because Java wrapper types can be nullable. This applies to all Java wrapper classes and some important types, such as 'java.lang.Object', which is mapped to 'kotlin.Any!'\footnote{The exclamation mark indicates that this is a platform type. More on this in the next chapter.}. Collections like Lists, Maps and Arrays are also converted. Additionally, all Java primitive types are mapped to their non-nullable Kotlin counterparts, as primitive types cannot be null in Java. For instance, the Java 'int' is converted to 'kotlin.Int'. For a complete list of all mapped types, refer to the official documentation.
 
   \subsubsection{Null safety with Java}
-    Because Java dosent provide the concept of null safety, every object wich gets returned from Java code can be null, so working with Java objects with Kotlins strict null safety...
-    - platform types
+    Since Java does not distinguish between nullable and non-nullable types, any object returned from Java code can be null. This contradicts Kotlin's strict null safety concept and would make working with Java objects impractical.
+    To address this, Kotlin introduces \textit{platform types} for objects created through Java code. If a Java type does not have a direct Kotlin equivalent, as is the case for most Java types, the compiler assigns it a platform type, which is non-denotable. This means we cannot explicitly declare or write this type as we do with nullable types using a question mark\footnote{When the compiler needs to report a type-related error, it uses an exclamation mark to indicate the platform type.}. With platform types, Kotlin relaxes its strict null safety rules, making their handling similar to Java. However, this increases the risk of NullPointerExceptions.
+    To see how we can use this in practice, we have extended the previously introduced Java Salesman class with the following method:
+    \begin{lstlisting}[language=Java]
+      public static List<Salesman> createList() {
+        List<Salesman>  list = new ArrayList<>();
+        list.add(null);
+        list.add(new Salesman("Carl", 4200));
+        return list;
+      }
+    \end{lstlisting}
+    If we access this method through Kotlin, we get the List containing the two Elements created in Java. Since both Objects are created in Java and could be null, they are assigned the platform type, thus the developer can decide if the variable should be nullable or non-nullable. 
+    \begin{lstlisting}[language=Kotlin]  
+      val list = Salesman.createList()
+      println(list::class.qualifiedName)
+      var item: Salesman = list[0]
+      var nullableItem: Salesman? = list[1]
+      println(item.name) // allowed but would throw NPE
+    \end{lstlisting}
+    If we set the type to non-nullable but the object is actually null, attempting to access its members will result in a NullPointerException, as shown above. Therefore, it is always safer to use nullable types.
 
+    Some Java compilers use annotations to specify whether a value is nullable or non-nullable, such as JetBrains' @Nullable or @NotNull annotation. If these annotations are present in the Java code, the compiler assigns the corresponding nullable or non-nullable Kotlin type to the variable instead of a platform type. If we had a method returning a simple String with a @NotNull annotation in our Salesman class, the variable would actually assigned the non-nullable type instead of the platform type:
+    \begin{lstlisting}[language=Java]
+      public static @NotNull String getString() {
+        return "Not null";
+      }
+    \end{lstlisting}
+    \begin{lstlisting}[language=Kotlin]
+      val str: String = Salesman.getString() // non-nullable type
+    \end{lstlisting}
 
   \begin{itemize}
-    \item null safety with Java-Classes
-    \item annotations
     \item access static members
     \item arrays ???
   \end{itemize}
