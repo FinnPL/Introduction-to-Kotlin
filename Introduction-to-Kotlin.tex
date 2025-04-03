@@ -334,9 +334,24 @@ fun printSalesPerson() {
       val str: String = Salesman.getString() // non-nullable type
     \end{lstlisting}
 
-    \subsubsection{Java-Arrays in Kotlin}
+  \subsubsection{Java-Arrays in Kotlin}
+    In Java, arrays of primitive types can be used to achieve better performance, as they avoid the overhead associated with objects. Kotlin prohibits the direct use of primitive arrays but provides specialized classes for each primitive type instead. The compiler optimizes the code and uses primitive arrays whenever possible. For example, Java's 'int[]' corresponds to Kotlin's 'IntArray'. These classes compile down to actual primitive arrays to minimize object overhead.
 
-    \subsubsection{Interference between Kotlin keywords and Java identifiers}
+    Let's assume we have a function in Java that requires a primitive array:
+    \begin{lstlisting}[language=Java]
+      public static void takeArray(int[] array) { ... }
+    \end{lstlisting}
+    To call this function from Kotlin without unnecessary boxing, we should use intArrayOf() instead of arrayOf(). This ensures that the array compiles down to Java's 'int[]', avoiding the overhead of boxed Integer objects. Even in for loops, the Kotlin compiler optimizes iteration over primitive arrays, ensuring that no iterator is created. This results in significant performance improvements compared to iterating over an Array<Int>, which would involve additional function calls and object overhead.
+    \begin{lstlisting}[language=Kotlin]
+      var array: IntArray = intArrayOf(1, 2, 3)
+      takeArray(array) // passes int[] to Java function
+      for (i in array.indices) // no iterator created
+          println(array[i]) // no calls to Array's get() or set()
+    \end{lstlisting}
+
+    % In Java, arrays are covariant, meaning an array of a subtype can be assigned to an array of its superclass. This is allowed at compile time, but Java enforces type safety at runtime. If an instance of a type that differs from the array's original type is assigned to it, an ArrayStoreException will be thrown. This happens because mixing different types in the array would break type safety. To counteract this problem, Kotlin simply dose not allow this, thus there arrays are invariant. -- to much for introduction?
+
+  \subsubsection{Interference between Kotlin keywords and Java identifiers}
     There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java, therefore they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with it using the backtick (`) character. In the following example, there is a method of a Java class called \textit{in} we want to access:
     \begin{lstlisting}[language=Kotlin]
       var salesman = Salesman("freddy", 1300)
