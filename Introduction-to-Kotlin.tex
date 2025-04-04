@@ -366,11 +366,68 @@ fun printSalesPerson() {
     \end{lstlisting}
 
 \subsection{Call Kotlin in Java}
-  It is possible to call Kotlin-Files in Java-code as well.
+  As it is possible to crate instances of Java classe in Kotlin, it is just as possible to create instances of a Kotlin class in Java. So it is possible to create and use Kotlin in Java.
+
+\subsubsection{Kotlin properties in Java}
+  If you want to access a Kotlin class from Java, you need to use Java syntax, so it is not possible to access Kotlin properties directly as you would in Kotlin. To bridge this gap, Kotlin properties are compiled into a private field, along with corresponding getter and setter methods. However if the Kotlin property is final, no setter method will be created. For example, consider a simple property in the SalesPerson class:
+  \begin{lstlisting}[language=Kotlin]
+    var name: String
+  \end{lstlisting}
+  This will compile to the following components in Java:
+  \begin{lstlisting}[language=Java]
+    private String name;
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+  \end{lstlisting}
+  If the getter or setter of a Kotlin property is declared with restricted visibility, such as private or protected, the Kotlin compiler will respect this when generating the corresponding Java methods, thereby limiting their accessibility.
+
+\subsubsection{Package-level function}
+  Package-level functions are functions in a class, wich are defined outside of classes, thus are not dependent on an object. Thouse functions including extension functions will be converted to a static methods inside of a new Java class named by the Kotlin file the function oriented from, because in Java methods outside an class are not prohibited. For example, we have a Kotlin file with the name 'SalesPerson.kt' inside of the package 'org.company' with the follwing package-level method:
+  \begin{lstlisting}[language=Kotlin]
+    // SalesPerson.kt
+    package org.company
+
+    fun createDefault(name: String) { ... }
+
+    class SalesPerson(var name: String, var salary: Int) { ... }
+  \end{lstlisting}
+  The class will be accessable just like normal, but the createDefaukt function is in a seperate class called 'SalesPersonKt.class':
+  \begin{lstlisting}[language=Java]
+    // create instance as expected
+    new org.company.SalesPerson("Carl", 4200);
+    // createDefault in other class
+    org.company.SalesPersonKt.createDefault("Carl");
+  \end{lstlisting}
+  We can choose a name for the generated class with the '@file:JvmName("Example")' annotation inside the Kotlin file:
+  \begin{lstlisting}[language=Kotlin]
+    // SalesPerson.kt
+    @file:JvmName("Example")
+    package org.company
+    ...
+  \end{lstlisting}
+  \begin{lstlisting}[language=Java]
+    // createDefault in Example
+    org.company.Example.createDefault("Carl");
+  \end{lstlisting}
+  If multiple classes use the same name, the compiler would normally throw an error. However, by adding the @file:JvmMultifileClass annotation to all of them, all package-level functions with the same class name are combined into a single generated class. 
+
   \begin{itemize}
-    \item properties
     \item static fields
   \end{itemize}
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
 
 \section{Multiplatform development}
 	\subsection{Expected and actual declarations}
