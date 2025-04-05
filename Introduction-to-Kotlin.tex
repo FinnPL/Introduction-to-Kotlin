@@ -154,7 +154,7 @@ fun printSalesPerson() {
 \subsection{Extension functions}
 
 \subsection{Null Safety}
-  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types. This guarantees that variables of a non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therefore reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime, both types are treated the same.
+  Whenever a method or an attribute is called on a null reference in Java, a NullPointerException (NPE) is thrown. The concept behind Null Safety aims to reduce the occurrence of such NPEs \cite{nullsafety}. This is achieved through the advanced type system of Kotlin, which distinguishes between nullable and non-nullable types \cite{nullsafety-nullable-types}. This guarantees that variables of a non-nullable type can never be null. Unlike Java, this is enforced by the compiler at compile-time, therefore reducing possible sources of NPEs and enhancing the readability and robustness of the code. At runtime, both types are treated the same.
   
   By default, all types in Kotlin are non-nullable, meaning variables cannot hold a null value unless explicitly specified. To allow nullability, a question mark is appended to the type declaration.\footnote{This applies to both mutable and immutable variables.}
 
@@ -164,9 +164,9 @@ fun printSalesPerson() {
   \end{lstlisting}
   
 \subsubsection{Null Safety Operators}
-  When working with nullable types, you cannot directly access properties or methods because the value could be null, potentially causing an NPE. Whenever a nullable type is used, the value must be checked in some way to prevent the program from encountering an NPE. To avoid excessive use of if statements, Kotlin provides the safe call operator as a shortcut.
+  When working with nullable types, you cannot directly access properties or methods because the value could be null, potentially causing an NPE. Whenever a nullable type is used, the value must be checked in some way to prevent the program from encountering an NPE. To avoid excessive use of if statements \cite{nullsafety-if-condition}, Kotlin provides the safe call operator as a shortcut.
 
-  The \textit{safe call operator} consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone.
+  The \textit{safe call operator} consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object \cite{nullsafety-safe-call}. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone.
 
   \begin{lstlisting}[language=Kotlin,title={Using the safe call operator in comparison to an if statement}]
     var couldBeNull: String? = null
@@ -181,7 +181,7 @@ fun printSalesPerson() {
     rwth?.ceo?.age = 20 // assignment with chained operator
   \end{lstlisting}
 
-  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability. % improve paragraph
+  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side \cite{nullsafety-elvis}. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability. % improve paragraph
   \begin{lstlisting}[language=Kotlin,title={Using the Elvis operator in comparison to an if statement}]
     var couldBeNull: String? = null
     println(if (couldBeNull == null) 0 else couldBeNull.length)
@@ -195,15 +195,15 @@ fun printSalesPerson() {
     else System.out.println(couldBeNull.length());
   \end{lstlisting}
   \hfill \break
-  Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. It simply makes the code significantly shorter and easier to read. % Soll ich das mit java-byte code belegen?
+  Both the safe call operator and the Elvis operator are treated by the compiler as the if statements mentioned in the examples above. It simply makes the code significantly shorter and easier to read.
 
 \subsubsection{Safe casts}
-  Safe casts are another way to handle nullable objects. But in order to understand the Safe cast, we have to look at how Kotlin handles type casts in general. The principle behind casting is the same as in java, only the syntax is diffrent. Kotlin uses the \texttt{as} keyword behind the expression followed by the new type to cast one type into another. In java the new type had to be written in round brakets before the expression.
+  Safe casts are another way to handle nullable objects. But in order to understand the Safe cast, we have to look at how Kotlin handles type casts in general. The principle behind casting is the same as in java, only the syntax is diffrent. Kotlin uses the \texttt{as} keyword behind the expression followed by the new type to cast one type into another \cite{casting}. In java the new type had to be written in round brakets before the expression.
   \begin{lstlisting}[language=Kotlin,title={Casting in Kotlin}]
     var a: Any = "Replace this example"
     var b:String = a as String
   \end{lstlisting} % Beispiel für casting in java adden? Sollte eig aus Vorlesung mehr als bekannt sein tbh und darauf sollte auch nit der Schwerpunkt liegen
-  \textit{Safe cast} is used to prevent a ClassCastException when a given object does not match the target type. The safe cast operator extends the standard cast keyword by adding a question mark and is applied in the same manner as a regular cast. If the object is not of the target type, instead of throwing an exception, the expression evaluates to null. This significantly simplifies casting, eliminating the need to catch potential exceptions or perform type checks \footnote{Type checks in Kotlin are performed using the is and !is keywords, which function similarly to the instanceof keyword in Java.} beforehand. The functionality of the operator can also be replicated using if statements, further demonstrating its benefits for code readability and maintainability.
+  \textit{Safe cast} is used to prevent a ClassCastException when a given object does not match the target type \cite{nullsafety-safe-cast}. The safe cast operator extends the standard cast keyword by adding a question mark and is applied in the same manner as a regular cast. If the object is not of the target type, instead of throwing an exception, the expression evaluates to null. This significantly simplifies casting, eliminating the need to catch potential exceptions or perform type checks \footnote{Type checks in Kotlin are performed using the is and !is keywords \cite{casting-is-operator}, which function similarly to the instanceof keyword in Java.} beforehand. The functionality of the operator can also be replicated using if statements, further demonstrating its benefits for code readability and maintainability.
   \begin{lstlisting}[language=Kotlin,title={Usage of the safe cast operator in comparisopn to an if statement}]
     var str:Any? = "Also replace *this* example"
     var a:Int? = str as? Int // evaluates to null
@@ -214,7 +214,7 @@ fun printSalesPerson() {
     var str:Any? = null
     var a:Int? = str as? Int // evaluates to null
   \end{lstlisting}
-    As mentioned above there is nothing like the safe cast operator in Java. If you wanted to achieve the same result, you either had to catch the ClassCastException or  had to check for nullability before casting. This once again demonstrates how Kotlin's concise and well-designed syntax significantly simplifies programming compared to Java.
+  As mentioned above there is nothing like the safe cast operator in Java. If you wanted to achieve the same result, you either had to catch the ClassCastException or  had to check for nullability before casting. This once again demonstrates how Kotlin's concise and well-designed syntax significantly simplifies programming compared to Java.
   \begin{lstlisting}[language=Java,title={Functionality of safe call operator in java}]
     Object obj = null;
     String str = null;
@@ -222,17 +222,16 @@ fun printSalesPerson() {
   \end{lstlisting}
 
   \subsubsection{Not-null assertion}
-    The \textit{not-null assertion operator} consists of two exclamation marks (!!). It is used to convert nullable types to non-nullable types by instructing the compiler to treat the value as non-null. However, if the value is actually null, a NullPointerException (NPE) will be thrown. This operator contradicts the concept of null safety and should only be used when the programmer is certain that the value cannot be null, but the compiler is unable to guarantee it.
+    The \textit{not-null assertion operator} consists of two exclamation marks (!!). It is used to convert nullable types to non-nullable types by instructing the compiler to treat the value as non-null \cite{nullsafety-assertion}. However, if the value is actually null, a NullPointerException (NPE) will be thrown. This operator contradicts the concept of null safety and should only be used when the programmer is certain that the value cannot be null, but the compiler is unable to guarantee it.
   \begin{lstlisting}[language=Kotlin,title={Usage of the not-null assertion}]
     var couldBeNull: String? = null
     var b: String = couldBeNull!!
   \end{lstlisting}
-  % Compareison with Java cast / assertion ??
 
   \subsubsection{Nullable receiver}
     We have already covered extension functions in the chapter on Classes. As a brief reminder, extension functions are external additions to a class that introduce new methods, which can be called on an instance of the class using dot notation.
 
-    Since extension functions are not actually part of the class itself but merely an extension that can be called using dot notation, it is possible for the object to be null while still being able to call the extension method. To achieve this, the function must have a so-called \textit{nullable receiver} type, which is indicated by a question mark after the class the extension function is defined for. As a result, the method remains accessible even if the object is null. This allows values of a nullable type to be accessed without checking for null beforehand, as the null case is handled within the method itself. The following example demonstrates how to define and properly use an extension function with a nullable receiver type.
+    Since extension functions are not actually part of the class itself but merely an extension that can be called using dot notation, it is possible for the object to be null while still being able to call the extension method \cite{nullsafety-nullable-receiver}. To achieve this, the function must have a so-called \textit{nullable receiver} type, which is indicated by a question mark after the class the extension function is defined for. As a result, the method remains accessible even if the object is null. This allows values of a nullable type to be accessed without checking for null beforehand, as the null case is handled within the method itself. The following example demonstrates how to define and properly use an extension function with a nullable receiver type.
     \begin{lstlisting}[language=Kotlin,title={Usage of an extension function}]
       // define the extension function
       fun SalesPeron?.print() {
@@ -248,14 +247,14 @@ fun printSalesPerson() {
 
   \subsubsection{Collections of nullable types}
     When working with Collections of nullable types, it is often very inconvenient to always handle the possibble null cases. To avoid this, there are two alternativ options witch makes things a lot easyer.
-    In the following example we have a List with Strings, that could be null. To not have to care about null values, there is a function called \textit{.filterNotNull()} wich removes all of the null values of the list and returns a List with the corresponding not-nullable type.
+    In the following example we have a List with Strings, that could be null. To not have to care about null values, there is a function called \textit{.filterNotNull()} wich removes all of the null values of the list and returns a List with the corresponding not-nullable type \cite{nullsafety-collections}.
     \begin{lstlisting}[language=Kotlin]
       val nullList: List<SalesPeron?> = listOf(SalesPeron("Carl", 2300), null)
       val list: List<SalesPeron> = nullList.filterNotNull()
       println(list) // prints SalesPeron@c4437c4
     \end{lstlisting}
 
-    Another useful option is the \textit{let function}, one of Kotlin's so-called scope functions, often used when working with lists of nullable types. This function takes a lambda expression and returns its result. Within the lambda, the object can be accessed using the \textit{s} keyword. Essentially, let is an extension function available for every type in Kotlin, executing a given code block when invoked. If the let function is used with the safe call operator and the object is null, the safe call operator prevents further evaluation, ensuring that the lambda's code block is not executed.
+    Another useful option is the \textit{let function}, one of Kotlin's so-called scope functions, often used when working with lists of nullable types \cite{nullsafety-letfunc}. This function takes a lambda expression and returns its result. Within the lambda, the object can be accessed using the \textit{s} keyword. Essentially, let is an extension function available for every type in Kotlin, executing a given code block when invoked. If the let function is used with the safe call operator and the object is null, the safe call operator prevents further evaluation, ensuring that the lambda's code block is not executed.
     \begin{lstlisting}[language=Kotlin]
       val nullList: List<SalesPeron?> =
         listOf(SalesPeron("Carl", 2300), null)
