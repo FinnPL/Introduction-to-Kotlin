@@ -366,10 +366,10 @@ fun printSalesPerson() {
   \end{lstlisting}
 
 \subsection{Call Kotlin in Java}
-  As it is possible to crate instances of Java classe in Kotlin, it is just as possible to create instances of a Kotlin class in Java. So it is possible to create and use Kotlin in Java.
+  Just as Kotlin can create instances of Java classes, Java can also create and use instances of Kotlin classes \cite{interop-java}.
 
 \subsubsection{Kotlin properties in Java}
-  If you want to access a Kotlin class from Java, you need to use Java syntax, so it is not possible to access Kotlin properties directly as you would in Kotlin. To bridge this gap, Kotlin properties are compiled into a private field, along with corresponding getter and setter methods. However if the Kotlin property is final, no setter method will be created. For example, consider a simple property in the SalesPerson class:
+  If you want to access a Kotlin class from Java, you need to use Java syntax, so it is not possible to access Kotlin properties directly as you would in Kotlin. To bridge this gap, Kotlin properties are compiled into a private field, along with corresponding getter and setter methods \cite{interop-properties}. However if the Kotlin property is final, no setter method will be created. For example, consider a simple property in the SalesPerson class:
   \begin{lstlisting}[language=Kotlin]
     var name: String
   \end{lstlisting}
@@ -382,10 +382,10 @@ fun printSalesPerson() {
   If the getter or setter of a Kotlin property is declared with restricted visibility, such as private or protected, the Kotlin compiler will respect this when generating the corresponding Java methods, thereby limiting their accessibility.
 
 \subsubsection{Null safety}
-  If a public Kotlin function is called from Java, it is possible to pass any object to that function, even if the type is non-nullable in Kotlin. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null.
+  If a public Kotlin function is called from Java, it is possible to pass any object to that function, even if the type is non-nullable in Kotlin. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null \cite{interop-java-null-safety}.
 
 \subsubsection{Package-level function}
-  Package-level functions are functions in a class, wich are defined outside of classes, thus are not dependent on an object. Thouse functions including extension functions will be converted to a static methods inside of a new Java class named by the Kotlin file the function oriented from, because in Java methods outside an class are not prohibited. For example, we have a Kotlin file with the name 'SalesPerson.kt' inside of the package 'org.company' with the follwing package-level method:
+  Package-level functions are functions in a class, wich are defined outside of classes, thus are not dependent on an object. Thouse functions including extension functions will be converted to a static methods inside of a new Java class \cite{interop-package-level-func} named by the Kotlin file the function oriented from, because in Java methods outside an class are not prohibited. For example, we have a Kotlin file with the name 'SalesPerson.kt' inside of the package 'org.company' with the follwing package-level method:
   \begin{lstlisting}[language=Kotlin]
     // SalesPerson.kt
     package org.company
@@ -394,7 +394,7 @@ fun printSalesPerson() {
 
     class SalesPerson(var name: String, var salary: Int) { ... }
   \end{lstlisting}
-  The class will be accessable just like normal, but the createDefaukt function is in a seperate class called 'SalesPersonKt.class':
+  The class will be accessable just like normal, but the createDefault function is in a seperate class called 'SalesPersonKt.class':
   \begin{lstlisting}[language=Java]
     // create instance as expected
     new org.company.SalesPerson("Carl", 4200);
@@ -412,10 +412,10 @@ fun printSalesPerson() {
     // createDefault in Example
     org.company.Example.createDefault("Carl");
   \end{lstlisting}
-  If multiple classes use the same name, the compiler would normally throw an error. However, by adding the @file:JvmMultifileClass annotation to all of them, all package-level functions with the same class name are combined into a single generated class.
+  If multiple classes use the same name, the compiler would normally throw an error. However, by adding the @file:JvmMultifileClass annotation to all of them, all package-level functions with the same class name are combined into a single generated class \cite{interop-package-level-func}.
 
 \subsubsection{Instance fields}
-  In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin. However, if the class is accessed from Java, we can add the @JvmField annotation before our property to make it accessible in Java through dot notation. The field will have the same visibility as the property in Kotlin \footnote{This does not apply to private properties.}.
+  In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin. However, if the class is accessed from Java, we can add the @JvmField annotation before our property to make it accessible in Java through dot notation \cite{interop-instance-fields}. The field will have the same visibility as the property in Kotlin \footnote{This does not apply to private properties.}.
   This example demonstrates how to use the annotation.
   \begin{lstlisting}[language=Kotlin]
     class SalesPerson (@JvmField var name:String) {}
@@ -427,7 +427,10 @@ fun printSalesPerson() {
     }
   \end{lstlisting}
 
-  Functions in companion or named objects can also be marked as static for Java interoperability using the same annotation; however, this topic is beyond the scope of this paper.
+  Functions in companion or named objects can also be marked as static for Java interoperability using the same annotation \cite{interop-static-fields}; however, this topic is beyond the scope of this paper.
+
+\subsection{Interoperability with JavaScript}
+  Besides interoperability with Java, Kotlin also supports interoperability with JavaScript \cite{interopjs}, a scripting language that runs in both the browser and on Node.js servers. To achieve this, you need to create a Kotlin/JS project and compile it with Gradle, a build automation tool commonly used in the Kotlin and Java ecosystems \cite{gradle}, into .js files, which can then be used like regular JavaScript files. Unlike Kotlin/Java interoperability, a Kotlin/JS project requires more setup due to the Gradle build system and the specialized Kotlin-to-JavaScript compiler. However, the Kotlin documentation \cite{interopjs} provides a step-by-step setup guide. With this setup, it is possible to use JavaScript libraries or the DOM API \cite{interopjs-dom} for web development using the familiar Kotlin syntax, thus making it a valid alternative to plain JavaScript. Furthermore, Gradle provides features that improve the workflow and simplify the development process.
 
 
 \section{Multiplatform development}
