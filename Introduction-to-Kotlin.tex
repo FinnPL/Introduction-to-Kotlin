@@ -8,6 +8,7 @@
   \texttt{\{christian.konersmann,finn.lippok,paul.lukas\}@rwth-aachen.de} \\
   \and
   Proseminar: Advanced Programming Concepts \\
+  Organiser: Prof.\ Dr.\ Jürgen Giesl \\
   Supervisor: Jan-Christoph Kassing
 }
 \date{\today}
@@ -53,47 +54,55 @@ fun main() {
 \end{lstlisting}
 
 \subsection{Type Declaration}
-  In Kotlin, variables are declared using the keyword \textit{val} for immutable variables or \textit{var} for mutable variables, similar to Java's \textit{final} and non-final variables.
-  The type of a variable is declared after the variable name, separated by a colon.
+In Kotlin, variables are declared using the keyword \textit{val} for immutable variables or \textit{var} for mutable variables, similar to Java's \textit{final} and non-final variables.
+The type of a variable is declared after the variable name, separated by a colon.
+
 \begin{lstlisting}[language=Java,title={Java data types}]
-    final String name = "John Doe";
-    int age = 42;
-  \end{lstlisting}
-  \begin{lstlisting}[language=Kotlin,title={Kotlin data types}]
-    val name: String = "John Doe"
-    var age: Int = 42
-  \end{lstlisting}
+final String name = "John Doe";
+int age = 42;
+\end{lstlisting}
+
+\begin{lstlisting}[language=Kotlin,title={Kotlin data types}]
+val name: String = "John Doe"
+var age: Int = 42
+\end{lstlisting}
 
 \subsection{Type Inference}
-  Kotlin supports type inference, allowing the compiler to infer the type of a variable based on its initializer.
-  \begin{lstlisting}[language=Kotlin]
-    val name = "John Doe" // type is inferred as String
-    var age = 42 // type is inferred as Int
-  \end{lstlisting}
+Kotlin supports type inference, allowing the compiler to infer the type of a variable based on its initializer.
+
+\begin{lstlisting}[language=Kotlin]
+val name = "John Doe" // type is inferred as String
+var age = 42 // type is inferred as Int
+\end{lstlisting}
 
 \subsection{Method Declaration}
-  Similar to java. void = Unit which is optional.
-  \begin{lstlisting}[language=Java,title={Java method declaration}]
-    public int add(int a, int b) {
-      return a + b;
-    }
-  \end{lstlisting}
-  \begin{lstlisting}[language=Kotlin,title={Kotlin method declaration}]
-    fun add(a: Int, b: Int): Int {
-      return a + b
-    }
-  \end{lstlisting}
+Similar to java. void = Unit which is optional.
+
+\begin{lstlisting}[language=Java,title={Java method declaration}]
+public int add(int a, int b) {
+  return a + b;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Kotlin,title={Kotlin method declaration}]
+  fun add(a: Int, b: Int): Int {
+    return a + b
+  }
+\end{lstlisting}
 
 \subsection{Everything is an Object}
-  In Kotlin, there are no primitive types.\footnote{Certain types may be optimized to use primitives during runtime for performance reasons.} All types are objects and inherit from the \texttt{Any} class.\cite{basic-types}
-  This approach creates a more consistent object-oriented programming model and eliminates the need for wrapper classes.
-  \begin{lstlisting}[language=Java,title={Java Integer Wrapper}]
-    Integer.valueOf(42).hashCode();
-  \end{lstlisting}
-  \begin{lstlisting}[language=Kotlin,title={Kotlin direct usage of Int}]
-    42.hashCode()
-  \end{lstlisting}
-  Furthermore, functions in Kotlin are also objects. This enables higher-order functions and functional programming paradigms, meaning that functions can be passed as arguments, returned from other functions, and assigned to variables.
+In Kotlin, there are no primitive types.\footnote{Certain types may be optimized to use primitives during runtime for performance reasons.} All types are objects and inherit from the \texttt{Any} class.\cite{basic-types}
+This approach creates a more consistent object-oriented programming model and eliminates the need for wrapper classes.
+
+\begin{lstlisting}[language=Java,title={Java Integer Wrapper}]
+  Integer.valueOf(42).hashCode();
+\end{lstlisting}
+
+\begin{lstlisting}[language=Kotlin,title={Kotlin direct usage of Int}]
+  42.hashCode()
+\end{lstlisting}
+
+Furthermore, functions in Kotlin are also objects. This enables higher-order functions and functional programming paradigms, meaning that functions can be passed as arguments, returned from other functions, and assigned to variables.
   %Add a short example here.
 
 \section{New Language Constructs} %Unhappy with the title, but not sure what to use instead (Not everything new, just not present in Java)
