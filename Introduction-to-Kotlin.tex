@@ -34,7 +34,8 @@
   For the main method to be directly executable, the method must be declared as \textit{public} and \textit{static}.
   %If the main method were non-static, it would require an instance of the class to be created before it could be called, which in turn would require code execution before the main method could be called, thus creating a circular dependency.
   % ^ relevant? i would think so
-  \begin{lstlisting}[language=Java,title={Java main method}]
+
+\begin{lstlisting}[language=Java,title={Java main method}]
 public class Main {
   public static void main(String[] args) {
     System.out.println("Hello, World!");
@@ -85,9 +86,9 @@ public int add(int a, int b) {
 \end{lstlisting}
 
 \begin{lstlisting}[language=Kotlin,title={Kotlin method declaration}]
-  fun add(a: Int, b: Int): Int {
-    return a + b
-  }
+fun add(a: Int, b: Int): Int {
+  return a + b
+}
 \end{lstlisting}
 
 \subsection{Everything is an Object}
@@ -103,12 +104,11 @@ This approach creates a more consistent object-oriented programming model and el
 \end{lstlisting}
 
 Furthermore, functions in Kotlin are also objects. This enables higher-order functions and functional programming paradigms, meaning that functions can be passed as arguments, returned from other functions, and assigned to variables.
-  %Add a short example here.
 
 \section{New Language Constructs} %Unhappy with the title, but not sure what to use instead (Not everything new, just not present in Java)
-  This section focuses on the most important new language constructs that are not present in Java. 
-  This section will illustrate Kotlin's advantages using a list of salespersons as an example and comparing it to Java.
-  The example should represent a linked list of salespersons containing multiple attributes.
+This section focuses on the most important new language constructs that are not present in Java. 
+This section will illustrate Kotlin's advantages using a Salesperson class as an example and comparing it to Java.
+The example represents a salesperson containing multiple attributes.
 \subsection{Classes}
 In both Java and Kotlin, classes are declared using the \textit{class} keyword and can contain attributes, methods, and constructors. In this example, we declare a class to hold information about a salesperson.
 
@@ -125,19 +125,32 @@ public class SalesPerson {
     }
   }
 \end{lstlisting}
-  Kotlin improves upon Java by allowing the constructor to be declared directly within the class definition. As a reminder, public is the default visibility in Kotlin. In addition, classes are also final by default, meaning they cannot be inherited from unless explicitly declared as open.
-  Furthermore, Kotlin allows for the declaration of attributes and their visibility directly within the constructor by adding the \textit{val} or \textit{var} keyword and the private keyword, resulting in a syntax very similar to Java records.
-\begin{lstlisting}[language=Kotlin,title={Kotlin Class Declaration}]
-  class SalesPerson(val name: String, private val commissionRate: Int, transferAmount: Double = 0.0) {
-    var salesVolume: Double = transferAmount
-  }
-\end{lstlisting}
-In this example, \textit{name} and \textit{commissionRate} become properties of the class, while \textit{transferAmount} is a constructor parameter used to initialize the property \textit{salesVolume}. It is still possible to declare attributes outside of the constructor, as demonstrated by \textit{salesVolume}. In addition, Kotlin allows default parameter values in constructors and functions, a feature that would otherwise require method overloading in Java.
 
-  %named parameters
+Kotlin improves upon Java by allowing the constructor to be declared directly within the class definition. As a reminder, public is the default visibility in Kotlin. In addition, classes are also final by default, meaning they cannot be inherited from unless explicitly declared as open.
+Furthermore, Kotlin allows for the declaration of attributes and their visibility directly within the constructor by adding the \textit{val} or \textit{var} keyword and the private keyword, resulting in a syntax very similar to Java records.
+
+\begin{lstlisting}[language=Kotlin,title={Kotlin Class Declaration}]
+class SalesPerson(val name: String, private val commissionRate: Int, transferAmount: Double = 0.0) {
+   var salesVolume: Double = transferAmount
+}
+\end{lstlisting}
+
+In this example, \textit{name} and \textit{commissionRate} become properties of the class, while \textit{transferAmount} is a constructor parameter used to initialize the property \textit{salesVolume}. It is still possible to declare attributes outside of the constructor, as demonstrated by \textit{salesVolume}. 
+In addition, Kotlin allows default parameter values in constructors and functions, a feature that would otherwise require method overloading in Java.
+
+% Mention named parameters?
 \subsection{Properties}
-  Explain properties, getters, and setters.
-  Build off the previous example and show how to use properties in Kotlin (visibility modifiers, custom getters, and setters).
+Properties allow for the concise declaration of getters and setters, including their visibility, directly alongside the corresponding attribute.
+In contrast to Java, when accessing a property in Kotlin using dot notation, the getter or setter method is called internally, allowing for a more universal syntax.
+If only the visibility needs to be restricted, the property can be declared as shown below:
+
+\begin{lstlisting}[language=Kotlin,title={Private setter}]
+var salesVolume: Double = transferAmount
+  private set
+\end{lstlisting}
+
+For more complex logic, custom getter and setter can be defined directly within the property declaration. 
+The \textit{field} keyword refers to the attribute itself. 
 
 \begin{lstlisting}[language=Kotlin,title={Kotlin Properties}]
 var salesVolume: Double = transferAmount
