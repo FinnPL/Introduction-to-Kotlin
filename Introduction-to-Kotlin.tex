@@ -222,13 +222,13 @@ fun printSalesPerson() {
   supervisor?.supervisor?.salesVolume = 0.0r?.salesVolume = 0.0
   \end{lstlisting}
 
-  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side \cite{nullsafety-elvis}. As a result, the Elvis operator is commonly used alongside the safe call operator. In essence, both operators serve as simplified alternatives to if statements. This shorthand improves code readability and maintainability. % improve paragraph
+  The \textit{Elvis operator} (\texttt{?:}) is an enhanced version of the safe call operator, offering a more concise way to handle null values. If the expression on the left side of the Elvis operator evaluates to null, instead of returning null like the safe call operator, it returns a default value specified on the right side \cite{nullsafety-elvis}. As a result, the Elvis operator is commonly used alongside the safe call operator.
   \begin{lstlisting}[language=Kotlin]
     fun printSupervisor() {
       println(supervisor?.name ?: "unknown supervisor")
     }
   \end{lstlisting}
-  When compiling to Java, both the safe call operator and the Elvis operator are treated by the compiler as if statements. These operators simply make the code significantly shorter and easier to read.
+  When compiling to Java, both the safe call operator and the Elvis operator are treated by the compiler as if statements. These operators simply make the code significantly shorter and easier to read, therefore increasing the maintainability as well.
  
   Another operator is the \textit{not-null assertion operator}, which consists of two exclamation marks (!!). It is used to convert nullable types to non-nullable types by instructing the compiler to treat the value as non-null \cite{nullsafety-assertion}. However, if the value is actually null, a NullPointerException (NPE) will be thrown. This operator contradicts the concept of null safety and should only be used when the programmer is certain that the value cannot be null, but the compiler is unable to guarantee it.
   \begin{lstlisting}[language=Kotlin,title={Usage of the not-null assertion}]
