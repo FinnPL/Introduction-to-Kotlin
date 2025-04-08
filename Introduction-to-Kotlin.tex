@@ -205,15 +205,15 @@ fun printSalesPerson() {
   To avoid excessive use of if statements \cite{nullsafety-if-condition}, Kotlin provides the safe call operator as a shortcut.
 
   % look for formatation of ?. in pdf
-  The \textit{safe call operator} consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object \cite{nullsafety-safe-call}. If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone.
+  The \textit{safe call operator} consists of the characters \texttt{?.} and is used when accessing a property or method of a nullable object \cite{nullsafety-safe-call}. << If the object is null, the operator returns null without evaluating the rest of the expression. Otherwise, the expression is evaluated as usual. >> Practically, this operator extends the already familiar dot notation for attributes and methods of objects. In principle, the safe call operator can also be seen as a shorthand for an if statement. By using the safe call operator, the code becomes much more readable and concise. With the reduced complexity, it is also less error-prone.
   \begin{lstlisting}[language=Kotlin]
     val supervisor: SalesPeron? = null
     fun printSupervisor() {
         println(supervisor?.name)
     }
   \end{lstlisting}
-  We can use multiple safe call operators and chain them together. The compiler evaluates the expression from left to right, checking each operator sequentially. If any value is null, the entire expression evaluates to null.
-  Furthermore, the operator can also be used on the left side of an assignment. If the safe call operator evaluates to null, the assignment will be skipped. Otherwise, the value will be assigned as usual.
+  We can use multiple safe call operators and chain them together \cite{nullsafety-safe-call}. The compiler evaluates the expression from left to right, checking each operator sequentially. If any value is null, the entire expression evaluates to null.
+  Furthermore, the operator can also be used on the left side of an assignment. If the safe call operator evaluates to null, the assignment will be skipped.
   % Wir sollten das Beispiel anpassen und die Formulierung in den zwei Absätzen drüber checken
   \begin{lstlisting}[language=Kotlin]
   // chained safe call operators
@@ -260,40 +260,40 @@ fun printSalesPerson() {
     if (obj != null && obj instanceof String s) str = s;
   \end{lstlisting}
 
-  \subsubsection{Nullable receiver}
-    We have already covered extension functions in the chapter on Classes. As a brief reminder, extension functions are external additions to a class that introduce new methods, which can be called on an instance of the class using dot notation.
+\subsubsection{Nullable receiver}
+  We have already covered extension functions in the chapter on Classes. As a brief reminder, extension functions are external additions to a class that introduce new methods, which can be called on an instance of the class using dot notation.
 
-    Since extension functions are not actually part of the class itself but merely an extension that can be called using dot notation, it is possible for the object to be null while still being able to call the extension method \cite{nullsafety-nullable-receiver}. To achieve this, the function must have a so-called \textit{nullable receiver} type, which is indicated by a question mark after the class the extension function is defined for. As a result, the method remains accessible even if the object is null. This allows values of a nullable type to be accessed without checking for null beforehand, as the null case is handled within the method itself. The following example demonstrates how to define and properly use an extension function with a nullable receiver type.
-    \begin{lstlisting}[language=Kotlin,title={Usage of an extension function}]
-      // define the extension function
-      fun SalesPeron?.print() {
-          if (this == null) return println("This person dose not exist.")
-          return println("$name: $salesVolume sold")
-      }
-      // use the extension function
-      var sales: SalesPeron? = null
-      sales.print() // This person dose not exist.
-      sales = SalesPeron("Carl", 1200)
-      sales.print() // Carl: 0.0 sold
-    \end{lstlisting}
+  Since extension functions are not actually part of the class itself but merely an extension that can be called using dot notation, it is possible for the object to be null while still being able to call the extension method \cite{nullsafety-nullable-receiver}. To achieve this, the function must have a so-called \textit{nullable receiver} type, which is indicated by a question mark after the class the extension function is defined for. As a result, the method remains accessible even if the object is null. This allows values of a nullable type to be accessed without checking for null beforehand, as the null case is handled within the method itself. The following example demonstrates how to define and properly use an extension function with a nullable receiver type.
+  \begin{lstlisting}[language=Kotlin,title={Usage of an extension function}]
+    // define the extension function
+    fun SalesPeron?.print() {
+        if (this == null) return println("This person dose not exist.")
+        return println("$name: $salesVolume sold")
+    }
+    // use the extension function
+    var sales: SalesPeron? = null
+    sales.print() // This person dose not exist.
+    sales = SalesPeron("Carl", 1200)
+    sales.print() // Carl: 0.0 sold
+  \end{lstlisting}
 
-  \subsubsection{Collections of nullable types}
-    When working with Collections of nullable types, it is often very inconvenient to always handle the possibble null cases. To avoid this, there are two alternativ options witch makes things a lot easyer.
-    In the following example we have a List with Strings, that could be null. To not have to care about null values, there is a function called \textit{.filterNotNull()} wich removes all of the null values of the list and returns a List with the corresponding not-nullable type \cite{nullsafety-collections}.
-    \begin{lstlisting}[language=Kotlin]
-      val nullList: List<SalesPeron?> = listOf(SalesPeron("Carl", 2300), null)
-      val list: List<SalesPeron> = nullList.filterNotNull()
-      println(list) // prints SalesPeron@c4437c4
-    \end{lstlisting}
+\subsubsection{Collections of nullable types}
+  When working with Collections of nullable types, it is often very inconvenient to always handle the possibble null cases. To avoid this, there are two alternativ options witch makes things a lot easyer.
+  In the following example we have a List with Strings, that could be null. To not have to care about null values, there is a function called \textit{.filterNotNull()} wich removes all of the null values of the list and returns a List with the corresponding not-nullable type \cite{nullsafety-collections}.
+  \begin{lstlisting}[language=Kotlin]
+    val nullList: List<SalesPeron?> = listOf(SalesPeron("Carl", 2300), null)
+    val list: List<SalesPeron> = nullList.filterNotNull()
+    println(list) // prints SalesPeron@c4437c4
+  \end{lstlisting}
 
-    Another useful option is the \textit{let function}, one of Kotlin's so-called scope functions, often used when working with lists of nullable types \cite{nullsafety-letfunc}. This function takes a lambda expression and returns its result. Within the lambda, the object can be accessed using the \textit{s} keyword. Essentially, let is an extension function available for every type in Kotlin, executing a given code block when invoked. If the let function is used with the safe call operator and the object is null, the safe call operator prevents further evaluation, ensuring that the lambda's code block is not executed.
-    \begin{lstlisting}[language=Kotlin]
-      val nullList: List<SalesPeron?> =
-        listOf(SalesPeron("Carl", 2300), null)
-      for (pers: SalesPeron? in nullList) {
-        pers?.let { println(it.name) }
-      }
-    \end{lstlisting}
+  Another useful option is the \textit{let function}, one of Kotlin's so-called scope functions, often used when working with lists of nullable types \cite{nullsafety-letfunc}. This function takes a lambda expression and returns its result. Within the lambda, the object can be accessed using the \textit{s} keyword. Essentially, let is an extension function available for every type in Kotlin, executing a given code block when invoked. If the let function is used with the safe call operator and the object is null, the safe call operator prevents further evaluation, ensuring that the lambda's code block is not executed.
+  \begin{lstlisting}[language=Kotlin]
+    val nullList: List<SalesPeron?> =
+      listOf(SalesPeron("Carl", 2300), null)
+    for (pers: SalesPeron? in nullList) {
+      pers?.let { println(it.name) }
+    }
+  \end{lstlisting}
 
 
 \section{Interoperability}
