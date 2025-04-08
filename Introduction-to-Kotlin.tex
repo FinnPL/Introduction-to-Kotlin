@@ -28,7 +28,7 @@
   This section covers the basic syntax of Kotlin and highlights the differences compared to Java.
   The goal is to provide a brief overview focused on the most important distinctions.
 
-\subsection{Main Method}
+\subsection{Program Entry Point and Method Declaration}
   The main method is the entry point of every Java and Kotlin program.
   Java enforces object-oriented programming, thus requiring the main method to be declared inside a class.
   For the main method to be directly executable, the method must be declared as \textit{public} and \textit{static}\footnote{If the main method were non-static, it would require an instance of the class to be created before it could be called, which in turn would require code execution before the main method could be called, thus creating a circular dependency.}.
@@ -52,7 +52,7 @@ fun main() {
 }
 \end{lstlisting}
 
-\subsection{Type Declaration}
+\subsection{Variable Declaration}
 In Kotlin, variables are declared using the keyword \textit{val} for immutable variables or \textit{var} for mutable variables, similar to Java's \textit{final} and non-final variables.
 The type of a variable is declared after the variable name, separated by a colon.
 
@@ -74,7 +74,7 @@ val name = "John Doe" // type is inferred as String
 var age = 42 // type is inferred as Int
 \end{lstlisting}
 
-\subsection{Method Declaration}
+\subsection{Return type declaration}
 Similar to the type declaration of variables, the type of a method's return value is declared after the method name and parameters, separated by a colon.
 The equivalent of \textit{void} in Java is \textit{Unit} in Kotlin, which can be omitted. 
 
