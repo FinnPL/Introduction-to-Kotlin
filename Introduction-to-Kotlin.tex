@@ -465,19 +465,30 @@ fun printSalesPerson() {
 
 
 \section{Multiplatform development}
-	\subsection{Expected and actual declarations}
+	Multiplatform development is a key benefit in Kotlin. By reusing the same code across multibile Platforms we can save alot of time writing the code and can concentrate more on the differences between the platforms
 	\subsection{Hierarchical project structure}
+		The Hierarchical project structure is best understood if we think of dependencies as objects with parent- and child-objects. For example if we want to write an app for apple and androids. The common code used in bothe instances would be in the parent object or here dependencies.  when we go further down the structure the dependencies get 				more and more specific. So we could have a parent object for commonMain which has the child objects andoridMain and appleMain in which we only have the specific Code for apple and android products. Further down the Hierarchie we may differentiate between MacOS and IOS and even further down we could differentiate between different models.
+
+
+
+	Graphic für besseres verständnis?
+
+
+
+		If we now want to compile code for the newest Iphone Kotlin would follow the tree from commonMain to the specific set for the newest Iphone combining the code along the way
+
+	\subsection{Expected and actual declarations}
+		Expected and actual declarations are somewhat similar to abstract functions. In a parent you can declare that this piece of code is expected further down the Hierarchical Structure and will be actualy declared there. Just like an abstract function which is declared in a parent object but gets overwritten by the cild object
 
 \section{Android}
-	This sections concentrates on the benefits Kotlin has in the Android enviorment not only the language itself but also Kotlin based Tools for Android //cut? -> and gives examples based on the salesperson example from New Language Constructs along the way.
-\subsection{Android KTX}
+	This sections concentrates on the benefits Kotlin has in the Android enviorment not only the language itself but also Kotlin based Tools for Android %cut? -> and gives examples based on the salesperson example from New Language Constructs along the way.
 
 \subsection{Jetpack Compose}
-  TODO(
-  Kotlin based Ui Tool Kit 
-  JC automaticly updates Ui hierarchy
-  functions with @Composable /composables
-  )
+  %TODO(
+  %Kotlin based Ui Tool Kit -
+  %JC automaticly updates Ui hierarchy-
+  %functions with @Composable /composables-
+  %)
 Jetpack Compose is a Kotlin based Ui Tool Kit which eases the process of creating a Ui for Android Apps. By taking a different aproache to UI coding than XML the needed Code for UI can decrase by up to 50\%. Eventough the size of the APK (Android Package) File and the build time will increase, these downsides are outweight by the increased productivity and maintainability of the Code.
 
 In the following cases we bothtimes just print Hello World to the Ui
@@ -533,14 +544,14 @@ fun ClickButton() {
 }
  \end{lstlisting}
 
-As you might have noticed in the JC Code samples we always write the @Composable Annotation  this is very Important so the Compiler knows which functions are meant to be UI elements and therefore have to be added to the UI Tree
-//here 
+As you might have noticed in the JC Code samples we always write the @Composable Annotation  this is very Important so the Compiler knows which functions are meant to be UI elements and should be updated depending on the state. %and therefore have to be added to the UI Tree
+If we tried to create a UI element without the @Composable Annotation it wouldnt be treated as a UI element and if we used a UI function like Text() in our element we would get a Compiler Error.
 
 \subsection{Coroutines}
   Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
 
-  What are threads? -> explenation ... todo
-  best case with graphic
+ % What are threads? -> explenation ... todo
+  %best case with graphic
 
   \begin{lstlisting}[language=Java, title={Java Background Threads}]
   new Thread(new Runnable() { //opens a new thread
@@ -553,19 +564,31 @@ As you might have noticed in the JC Code samples we always write the @Composable
           });
       }
   }).start();
-  \end{lstlisting}
+\end{lstlisting}
   In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
   So, we could check thousands of sales personnel at once without running out of memory.
-  \begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
+\begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
   GlobalScope.launch { //opens a new thread
       val sales = getSalesVolume() 
       withContext(Dispatchers.Main) { //switches to main thread
           textView.text = sales 
       }
   }
-  \end{lstlisting}
-
-\subsection{Extensions}
+\end{lstlisting}
+\subsection{Android KTX}
+Android KTX is a collection of Kotlin-friendly libraries that sit on top of the existing Android APIs. It doesn’t replace the Android SDK, but simplifies and enhances it to work better with Kotlin by for example using Coroutines instead of Threads.
+In the following example we want to save the revenue of a salesman.
+\begin{lstlisting}[language=Java, title= {Java save salesman revenue}]
+SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+SharedPreferences.Editor editor = prefs.edit();
+editor.putFloat("salesman_revenue", 1234.56f);
+editor.apply();
+\end{lstlisting}
+\begin{lstlisting}[language=Kotlin, title= {Kotlin save salesman revenue}]
+context.defaultSharedPreferences.edit {
+    putFloat("salesman_revenue", 1234.56f)
+}
+\end{lstlisting}
 
 
 \section{Conclusion}
