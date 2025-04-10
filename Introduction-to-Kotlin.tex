@@ -3,12 +3,14 @@
 
 \title{\huge \bfseries Introduction to Kotlin}
 \author{
+
   Christian Konersmann, Finn Paul Lippok, Paul Lukas\\[1ex]
   RWTH Aachen University, Aachen, Germany\\
   \texttt{\{christian.konersmann,finn.lippok,paul.lukas\}@rwth-aachen.de}\\
   \and
   Proseminar: Advanced Programming Concepts\\
   Organiser: Prof.\ Dr.\ Jürgen Giesl\\
+
   Supervisor: Jan-Christoph Kassing
 }
 \date{\today}
@@ -25,12 +27,14 @@ Kotlin is a modern programming language developed by JetBrains, a renowned softw
 This paper presents an overview of Kotlin’s concise syntax and highlights key language features that illustrate its advantages over Java. It assumes a basic understanding of Java and begins by examining core syntactic differences between Kotlin and Java, followed by an introduction to concepts such as null safety and seamless Java interoperability. The paper concludes with a discussion of Kotlin’s multiplatform capabilities, with particular emphasis on its application in Android development.
 
 \section{Basic Syntax}
+
 This section covers the basic syntax of Kotlin and highlights its differences compared to Java. The goal is to provide a concise overview focused on the most important distinctions.
 
 \subsection{Program Entry Point and Method Declaration}
 The \textit{main} method is the entry point of any Java or Kotlin program~\cite{program-entry-point}. Java enforces object-oriented programming, thus requiring the \textit{main} method to be declared within a class. For the \textit{main} method to be directly executable, it must be \textit{public} and \textit{static},\footnote{If the \textit{main} method were non-static, it would require an instance of the class before it could be run, leading to a circular dependency.} as shown below:
 
 \begin{lstlisting}[language=Java, title={Java main method}]
+
 public class Main {
   public static void main(String[] args) {
     System.out.println("Hello, World!");
@@ -47,42 +51,51 @@ fun main() {
 \end{lstlisting}
 
 \subsection{Variable Declaration}
+
 Variables in Kotlin are declared using the keyword \textit{val} for immutable variables or \textit{var} for mutable variables~\cite{variables}, similar to Java's \textit{final} and non-final variables. The type is declared after the variable name, separated by a colon:
 
 \begin{lstlisting}[language=Java, title={Java data types}]
+
 final String name = "John Doe";
 int age = 42;
 \end{lstlisting}
 
 \begin{lstlisting}[language=Kotlin, title={Kotlin data types}]
+
 val name: String = "John Doe"
 var age: Int = 42
 \end{lstlisting}
 
 \subsection{Type Inference}
+
 Kotlin supports type inference, allowing the compiler to infer a variable's type based on its initializer or usage~\cite{type-inference}. However, a detailed discussion of its internal workings is out of scope for this paper.
+
 
 \begin{lstlisting}[language=Kotlin]
 val name = "John Doe" // type is inferred as String
 var age = 42 // type is inferred as Int
 \end{lstlisting}
 
+
 \subsection{Return Type Declaration}
 Similar to variable declaration, a method's return type is declared after the method name and parameters, separated by a colon~\cite{functions}. The equivalent of \textit{void} in Java is \textit{Unit} in Kotlin~\cite{builtin-types-unit,kotlin-stdlib-unit}, which can be omitted if no value is returned.
 
 \begin{lstlisting}[language=Java, title={Java method declaration}]
+
 public int add(int a, int b) {
   return a + b;
 }
 \end{lstlisting}
 
 \begin{lstlisting}[language=Kotlin, title={Kotlin method declaration}]
+
 fun add(a: Int, b: Int): Int {
   return a + b
 }
 \end{lstlisting}
 
 \subsection{Everything is an Object}
+
 In Kotlin, there are no primitive types.\footnote{Certain types may be optimized to use Java primitives at runtime for performance reasons.} All types are objects and inherit from the \textit{Any} class~\cite{basic-types}. This approach creates a more consistent object-oriented programming model and eliminates the need for wrapper classes.
 
 \begin{lstlisting}[language=Java, title={Java Integer Wrapper}]
@@ -99,18 +112,22 @@ Furthermore, functions in Kotlin are also treated as objects~\cite{higher-order-
 In both Java and Kotlin, classes are declared using the \textit{class} keyword~\cite{classes} and can contain attributes, methods, and constructors. In the example below, we declare a class to represent a salesperson:
 
 \begin{lstlisting}[language=Java, title={Java Class Declaration}]
+
 public class SalesPerson {
   private final String name;
   private final int commissionRate;
   private double salesVolume;
   
   public SalesPerson(String name, int commissionRate, double transferAmount) {
+
     this.name = name;
     this.commissionRate = commissionRate;
     this.salesVolume = transferAmount;
+
   }
 }
 \end{lstlisting}
+
 
 Kotlin improves upon Java by allowing the constructor to be declared directly within the class definition~\cite{classes-constructors}. As a reminder, the default visibility in Kotlin is \textit{public}, and classes are also \textit{final} by default, meaning they cannot be inherited from unless explicitly declared \textit{open}. Kotlin also permits the declaration of constructor parameters (as properties) using \textit{val} or \textit{var}, including visibility modifiers~\cite{classes-constructors}, resembling the concise syntax found in Java records:
 
@@ -219,6 +236,7 @@ When compiling to Java, both the safe call operator and the Elvis operator are t
 The not-null assertion operator (\texttt{!!}) converts a nullable type to a non-nullable type, instructing the compiler to treat the value as non-null~\cite{nullsafety-assertion}. However, if the value is actually \texttt{null}, a \texttt{NullPointerException} will be thrown.
 This operator contradicts the concept of null safety and should only be used when the programmer is certain that the value cannot be null, but the compiler is unable to guarantee it.
 
+
 \begin{lstlisting}[language=Kotlin, title={Usage of the not-null assertion}]
 var possiblyNull: String? = null
 var b: String = possiblyNull!!
@@ -242,6 +260,7 @@ sales.print() // Carl: 0.0 sold
 \end{lstlisting}
 
 \section{Interoperability}
+
 This chapter focuses on interoperability between Java and Kotlin. In this context, interoperability refers to the seamless compatibility between the two languages. Kotlin was designed to integrate smoothly with Java code and vice versa, making it easy to use both within the same project.
 
 \subsection{Call Java in Kotlin}
@@ -308,6 +327,7 @@ val str: String = Salesman.getString() // non-nullable type
 
 \subsubsection{Java arrays in Kotlin}function
 In Java, arrays of primitive types can be used to achieve better performance, as they avoid the overhead associated with objects. Kotlin prohibits the direct use of primitive arrays but provides specialized classes for each primitive type instead \cite{interop-arrays}. The compiler optimizes the code and uses primitive arrays whenever possible. For example, Java's \texttt{int[]} corresponds to Kotlin's \texttt{IntArray}. These classes compile down to actual primitive arrays to minimize object overhead.
+
 
 Let's assume we have a function in Java that requires a primitive array:
 \begin{lstlisting}[language=Java]
@@ -401,27 +421,87 @@ Functions in companion or named objects can be marked as static to be accessed i
 
 \subsection{Interoperability with JavaScript}
 Besides interoperability with Java, Kotlin also supports interoperability with JavaScript \cite{interopjs}, a scripting language that runs in both the browser and on Node.js servers. To achieve this, you need to create a Kotlin/JS project and compile it with Gradle, a build automation tool commonly used in the Kotlin and Java ecosystems \cite{gradle}, into \texttt{.js} files, which can then be used like regular JavaScript files. Unlike Kotlin/Java interoperability, a Kotlin/JS project requires more setup due to the Gradle build system and the specialized Kotlin-to-JavaScript compiler. However, the Kotlin documentation \cite{interopjs} provides a step-by-step setup guide. With this setup, it is possible to use JavaScript libraries or the DOM API \cite{interopjs-dom} for web development using the familiar Kotlin syntax, thus making it a valid alternative to plain JavaScript. Furthermore, Gradle provides features that improve the workflow and simplify the development process.
-
-
 \section{Multiplatform development}
-	\subsection{Expected and actual declarations}
+	Multiplatform development is a key benefit in Kotlin. By reusing the same code across multibile platforms we can save alot of time writing the code and can concentrate more on the differences between the platforms
 	\subsection{Hierarchical project structure}
+		The Hierarchical project structure is best understood if we think of the source codes as objects with parent- and child-objects. These Objects have properties like the source code and targets. Targets are platforms to which Kotlin should be able to complie the code to and can also be tought of as tags. For example if we want to write an app for apple and androids. The common code used in bothe instances would be in the parent source which is called the commonMain and to which we then add the apple and android Tag to.  So we could have the parent object commonMain which has the child objects andoridMain and appleMain in which we only have the specific Code for apple and android products and only have the corresponding tag. Further down the hierarchie we may differentiate between MacOS and IOS and even further down we could differentiate between different models. But as we declare more specific end targets we also need to add these specific tags to every parent object that is connected to the target
+In this case the appleMain and androidMain sources would be called intermediate source sets since they sit between the commonMain and the targets.
+
+If we now wanted to compile code for the newest Iphone the tags become important, Kotlin would check every source set(object) for the right tag and compile them together to one source code. If a tag is placed wrong sothat the compiler cant reach the target from the commonMain source the compiler would ofcourse break.
+
+	\subsection{Expected and actual declarations}
+		Expected and actual declarations are somewhat similar to abstract functions. In a parent you can declare that this piece of code is expected further down the Hierarchical Structure and will be actualy declared there. Just like an abstract function which is declared in a parent object but gets overwritten by the cild object.
+		So we could declare an expected Kotlin construct (function, class, interface ...) withe the "expect" keyword and use the refference in the common code. In the platform specific source we would need to declare the construct again and mark it as the actual construct with the "actual" keyword.
 
 \section{Android}
-	This sections concentrates on the benefits Kotlin has in the Android enviorment and gives examples based on the salesperson example from New Language Constructs along the way.
-\subsection{Android KTX}
+	This sections concentrates on the benefits Kotlin has in the Android enviorment not only the language itself but also Kotlin based Tools for Android %cut? -> and gives examples based on the salesperson example from New Language Constructs along the way.
 
 \subsection{Jetpack Compose}
-  TODO(
-  Kotlin based Ui Tool Kit 
-  JC automaticly updates Ui hierarchy
-  functions with @Composable /composables
-  )
-\subsection{Coroutines}
-  Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process.
+  %TODO(
+  %Kotlin based Ui Tool Kit -
+  %JC automaticly updates Ui hierarchy-
+  %functions with @Composable /composables-
+  %)
+Jetpack Compose is a Kotlin based Ui Tool Kit which eases the process of creating a Ui for Android Apps. By taking a different aproache to UI coding than XML the needed Code for UI can decrase by up to 50\%. Eventough the size of the APK (Android Package) File and the build time will increase, these downsides are outweight by the increased productivity and maintainability of the Code.
 
-  What are threads? -> explenation ... todo
-  best case with graphic
+In the following cases we bothtimes just print Hello World to the Ui
+\begin{lstlisting}[language=xml, title= {XML Hello World}]
+	<TextView
+    android:id="@+id/textView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hello World" />
+ \end{lstlisting}
+\begin{lstlisting}[language=Kotlin, title= {Jetpack Compose Hello World}]
+@Composable
+fun SimpleText() {
+    Text(text = "Hello World")
+}
+ \end{lstlisting}
+As we can see the readeability and the needed Code is improved alot in Jetpack Compose
+
+Jetpack Compose achieves this by letting the user descripe what the UI should look like in a given state rather then how the UI should be build. This becomes especially usefull when the state changes. If the state changes Jetpack Compose automatically updates and rerenders the important parts. If we wouldnt use Jetpack Compose we would have to maually find the views, update them and manage the state changes ourselfes.
+
+Jetpack Compose also combines the UI and the Logic. In XMl we can only define the look of for example a button but not the Logic that  follows clicking that button. For the Logic we need a sepreate Tool like Activity, there we can define the Logic of the button. But since XML and Activity are two unrealted tools you have to connect the code mannualy by using the findViewById command.
+\begin{lstlisting}[language = Java]
+val button = findViewById<Button>(R.id.button)
+ \end{lstlisting}
+so a simple Button counting up would look in XML and Activity something like:
+\begin{lstlisting}[language=xml, title= {XML UI Button}]
+<Button
+    android:id="@+id/button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Clicked 0 times" />
+
+ \end{lstlisting}
+\begin{lstlisting}[language=Java, title= {Activity Logic Button}]
+var count = 0
+val button = findViewById<Button>(R.id.button)
+
+button.setOnClickListener {
+    count++
+    button.text = "Clicked $count times"
+}
+ \end{lstlisting}
+
+Since Jetpack Compose combines UI and Logic the Kotlin code only looks like the following
+\begin{lstlisting}[language=Kotlin, title= {Jetpack Compose Button}]
+@Composable
+fun ClickButton() {
+    var count by remember { mutableStateOf(0) }
+
+    Button(onClick = { count++ }) {
+        Text("Clicked $count times")
+    }
+}
+ \end{lstlisting}
+
+As you might have noticed in the JC Code samples we always write the @Composable Annotation  this is very Important so the Compiler knows which functions are meant to be UI elements and should be updated depending on the state. %and therefore have to be added to the UI Tree
+If we tried to create a UI element without the @Composable Annotation it wouldnt be treated as a UI element and if we used a UI function like Text() in our element we would get a Compiler Error.
+
+\subsection{Coroutines}
+  Now imagine we want to create an app where users can see the sales volume of a certain salesperson live. To achieve this, we would need to check the sales volume every second, which would freeze our app every second until the data of the salesperson is successfully downloaded. So, the smartest solution would be to use multithreading for this process. Multithreading is very common and basicaly means, that we split up the processeing among multibile threads that we can run parallel. You could imagine the threads like computers  running at the same time. If one of them crashes the others are not affected and since they are running at the same time it is in many cases alot faster then if we only had one computer running everything. As you also couldnt fit unlimited computers in one room, the useage of threads is mainly limited by the amount of memmory the programm is allowed to use.
 
   \begin{lstlisting}[language=Java, title={Java Background Threads}]
   new Thread(new Runnable() { //opens a new thread
@@ -434,20 +514,32 @@ Besides interoperability with Java, Kotlin also supports interoperability with J
           });
       }
   }).start();
-  \end{lstlisting}
-  In Kotlin, threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
+\end{lstlisting}
+  In Kotlin, the equivalent to threads are called coroutines, and they are not only easy to read, as you will see below, but are also very lightweight, which means we can run far more Kotlin coroutines than Java threads before running out of memory or losing too much time.
   So, we could check thousands of sales personnel at once without running out of memory.
-  \begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
-  GlobalScope.launch { //opens a new thread
+\begin{lstlisting}[language = Kotlin, title = Kotlin Coroutines]
+  GlobalScope.launch { //creates a new coroutine
       val sales = getSalesVolume() 
       withContext(Dispatchers.Main) { //switches to main thread
           textView.text = sales 
       }
   }
-  \end{lstlisting}
-
-\subsection{Extensions}
-
+\end{lstlisting}
+Kotlin achieves this by using one thread to run multibile coroutines. So if you had a piece of code that pauses inbetween, Kotlin would run a differrent coroutine while the first one is paused on the same thread thus not having to open up more threads and saving alot of memmory. By managing the couroutines in Kotlin they can switch extremly fast between coroutines in one thread instead of switching the context in threads which are mangaed by the OS. So coroutines are not really a new version of threads but a system that cleverly manages the resources given to minimize the unnesesary use of Threads. So this would mean if we had really long coroutines that have no pauses in between, Kotlin couldnt run multibile coroutines on one thread and would have to open up multible threads thus losing the advantage of using coroutines. Kotlin also keeps the threads if they are not in use and sorts them in to pools for different usage(IO,Default,Main), so that it can later check these pools for already setup but unused therads . So if you create the first coroutine Kotlin still has to setup a thread but after that Kotlin will reuse that thread as often as it can before it is forced to create a new one. Coroutines also setup very fast, if we already had coroutines setup prior, since we dont have to setup a new thread but are just reusing one that is already there.
+\subsection{Android KTX}
+Android KTX is a collection of Kotlin-friendly libraries that sit on top of the existing Android APIs. It doesn’t replace the Android SDK, but simplifies and enhances it to work better with Kotlin by for example using Coroutines instead of Threads.
+In the following example we want to save the revenue of a salesman.
+\begin{lstlisting}[language=Java, title= {Java save salesman revenue}]
+SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+SharedPreferences.Editor editor = prefs.edit();
+editor.putFloat("salesman_revenue", 1234.56f);
+editor.apply();
+\end{lstlisting}
+\begin{lstlisting}[language=Kotlin, title= {Kotlin save salesman revenue}]
+context.defaultSharedPreferences.edit {
+    putFloat("salesman_revenue", 1234.56f)
+}
+\end{lstlisting}
 
 \section{Conclusion}
 Kotlin is a modern programming language that builds upon Java's foundation, offering a concise syntax, improved class structures, and innovative features such as null safety. Its seamless interoperability with Java and JavaScript makes it an excellent choice for projects requiring integration with existing codebases. Kotlin's support for multiplatform development, particularly in Android, positions it as a powerful tool for developers seeking to create cross-platform applications.
@@ -457,8 +549,55 @@ Kotlin also embraces functional programming paradigms, inspired by languages lik
 
 These features, combined with its modern design and developer-friendly syntax, make Kotlin a compelling choice for both new and experienced developers.
 
+
 \newpage
-\printbibliography[]
+\section{TODO}
+
+  \subsection{General}
+    \begin{itemize}
+      \item Add citations
+      \item Fix formatting (especially indentation in the code snippets)
+    \end{itemize}
+
+  \subsection{Introduction}
+    Android development, improvements over, and interoperability with Java.
+    Introduce an example to show differences/translation between Java and Kotlin.
+
+  \subsection{Basic Syntax}
+    \begin{itemize}
+      \item Methods
+      \item Example for Top-Level Functions
+      \item Explain the absence of static methods (out of scope for introduction?) (use \texttt{@JvmStatic} annotation for interoperability)
+    \end{itemize}
+
+  \subsection{Interoperability}
+    \begin{itemize}
+      \item Use of annotations (e.g. \texttt{@JvmStatic}, \texttt{@JvmField}, \texttt{@JvmName}, \texttt{@JvmOverloads}) (out of scope for introduction?)
+      \item Compile to other languages (e.g. JavaScript, Native) (out of scope for introduction?)
+    \end{itemize}
+
+  \subsection{New Features}
+    \begin{itemize}
+      \item Properties (Getters, Setters)
+      \item Extension functions (not as important)
+      \item This expression (interesting, also not too long)
+      \item Destructuring declarations
+      \item Infix notation for functions
+      \item \textit{if} and \textit{when} as expressions (not as important, only if it fits)
+    \end{itemize}
+
+  \subsection{Multiplatform development}
+  
+  \subsection{Android}
+    \begin{itemize}
+      \item Discuss Kotlin's advantages for Android development
+    \end{itemize}
+
+  \subsection{Presentation}
+  \begin{itemize}
+    \item Line numbers for slides
+    \item readability -> light mode
+  \end{itemize}
 
 % End of Documment
 
