@@ -22,7 +22,6 @@ This paper introduces Kotlin, a statically typed, object-oriented programming la
 
 \section{Introduction}
 Kotlin is a modern programming language developed by JetBrains, a renowned software development company. Designed as a safer and more concise alternative to Java, Kotlin offers full interoperability with Java, allowing developers to leverage existing Java libraries and frameworks while benefiting from Kotlin's modern features. Its clean and expressive syntax has made it increasingly popular, particularly in Android development. In fact, Google announced Kotlin as its preferred language for Android app development in 2019~\cite{intro-google}. Beyond Android, Kotlin supports multiplatform development, enabling developers to build applications for the server, desktop, web, and iOS from a shared codebase~\cite{intro-multiplatform-dev}.
-
 This paper presents an overview of Kotlin’s concise syntax and highlights key language features that illustrate its advantages over Java. It assumes a basic understanding of Java and begins by examining core syntactic differences between Kotlin and Java, followed by an introduction to concepts such as null safety and seamless Java interoperability. The paper concludes with a discussion of Kotlin’s multiplatform capabilities, with particular emphasis on its application in Android development.
 
 \section{Basic Syntax}
@@ -250,7 +249,7 @@ Everything written in Java is accessible in Kotlin \cite{interop}, but interoper
 
 \subsubsection{Create and acces objects}
 To illustrate how Java code can be accessed in a Kotlin project, the following example features a Salesman class that stores basic information using getters and setters.
-\begin{lstlisting}[language=Java,title={Example java class}]
+\begin{lstlisting}[language=Java,title={Example Java class}]
 public class Salesman {
   private final String name;
   private int salary;
@@ -261,28 +260,26 @@ public class Salesman {
   }
 
   public String getName() { return name; }
-
   public int getSalary() { return salary; }
-
   public void setSalary(int salary) { this.salary = salary; }
 }
 \end{lstlisting}
-If we want to access this class from Kotlin and create an instance of it, we can use the familiar Kotlin syntax \cite{interop} to instantiate the object and access its properties. There is no syntactical difference between calling or creating a Java class and a Kotlin class. Since getter and setter methods are unnecessary in Kotlin, they are automatically converted if they follow Java conventions for getter and setter methods \cite{interop-getter-setter}. This allows them to be accessed using Kotlin's property syntax. The resulting attributes are called synthetic properties \cite{interop-synthetic-property}. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
-\begin{lstlisting}[language=Kotlin, title={Access the Salesman class in Kotlin}]
+If we want to access this class, we can use the familiar Kotlin syntax \cite{interop} to instantiate the object and access its properties. There is no syntactical difference between accessing a Java class and a Kotlin class. Since there are no explicit getter and setter methods in Kotlin, Java methods following Java's conventions for getters and setters are converted \cite{interop-getter-setter} into so-called synthetic properties \cite{interop-synthetic-property}. These can be accessed using Kotlin’s property syntax. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
+\begin{lstlisting}[language=Kotlin, title={Access a Salesman instance in Kotlin}]
 var carl = Salesman("carl mueller", 4500)
 println(carl.name) // prints 'carl mueller'
 carl.salary = 4600 // sets salary to 4600
 carl.setSalary(4600) // alternivly to the above
 \end{lstlisting}
-Kotlin detects that the name field in the Java class is final and has a getter but no setter. As a result, the compiler throws an error if an attempt is made to modify its value, ensuring that the getters and setters behave the same way as in Kotlin. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties \cite{interop-synthetic-property}. % Zitat von Kotlin website, wortlaut sehr ähnlich
+Kotlin detects that the name field in the Java class is final, therefore only a getter method will be created. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties \cite{interop-synthetic-property}.
 
 \subsubsection{Mapped types}
-By default, when objects of a Java class are used in Kotlin, they are loaded as Java objects. However, some Java types have a corresponding Kotlin counterpart, and the Java object is automatically replaced with the equivalent Kotlin type \cite{interop-mapped-types}. For example, 'java.lang.Integer' is converted to 'kotlin.Int?' because Java wrapper objects can be null. This applies to all Java wrapper classes and some important types, such as 'java.lang.Object', which is mapped to 'kotlin.Any!'\footnote{The exclamation mark indicates that this is a platform type. More on this in the next chapter.}. Collections like Lists, Maps and Arrays are also converted. Additionally, all Java primitive types are mapped to their non-nullable Kotlin counterparts, as primitive types cannot be null in Java. For instance, the Java 'int' is converted to 'kotlin.Int'. For a complete list of all mapped types, refer to the official documentation.
+By default, when instances of a Java class are used in Kotlin, they are loaded as Java objects. However, some Java types have a corresponding Kotlin counterpart so the Java type is automatically replaced through the equivalent Kotlin type \cite{interop-mapped-types}. For example, \texttt{java.lang.Integer} is converted to \texttt{kotlin.Int?} because Java wrapper objects can be null. This applies to all Java wrapper classes and some important types, such as \texttt{java.lang.Object}, which is mapped to \texttt{kotlin.Any!}\footnote{The exclamation mark indicates that this is a platform type. More on this in the next chapter.}. However, all Java primitive types are mapped to their non-nullable Kotlin counterparts, as primitive types cannot be null in Java. For instance, Java's \texttt{int} is converted to \texttt{kotlin.Int}. Additionally, collections like Lists, Maps and Arrays are also converted. For a complete list of all mapped types, consult the official documentation \cite{interop-mapped-types}. Java's return type void is replaced by Kotlin's Unit type.
 
 \subsubsection{Null safety with Java}
 Since Java does not distinguish between nullable and non-nullable types, any object returned from Java code can be null. This contradicts Kotlin's strict null safety concept and would make working with Java objects impractical.
-To address this, Kotlin introduces \textit{platform types} for objects created through Java code. If a Java type does not have a direct Kotlin equivalent, as is the case for most Java types, the compiler assigns it a platform type, which is non-denotable \cite{interop-null-safety}. This means we cannot explicitly declare or write this type as we do with nullable types using a question mark\footnote{When the compiler needs to report a type-related error, it uses an exclamation mark to indicate the platform type \cite{interop-platform-notation}.}. With platform types, Kotlin relaxes its strict null safety rules, making their handling similar to Java. However, this increases the risk of NullPointerExceptions.
-To see how we can use this in practice, we have extended the previously introduced Java Salesman class with the following method:
+To address this, Kotlin introduces \textit{platform types} for objects created through Java code. If a Java type does not have a direct Kotlin equivalent, as is the case with most Java types, the compiler assigns it a platform type, which is non-denotable. \cite{interop-null-safety}. This means we cannot explicitly declare or write this type as we do with nullable types using a question mark\footnote{When the compiler needs to report a type-related error, it uses an exclamation mark to indicate the platform type \cite{interop-platform-notation}.}. With platform types, Kotlin relaxes its strict null safety rules, making their handling similar to Java. However, this increases the risk of NullPointerExceptions.
+To demonstrate how this can be used in practice, the previously introduced Java Salesman class has been extended with the following method:
 \begin{lstlisting}[language=Java]
 public static List<Salesman> createList() {
   List<Salesman>  list = new ArrayList<>();
@@ -291,7 +288,7 @@ public static List<Salesman> createList() {
   return list;
 }
 \end{lstlisting}
-If we access this method through Kotlin, we get the List containing the two Elements created in Java. Since both Objects are created in Java and could be null, they are assigned the platform type, thus the developer can decide if the variable should be nullable or non-nullable.
+If we access this method through Kotlin, we get the List containing the two Elements created in Java. Since both objects are created in Java and could be null, they are assigned the platform type, thus the developer can decide if the variable should be nullable or non-nullable.
 \begin{lstlisting}[language=Kotlin]  
 val list = Salesman.createList()
 println(list::class.qualifiedName)
@@ -299,33 +296,31 @@ var item: Salesman = list[0]
 var nullableItem: Salesman? = list[1]
 println(item.name) // allowed but would throw NPE
 \end{lstlisting}
-If we set the type to non-nullable but the object is actually null, attempting to access its members will result in a NullPointerException, as shown above. Therefore, it is always safer to use nullable types.
+If the type is set to non-nullable but the object is actually null, attempting to access its members will result in a NullPointerException, as shown above. Therefore, using nullable types is generally safer.
 
-Some Java compilers use annotations \cite{interop-nullability-annotations} to specify whether a value is nullable or non-nullable, such as JetBrains' @Nullable or @NotNull annotation \cite{JetBrains-annotations}. If these annotations are present in the Java code, the compiler assigns the corresponding nullable or non-nullable Kotlin type to the variable instead of a platform type. If we had a method returning a simple String with a @NotNull annotation in our Salesman class, the variable would actually assigned the non-nullable type instead of the platform type:
+Some Java compilers use annotations \cite{interop-nullability-annotations} to specify whether a value is nullable or non-nullable, such as JetBrains' @Nullable or @NotNull annotation \cite{JetBrains-annotations}. If these annotations are present in the Java code, the compiler assigns the corresponding nullable or non-nullable Kotlin type to the variable instead of a platform type. If we had a method returning a simple string with a @NotNull annotation in our Salesman class, the variable would actually assigned the non-nullable type instead of the platform type:
 \begin{lstlisting}[language=Java]
-public static @NotNull String getString() {
-  return "Not null";
-}
+public static @NotNull String getString() { return "Not null"; }
 \end{lstlisting}
 \begin{lstlisting}[language=Kotlin]
 val str: String = Salesman.getString() // non-nullable type
 \end{lstlisting}
 
-\subsubsection{Java arrays in Kotlin}
-In Java, arrays of primitive types can be used to achieve better performance, as they avoid the overhead associated with objects. Kotlin prohibits the direct use of primitive arrays but provides specialized classes for each primitive type instead \cite{interop-arrays}. The compiler optimizes the code and uses primitive arrays whenever possible. For example, Java's 'int[]' corresponds to Kotlin's 'IntArray'. These classes compile down to actual primitive arrays to minimize object overhead.
+\subsubsection{Java arrays in Kotlin}function
+In Java, arrays of primitive types can be used to achieve better performance, as they avoid the overhead associated with objects. Kotlin prohibits the direct use of primitive arrays but provides specialized classes for each primitive type instead \cite{interop-arrays}. The compiler optimizes the code and uses primitive arrays whenever possible. For example, Java's \texttt{int[]} corresponds to Kotlin's \texttt{IntArray}. These classes compile down to actual primitive arrays to minimize object overhead.
 
 Let's assume we have a function in Java that requires a primitive array:
 \begin{lstlisting}[language=Java]
 public static void takeArray(int[] array) { ... }
 \end{lstlisting}
-To call this function from Kotlin without unnecessary boxing, we should use intArrayOf() instead of arrayOf(). This ensures that the array compiles down to Java's 'int[]', avoiding the overhead of boxed Integer objects. Even in for loops, the Kotlin compiler optimizes iteration over primitive arrays, ensuring that no iterator is created. This results in significant performance improvements compared to iterating over an Array<Int>, which would involve additional function calls and object overhead.
+To call this function from Kotlin without unnecessary boxing, we should use \texttt{intArrayOf()} instead of \texttt{arrayOf()}. This ensures that the array compiles down to Java's \texttt{int[]}, avoiding the overhead of boxed Integer objects. Even in for loops, the Kotlin compiler optimizes iteration over primitive arrays, ensuring that no iterator is created \cite{interop-arrays}. This results in significant performance improvements compared to iterating over an \texttt{Array<Int>}, which would involve additional function calls and object overhead.
 \begin{lstlisting}[language=Kotlin]
 var array: IntArray = intArrayOf(1, 2, 3)
 takeArray(array) // passes int[] to Java function
 for (i in array.indices) // no iterator created
     println(array[i]) // no calls to Array's get() or set()
 \end{lstlisting}
-
+% Ab hier besser streichen, vllt in einem satz erwähnen, dass es das gibt
 In Java, arrays are covariant, meaning an array of a subtype can be assigned to an array of its superclass. This is allowed at compile time, but Java enforces type safety at runtime. If an instance of a type that differs from the array's original type is assigned to it, an ArrayStoreException will be thrown. This happens because mixing different types in the array would break type safety. To counteract this problem, Kotlin simply dose not allow this, thus there arrays are invariant \cite{interop-arrays}. However there is an exception when you need to parse an array to Java, it is allowed for platform types, because Java treates arrays as covariant. If we had a method, that requires a Object array, we could parse a string array of platform type to it.
 \begin{lstlisting}[language=Java]
 public static void takeArray(Object[] array) { ... }
@@ -336,7 +331,7 @@ takeArray(array) // array is treated as platform type
 \end{lstlisting}
 
 \subsubsection{Interference between Kotlin keywords and Java identifiers}
-There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java, therefore they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with it using the backtick (`) character \cite{interop-escaping-identifiers}. In the following example, there is a method of a Java class called \textit{in} we want to access:
+There are a few keywords, such as \textit{in} or \textit{is}, that do not exist in Java, therefore they are valid names for variables or similar identifiers. If there is Java code using those keywords, it is still possible to interact with it using the backtick (\texttt{`}) character \cite{interop-escaping-identifiers}. The following example demonstrates this by accessing a Java method named \textit{in} from Kotlin.
 \begin{lstlisting}[language=Kotlin]
 var salesman = Salesman("freddy", 1300)
 salesman.`in`(list)
@@ -346,7 +341,7 @@ salesman.`in`(list)
 Just as Kotlin can create instances of Java classes, Java can also create and use instances of Kotlin classes \cite{interop-java}.
 
 \subsubsection{Kotlin properties in Java}
-If you want to access a Kotlin class from Java, you need to use Java syntax, so it is not possible to access Kotlin properties directly as you would in Kotlin. To bridge this gap, Kotlin properties are compiled into a private field, along with corresponding getter and setter methods \cite{interop-properties}. However if the Kotlin property is final, no setter method will be created. For example, consider a simple property in the SalesPerson class:
+Kotlin properties cannot be accessed directly from Java and must be used via standard Java syntax. Therefore, the properties are compiled into a private field, along with corresponding getter and setter methods \cite{interop-properties}. However if the Kotlin property is final, no setter method will be created. For example, consider a simple property in the SalesPerson class:
 \begin{lstlisting}[language=Kotlin]
 var name: String
 \end{lstlisting}
@@ -356,29 +351,27 @@ private String name;
 public String getName() { return name; }
 public void setName(String name) { this.name = name; }
 \end{lstlisting}
-If the getter or setter of a Kotlin property is declared with restricted visibility, such as private or protected, the Kotlin compiler will respect this when generating the corresponding Java methods, thereby limiting their accessibility.
+If the getter or setter of a Kotlin property is declared with restricted visibility, such as private or protected, the Kotlin compiler will preserves this visibility when generating the corresponding Java methods.
 
-\subsubsection{Null safety}
-If a public Kotlin function is called from Java, it is possible to pass any object to that function, even if the type is non-nullable in Kotlin. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null \cite{interop-java-null-safety}.
+\subsubsection{Null safety} % change this headline
+If a public Kotlin function with a non-nullable parameter is called from Java, a nullable value can be passed to this function from Java. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null \cite{interop-java-null-safety}.
 
 \subsubsection{Package-level function}
-Package-level functions are functions in a class, wich are defined outside of classes, thus are not dependent on an object. Thouse functions including extension functions will be converted to a static methods inside of a new Java class \cite{interop-package-level-func} named by the Kotlin file the function oriented from, because in Java methods outside an class are not prohibited. For example, we have a Kotlin file with the name 'SalesPerson.kt' inside of the package 'org.company' with the follwing package-level method:
+Package-level functions are functions, wich are defined outside of classes, thus are not dependent on an object. Thouse functions including extension functions will be converted to a static methods inside of a new Java class \cite{interop-package-level-func} named by the Kotlin file the function oriented from, because in Java methods outside an class are prohibited. For example, consider a Kotlin file named \texttt{SalesPerson.kt} in the package \texttt{org.company}, containing the following package-level method:
 \begin{lstlisting}[language=Kotlin]
 // SalesPerson.kt
 package org.company
-
 fun createDefault(name: String) { ... }
-
 class SalesPerson(var name: String, var salary: Int) { ... }
 \end{lstlisting}
-The class will be accessable just like normal, but the createDefault function is in a seperate class called 'SalesPersonKt.class':
+The class will be accessable just like normal, but the createDefault function is in a seperate class called \texttt{SalesPersonKt.class}:
 \begin{lstlisting}[language=Java]
 // create instance as expected
 new org.company.SalesPerson("Carl", 4200);
 // createDefault in other class
 org.company.SalesPersonKt.createDefault("Carl");
 \end{lstlisting}
-We can choose a name for the generated class with the '@file:JvmName("Example")' annotation inside the Kotlin file:
+The name of the generated class can be set using the \texttt{@file:JvmName("Example")} annotation in the Kotlin file:
 \begin{lstlisting}[language=Kotlin]
 // SalesPerson.kt
 @file:JvmName("Example")
@@ -389,10 +382,10 @@ package org.company
 // createDefault in Example
 org.company.Example.createDefault("Carl");
 \end{lstlisting}
-If multiple classes use the same name, the compiler would normally throw an error. However, by adding the @file:JvmMultifileClass annotation to all of them, all package-level functions with the same class name are combined into a single generated class \cite{interop-package-level-func}.
+If multiple classes use the same name, the compiler would normally throw an error. However, by adding the \texttt{@file:JvmMultifileClass} annotation to all of them, all package-level functions with the same class name are combined into a single generated class \cite{interop-package-level-func}.
 
 \subsubsection{Instance fields}
-In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin. However, if the class is accessed from Java, we can add the @JvmField annotation before our property to make it accessible in Java through dot notation \cite{interop-instance-fields}. The field will have the same visibility as the property in Kotlin \footnote{This does not apply to private properties.}.
+In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin to maintain code integrity. However, we can add the @JvmField annotation before our property to make it accessible in Java through dot notation \cite{interop-instance-fields}. The field will have the same visibility as the property in Kotlin \footnote{This does not apply to private properties.}.
 This example demonstrates how to use the annotation.
 \begin{lstlisting}[language=Kotlin]
 class SalesPerson (@JvmField var name:String) {}
@@ -404,10 +397,10 @@ System.out.println(person.name); // prints 'Carl'
 }
 \end{lstlisting}
 
-Functions in companion or named objects can also be marked as static for Java interoperability using the same annotation \cite{interop-static-fields}; however, this topic is beyond the scope of this paper.
+Functions in companion or named objects can be marked as static to be accessed in Java using the same annotation \cite{interop-static-fields}, though this topic is beyond the scope of this paper.
 
 \subsection{Interoperability with JavaScript}
-Besides interoperability with Java, Kotlin also supports interoperability with JavaScript \cite{interopjs}, a scripting language that runs in both the browser and on Node.js servers. To achieve this, you need to create a Kotlin/JS project and compile it with Gradle, a build automation tool commonly used in the Kotlin and Java ecosystems \cite{gradle}, into .js files, which can then be used like regular JavaScript files. Unlike Kotlin/Java interoperability, a Kotlin/JS project requires more setup due to the Gradle build system and the specialized Kotlin-to-JavaScript compiler. However, the Kotlin documentation \cite{interopjs} provides a step-by-step setup guide. With this setup, it is possible to use JavaScript libraries or the DOM API \cite{interopjs-dom} for web development using the familiar Kotlin syntax, thus making it a valid alternative to plain JavaScript. Furthermore, Gradle provides features that improve the workflow and simplify the development process.
+Besides interoperability with Java, Kotlin also supports interoperability with JavaScript \cite{interopjs}, a scripting language that runs in both the browser and on Node.js servers. To achieve this, you need to create a Kotlin/JS project and compile it with Gradle, a build automation tool commonly used in the Kotlin and Java ecosystems \cite{gradle}, into \texttt{.js} files, which can then be used like regular JavaScript files. Unlike Kotlin/Java interoperability, a Kotlin/JS project requires more setup due to the Gradle build system and the specialized Kotlin-to-JavaScript compiler. However, the Kotlin documentation \cite{interopjs} provides a step-by-step setup guide. With this setup, it is possible to use JavaScript libraries or the DOM API \cite{interopjs-dom} for web development using the familiar Kotlin syntax, thus making it a valid alternative to plain JavaScript. Furthermore, Gradle provides features that improve the workflow and simplify the development process.
 
 
 \section{Multiplatform development}
@@ -486,6 +479,7 @@ These features, combined with its modern design and developer-friendly syntax, m
     \begin{itemize}
       \item Add citations
       \item Fix formatting (especially indentation in the code snippets)
+      \item check reference title, some are not the same as in the website
     \end{itemize}
     
   \subsection{Basic Syntax}
