@@ -200,7 +200,7 @@ In Java, null safety checks would typically appear as follows:
   }
 \end{lstlisting}
 
-This approach is also available in Kotlin, where checking for a null value in an if statement automatically casts the type to a non-nullable type within the scope of the statement~\cite{nullsafety-if-condition}.\footnote{This is achieved using smart casts, a powerful feature of Kotlin that is out of scope for this paper.}
+This approach is also available in Kotlin, where checking for a null value in an if statement automatically casts the type to a non-nullable type within the scope of the statement~\cite{nullsafety-if-condition}.\footnote{This feature is known as smart casting, where the compiler automatically casts the variable to a more specific type when it can guarantee the safety of the cast.}
 However, Kotlin provides convenient shortcuts for handling nullable types by using Null safety operators.
 
 \subsubsection{Safe call operator}
@@ -520,16 +520,12 @@ Another operator is the \textit{not-null assertion operator}, which consists of 
 
 
 \section{Conclusion}
-  \begin{itemize}
-    \item concise syntax
-    \item improved classes
-    \item new features like null safety
-    \item interoperability with java and JS
-    \item Multiplatform development -> especially Android
-    \item Also interessting: functional programming in kotlin
-    \item Also interessting: ...
-  \end{itemize}
+Kotlin is a modern programming language that builds upon Java's foundation, offering a concise syntax, improved class structures, and innovative features such as null safety. Its seamless interoperability with Java and JavaScript makes it an excellent choice for projects requiring integration with existing codebases. Kotlin's support for multiplatform development, particularly in Android, positions it as a powerful tool for developers seeking to create cross-platform applications.
 
+While this paper provides an introduction to Kotlin, it only scratches the surface of its capabilities. Advanced features such as smart casts, delegation, and destructuring declarations further enhance Kotlin's appeal.
+Kotlin also embraces functional programming paradigms, inspired by languages like Haskell. It supports higher-order functions, lambda expressions, and immutability, enabling developers to write expressive and concise code. These features allow developers to adopt a functional style while still benefiting from Kotlin's object-oriented capabilities.
+
+These features, combined with its modern design and developer-friendly syntax, make Kotlin a compelling choice for both new and experienced developers.
 
 \newpage
 \printbibliography[]
@@ -557,7 +553,6 @@ Another operator is the \textit{not-null assertion operator}, which consists of 
     
   \subsection{Basic Syntax}
     \begin{itemize}
-      \item Methods
       \item Example for Top-Level Functions
       \item Explain the absence of static methods (out of scope for introduction?) (use \texttt{@JvmStatic} annotation for interoperability)
     \end{itemize}
@@ -570,7 +565,6 @@ Another operator is the \textit{not-null assertion operator}, which consists of 
 
   \subsection{New Features}
     \begin{itemize}
-      \item Properties (Getters, Setters)
       \item Extension functions (not as important)
       \item This expression (interesting, also not too long)
       \item Destructuring declarations
