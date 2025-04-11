@@ -17,7 +17,7 @@
 \maketitle
 
 \begin{abstract}
-This paper introduces Kotlin, a statically typed, object-oriented programming language designed to be fully interoperable with Java and the Java Virtual Machine (JVM). It focuses on Kotlin's concise syntax, advanced features such as null safety, and extensive platform support enabled by its multiplatform development capability. These features make Kotlin a modern and powerful programming language.
+This paper introduces Kotlin, a statically typed, object-oriented programming language designed to be fully interoperable with Java and the Java Virtual Machine (JVM). It focuses on Kotlin's concise syntax, advanced features such as null safety, and extensive multiplatform development capability. These features make Kotlin a modern and powerful programming language.
 \end{abstract}
 
 \section{Introduction}
@@ -27,7 +27,7 @@ This paper presents an overview of Kotlin’s concise syntax and highlights key 
 \section{Basic Syntax}
 This section covers the basic syntax of Kotlin and highlights its differences compared to Java. The goal is to provide a concise overview focused on the most important distinctions.
 
-\subsection{Program Entry Point and Method Declaration}
+\subsection{Program Entry Point and Method Declaration}\label{sec:program-entry-point}
 The \textit{main} method is the entry point of any Java or Kotlin program~\cite{program-entry-point}. Java enforces object-oriented programming, thus requiring the \textit{main} method to be declared within a class. For the \textit{main} method to be directly executable, it must be \textit{public} and \textit{static},\footnote{If the \textit{main} method were non-static, it would require an instance of the class before it could be run, leading to a circular dependency.} as shown below:
 
 \begin{lstlisting}[language=Java, title={Java main method}]
@@ -38,7 +38,7 @@ public class Main {
 }
 \end{lstlisting}
 
-Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions. These top-level functions can be called directly without the need to instantiate a class~\cite{kotlin-functions-scope}, functioning similarly to static methods in Java,\footnote{When compiling Kotlin to Java bytecode, top-level functions are compiled as static methods in a class named after the file.} but without an explicit class affiliation. Kotlin further reduces boilerplate by having \textit{public} as the default visibility~\cite{visibility-modifiers} and allowing the \textit{main} method to omit arguments passed as an array~\cite{program-entry-point}. Also, semicolons are optional, and Kotlin introduces the \textit{fun} keyword for defining functions~\cite{functions}, resulting in a concise and readable syntax, as shown here:
+Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions. These top-level functions can be called directly without the need to instantiate a class~\cite{kotlin-functions-scope}, functioning similarly to static methods in Java,\footnote{When compiling Kotlin to Java bytecode, top-level functions are compiled as static methods in a class named after the file.\ (\autoref{sec:package-level-func})} but without an explicit class affiliation. Kotlin further reduces boilerplate by having \textit{public} as the default visibility~\cite{visibility-modifiers} and allowing the \textit{main} method to omit arguments passed as an array~\cite{program-entry-point}. Also, semicolons are optional, and Kotlin introduces the \textit{fun} keyword for defining functions~\cite{functions}, resulting in a concise and readable syntax, as shown here:
 
 \begin{lstlisting}[language=Kotlin, title={Kotlin main method}]
 fun main() {
@@ -46,7 +46,7 @@ fun main() {
 }
 \end{lstlisting}
 
-\subsection{Variable Declaration}
+\subsection{Variable Declaration}\label{sec:variables}
 Variables in Kotlin are declared using the keyword \textit{val} for immutable variables or \textit{var} for mutable variables~\cite{variables}, similar to Java's \textit{final} and non-final variables. The type is declared after the variable name, separated by a colon:
 
 \begin{lstlisting}[language=Java, title={Java data types}]
@@ -71,7 +71,7 @@ var age = 42 // type is inferred as Int
 \end{lstlisting}
 
 \subsection{Return Type Declaration}
-Similar to variable declaration, a method's return type is declared after the method name and parameters, separated by a colon~\cite{functions}. The equivalent of \textit{void} in Java is \textit{Unit} in Kotlin~\cite{builtin-types-unit,kotlin-stdlib-unit}, which can be omitted if no value is returned.
+Similar to variable declaration (\autoref{sec:variables}), a method's return type is declared after the method name and parameters, separated by a colon~\cite{functions}. The equivalent of \textit{void} in Java is \textit{Unit} in Kotlin~\cite{builtin-types-unit,kotlin-stdlib-unit}, which can be omitted if no value is returned.
 
 \begin{lstlisting}[language=Java, title={Java method declaration}]
 public int add(int a, int b) {
@@ -151,6 +151,8 @@ val commission: Double
   get() = salesVolume * commissionRate
 \end{lstlisting}
 
+\subsection{Extension Functions}\label{sec:extension-functions}
+Extension functions enable the declaration of new methods for a class, without modifying the class's source code.
 \section{String Interpolation}
 In Java, variables are typically formatted into strings using the \textit{String.format()} method or by concatenation with the \texttt{+} operator. Kotlin introduces a more readable mechanism called string interpolation~\cite{string-concatenation}, allowing variables and expressions to be directly embedded within a string by prefixing them with a \texttt{\$} sign, and enclosing expressions in curly braces:
 
@@ -228,9 +230,12 @@ var b: String = possiblyNull!!
 \end{lstlisting}
 
 \subsection{Nullable Receiver}
-We have already covered extension functions in the chapter on Classes. As a brief reminder, extension functions are external additions to a class that introduce new methods, which can be called on an instance of the class using dot notation.
+Nullable receivers refer to extension functions (\autoref{sec:extension-functions}) that can be called on nullable objects~\cite{nullsafety-nullable-receiver}. 
+A normal extension function cannot be called on a nullable type, as the compiler cannot guarantee that the object is not null.
+However, it is possible to define an extension function that can be called on nullable types by implementing a so-called \textit{nullable receiver}, which is indicated by a question mark after the class name in the method declaration. 
+By handling the null case within the method itself, the method remains accessible even if the object is null.
+The following example demonstrates how to define and properly use an extension function with a nullable receiver type.
 
-Since extension functions are not actually part of the class itself but merely an extension that can be called using dot notation, it is possible for the object to be null while still being able to call the extension method \cite{nullsafety-nullable-receiver}. To achieve this, the function must have a so-called \textit{nullable receiver} type, which is indicated by a question mark after the class the extension function is defined for. As a result, the method remains accessible even if the object is null. This allows values of a nullable type to be accessed without checking for null beforehand, as the null case is handled within the method itself. The following example demonstrates how to define and properly use an extension function with a nullable receiver type.
 \begin{lstlisting}[language=Kotlin,title={Usage of an extension function}]
 // define the extension function
 fun SalesPeron?.print() {
@@ -360,8 +365,8 @@ If the getter or setter of a Kotlin property is declared with restricted visibil
 \subsubsection{Null safety} % change this headline
 If a public Kotlin function with a non-nullable parameter is called from Java, a nullable value can be passed to this function from Java. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null \cite{interop-java-null-safety}.
 
-\subsubsection{Package-level function}
-Package-level functions are functions, wich are defined outside of classes, thus are not dependent on an object. Thouse functions including extension functions will be converted to a static methods inside of a new Java class \cite{interop-package-level-func} named by the Kotlin file the function oriented from, because in Java methods outside an class are prohibited. For example, consider a Kotlin file named \texttt{SalesPerson.kt} in the package \texttt{org.company}, containing the following package-level method:
+\subsubsection{Package-level function}\label{sec:package-level-func}
+Package-level functions are top-level functions (\autoref{sec:program-entry-point}) which are defined inside a package. These functions including extension functions will be converted to static methods inside a new Java class~\cite{interop-package-level-func} named by the Kotlin file the function oriented from, because in Java methods outside a class are prohibited. For example, consider a Kotlin file named \texttt{SalesPerson.kt} in the package \texttt{org.company}, containing the following package-level method:
 \begin{lstlisting}[language=Kotlin]
 // SalesPerson.kt
 package org.company
