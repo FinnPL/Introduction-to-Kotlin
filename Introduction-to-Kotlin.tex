@@ -1,7 +1,7 @@
 \documentclass[a4paper,11pt]{article}
 \input{config.tex}
 
-\title{\huge \bfseries Introduction to Kotlin}
+\title{\vspace{-0cm}\huge \bfseries Introduction to Kotlin}
 \author{
   Christian Konersmann, Finn Paul Lippok, Paul Lukas\\[1ex]
   RWTH Aachen University, Aachen, Germany\\
@@ -361,7 +361,7 @@ takeArray(array) // array is treated as platform type
 Just as Kotlin can create instances of Java classes, Java can also create and use instances of Kotlin classes~\cite{interop-java}.
 
 \subsubsection{Kotlin properties in Java}
-Kotlin properties cannot be accessed directly from Java and must be used via standard Java syntax. Therefore, the properties are compiled into a private field, along with corresponding getter and setter methods~\cite{interop-properties}. However, if the Kotlin property is final, no setter method will be created. For example, consider a simple property in the SalesPerson class:
+Kotlin properties cannot be directly accessed from Java, and must therefore be compiled into private fields, along with their corresponding getter and setter methods~\cite{interop-properties}. However, if the Kotlin property is final, no setter method will be created. For example, consider this simple property in the SalesPerson class:
 \begin{lstlisting}[language=Kotlin]
 var name: String
 \end{lstlisting}
@@ -371,13 +371,13 @@ private String name;
 public String getName() { return name; }
 public void setName(String name) { this.name = name; }
 \end{lstlisting}
-If the getter or setter of a Kotlin property is declared with restricted visibility, such as private or protected, the Kotlin compiler will preserve this visibility when generating the corresponding Java methods.
+The Kotlin compiler will preserve the restricted visibility of setters and getters when generating the corresponding Java methods.
 
 \subsubsection{Null safety} % change this headline
 If a public Kotlin function with a non-nullable parameter is called from Java, a nullable value can be passed to this function from Java. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null~\cite{interop-java-null-safety}.
 
 \subsubsection{Package-level function}\label{sec:package-level-func}
-Package-level functions are top-level functions (\autoref{sec:program-entry-point}) which are defined inside a package. These functions including extension functions will be converted to static methods inside a new Java class~\cite{interop-package-level-func} named by the Kotlin file the function oriented from, because in Java methods outside a class are prohibited. For example, consider a Kotlin file named \texttt{SalesPerson.kt} in the package \texttt{org.company}, containing the following package-level method:
+Package-level functions are top-level functions (\autoref{sec:program-entry-point}) which are defined inside a package. These functions including extension functions will be converted to static methods inside a new Java class~\cite{interop-package-level-func} named after the Kotlin file the function oriented from, because methods outside a class are prohibited in Java. For example, consider a Kotlin file named \texttt{SalesPerson.kt} in the package \texttt{org.company}, containing the following package-level method:
 \begin{lstlisting}[language=Kotlin]
 // SalesPerson.kt
 package org.company
