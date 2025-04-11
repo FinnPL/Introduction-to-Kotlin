@@ -60,7 +60,10 @@ var age: Int = 42
 \end{lstlisting}
 
 \subsection{Type Inference}
-Kotlin supports type inference, allowing the compiler to infer a variable's type based on its initializer or usage~\cite{type-inference}. However, a detailed discussion of its internal workings is out of scope for this paper.
+Kotlin supports type inference, allowing the compiler to infer a variable's type based on its initializer or usage~\cite{type-inference}.
+Unlike many functional programming languages such as Haskell, which rely on unification for type inference, Kotlin uses a different approach called constraint solving~\cite{type-constraints}.
+This approach allows for type inference with subtyping.
+However, a detailed discussion of its internal workings is out of scope for this paper.
 
 \begin{lstlisting}[language=Kotlin]
 val name = "John Doe" // type is inferred as String
