@@ -405,7 +405,7 @@ Besides interoperability with Java, Kotlin also supports interoperability with J
 
 
 \section{Multiplatform development}
-Multiplatform development is a key benefit in Kotlin. By reusing the same code across multibile platforms we can save alot of time writing the code and can concentrate more on the differences between the platforms
+Multiplatform development is a key benefit in Kotlin. By reusing the same code across multibile platforms we can save alot of time writing the code and can concentrate more on the differences between the platforms.
 
 \subsection{Hierarchical project structure}
 The Hierarchical project structure is best understood if we think of the source codes as objects with parent- and child-objects. These Objects have properties like the source code and targets. Targets are platforms to which Kotlin should be able to complie the code to and can also be tought of as tags. For example if we want to write an app for apple and androids. The common code used in bothe instances would be in the parent source which is called the commonMain and to which we then add the apple and android Tag to.  So we could have the parent object commonMain which has the child objects andoridMain and appleMain in which we only have the specific Code for apple and android products and only have the corresponding tag. Further down the hierarchie we may differentiate between MacOS and IOS and even further down we could differentiate between different models. But as we declare more specific end targets we also need to add these specific tags to every parent object that is connected to the target
