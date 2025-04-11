@@ -151,14 +151,29 @@ val commission: Double
   get() = salesVolume * commissionRate
 \end{lstlisting}
 
-\subsection{Extension Functions}\label{sec:extension-functions}
-Extension functions enable the declaration of new methods for a class, without modifying the class's source code.
 \section{String Interpolation}
 In Java, variables are typically formatted into strings using the \textit{String.format()} method or by concatenation with the \texttt{+} operator. Kotlin introduces a more readable mechanism called string interpolation~\cite{string-concatenation}, allowing variables and expressions to be directly embedded within a string by prefixing them with a \texttt{\$} sign, and enclosing expressions in curly braces:
 
 \begin{lstlisting}[language=Kotlin, title={String Interpolation}]
 fun printSalesPerson() {
   println("Name: $name, Sales in USD: ${salesVolume * 1.2}")
+}
+\end{lstlisting}
+
+\section{Extension Functions}\label{sec:extension-functions}
+Extension functions enable the declaration of new methods for a class without modifying the class's source code.
+Data encapsulation remains intact, as extension functions can only access the public members of the class.
+This feature is particularly useful when adding utility methods to existing classes you cannot modify, such as third-party libraries:
+
+\begin{lstlisting}[language=Kotlin, title={Extension Function}]
+// Extension function outside of the class
+fun SalesPerson.print() {
+  println("$name: $salesVolume sold")
+}
+
+fun main() {
+  val carl = SalesPerson("Carl", 1200)
+  carl.print() // Calling the extension function
 }
 \end{lstlisting}
 
