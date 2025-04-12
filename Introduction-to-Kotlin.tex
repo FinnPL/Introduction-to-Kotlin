@@ -38,7 +38,7 @@ public class Main {
 }
 \end{lstlisting}
 
-Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions. These top-level functions can be called directly without the need to instantiate a class~\cite{kotlin-functions-scope}, functioning similarly to static methods in Java,\footnote{When compiling Kotlin to Java bytecode, top-level functions are compiled as static methods in a class named after the file.\ (\autoref{sec:package-level-func})} but without an explicit class affiliation. Kotlin further reduces boilerplate by having \textit{public} as the default visibility~\cite{visibility-modifiers} and allowing the \textit{main} method to omit arguments passed as an array~\cite{program-entry-point}. Also, semicolons are optional, and Kotlin introduces the \textit{fun} keyword for defining functions~\cite{functions}, resulting in a concise and readable syntax, as shown here:
+Kotlin, on the other hand, does not require methods to be declared inside a class, allowing for a more functional programming style with top-level functions. These top-level functions can be called directly without the need to instantiate a class~\cite{kotlin-functions-scope}, functioning similarly to static methods in Java,\footnote{When compiling Kotlin to Java bytecode, top-level functions are compiled as static methods in a class named after the file.} but without an explicit class affiliation. Kotlin further reduces boilerplate by having \textit{public} as the default visibility~\cite{visibility-modifiers} and allowing the \textit{main} method to omit arguments passed as an array~\cite{program-entry-point}. Also, semicolons are optional, and Kotlin introduces the \textit{fun} keyword for defining functions~\cite{functions}, resulting in a concise and readable syntax, as shown here:
 
 \begin{lstlisting}[language=Kotlin, title={Kotlin main method}]
 fun main() {
@@ -376,34 +376,6 @@ The Kotlin compiler will preserve the restricted visibility of setters and gette
 \subsubsection{Null safety} % change this headline
 If a public Kotlin function with a non-nullable parameter is called from Java, a nullable value can be passed to this function from Java. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null~\cite{interop-java-null-safety}.
 
-\subsubsection{Package-level function}\label{sec:package-level-func}
-Package-level functions are top-level functions (\autoref{sec:program-entry-point}) which are defined inside a package. These functions including extension functions will be converted to static methods inside a new Java class~\cite{interop-package-level-func} named after the Kotlin file the function oriented from, because methods outside a class are prohibited in Java. For example, consider a Kotlin file named \texttt{SalesPerson.kt} in the package \texttt{org.company}, containing the following package-level method:
-\begin{lstlisting}[language=Kotlin]
-// SalesPerson.kt
-package org.company
-fun createDefault(name: String) { ... }
-class SalesPerson(var name: String, var salary: Int) { ... }
-\end{lstlisting}
-The class will be accessible just like normal, but the createDefault function is in a separate class called \texttt{SalesPersonKt.class}:
-\begin{lstlisting}[language=Java]
-// create instance as expected
-new org.company.SalesPerson("Carl", 4200);
-// createDefault in other class
-org.company.SalesPersonKt.createDefault("Carl");
-\end{lstlisting}
-The name of the generated class can be set using the \texttt{@file:JvmName("Example")} annotation in the Kotlin file:
-\begin{lstlisting}[language=Kotlin]
-// SalesPerson.kt
-@file:JvmName("Example")
-package org.company
-...
-\end{lstlisting}
-\begin{lstlisting}[language=Java]
-// createDefault in Example
-org.company.Example.createDefault("Carl");
-\end{lstlisting}
-If multiple classes use the same name, the compiler would normally throw an error. However, by adding the \texttt{@file:JvmMultifileClass} annotation to all of them, all package-level functions with the same class name are combined into a single generated class~\cite{interop-package-level-func}.
-
 \subsubsection{Instance fields}
 In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin to maintain code integrity. However, we can add the @JvmField annotation before our property to make it accessible in Java through dot notation~\cite{interop-instance-fields}. The field will have the same visibility as the property in Kotlin\footnote{This does not apply to private properties.}.
 This example demonstrates how to use the annotation.
@@ -423,25 +395,9 @@ Functions in companion or named objects can be marked as static to be accessed i
 Besides interoperability with Java, Kotlin also supports interoperability with JavaScript~\cite{interopjs}, a scripting language that runs in both the browser and on Node.js servers. To achieve this, you need to create a Kotlin/JS project and compile it with Gradle, a build automation tool commonly used in the Kotlin and Java ecosystems~\cite{gradle}, into \texttt{.js} files, which can then be used like regular JavaScript files. Unlike Kotlin/Java interoperability, a Kotlin/JS project requires more setup due to the Gradle build system and the specialized Kotlin-to-JavaScript compiler. However, the Kotlin documentation~\cite{interopjs} provides a step-by-step setup guide. With this setup, it is possible to use JavaScript libraries or the DOM API~\cite{interopjs-dom} for web development using the familiar Kotlin syntax, thus making it a valid alternative to plain JavaScript. Furthermore, Gradle provides features that improve the workflow and simplify the development process.
 
 \section{Multiplatform development}
-Kotlin can be compiled not only for the JVM but also to native binaries, eliminating the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where running a large virtual machine is not possible. Besides Java, Kotlin is also interoperable C and Swift/Objective-C and can be compiled to pure JavaScript or WebAssembly. Because Kotlin can be compiled to multiple targets, it is well suited for multiplatform development. To further simplify the process of writing code for multiple applications across various platforms, Kotlin offers a hierarchical project structure. In this structure, a common codebase can be defined and shared across subprojects for specific platforms. Each subproject can then use this shared codebase alongside its required platform-specific libraries, thus enhancing code maintainability and reducing duplication.
+Kotlin can be compiled not only for the JVM but also into native binaries, removing the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where the overhead of running a virtual machine is impractical. In addition to Java, Kotlin is also interoperable with C as well as Swift/Objective-C and can be compiled to pure JavaScript or WebAssembly. Because Kotlin can be compiled to multiple targets, it is well suited for multiplatform development. To further simplify the process of writing code for multiple applications across various platforms, Kotlin offers a hierarchical project structure. This structure allows the definition of a shared codebase that can be reused across platform-specific subprojects. Each subproject can integrate this shared code with its platform-specific libraries, improving code maintainability and minimizing redundancy.
 
-With Kotlin's Multiplatform programming support, you can develop applications for servers, desktop, web, and mobile, making it a key feature of the Kotlin programming language. 
-% Ab hier würde ich den rest einfach weg cutten, und den platz für android nutzen
-
-%and prevent bugs caused by unupdated code for one platform
-%Multiplatform development is a key benefit in Kotlin. By reusing the same code across multibile platforms we can save alot of time writing the code and can concentrate more on the differences between the platforms.
-
-\subsection{Hierarchical project structure}
-To simplify the multiplatform development process, Kotlin features a powerful tool called Hierarchical project Structers.
-Kotlin’s hierarchical project structure works like a tree of objects with parent-child relationships. Each object (called a source set) contains code and targets also called tags that define which platforms the code should compile to.
-For example, if building an app for both Android and Apple, shared code goes into commonMain. Then, platform-specific code goes into androidMain and appleMain, which are child source sets with their own platform tags.
-You can go even deeper, splitting appleMain into iOSMain and macOSMain. These middle layers like appleMain are called intermediate source sets, sitting between commonMain and final targets.
-When compiling (e.g., for a new iPhone), Kotlin traces the tags through the hierarchy compiling the code togethere along the way. If a required tag is missing or misplaced, the compiler can’t link everything together, and the build will fail.
-
-\subsection{Expected and actual declarations}
-
-Expected and actual declarations in Kotlin work like abstract functions. You use expect in shared (commonMain) code to declare something that must be defined later in a platform-specific source.
-Then, in the platform-specific code, you provide the real implementation using the actual keyword. This allows common code to reference platform-specific implementations cleanly.
+Leveraging Kotlin's Multiplatform programming support, you can develop applications for servers, desktop, web, and mobile, making it a key advantage of the Kotlin programming language. 
 
 \section{Android}
 This sections concentrates on the benefits Kotlin has in the Android enviorment not only the language itself but also Kotlin based Tools for Android %cut? -> and gives examples based on the salesperson example from New Language Constructs along the way.
