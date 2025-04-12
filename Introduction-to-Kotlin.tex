@@ -446,7 +446,7 @@ Then, in the platform-specific code, you provide the real implementation using t
 \section{Android}
 This sections concentrates on the benefits Kotlin has in the Android enviorment not only the language itself but also Kotlin based Tools for Android %cut? -> and gives examples based on the salesperson example from New Language Constructs along the way.
 
-\subsection{Jetpack Compose}
+\subsection{Jetpack Compose}\label{sec:jetpack}
   %TODO(
   %Kotlin based Ui Tool Kit -
   %JC automaticly updates Ui hierarchy-
@@ -460,8 +460,15 @@ All UI functions must use the @Composable annotation so the compiler knows to tr
 \subsection{Android KTX}
 Android KTX is a collection of Kotlin-friendly libraries that sit on top of the existing Android APIs. It doesn’t replace the Android SDK, but simplifies and enhances it to work better with Kotlin by for example using Coroutines instead of Threads.
 
+\subsection{Coroutine}
+Imagine we want an app that shows a salesperson’s live sales. Checking this every second would freeze the app unless we use multithreading, this means splitting tasks across parallel threads, threads are subprocesses which can run independent from the main process, thus beeing able to freeze without stopping the main thread. This speeds things up and keeps the app responsive, though memory limits how many threads we can run.
 
+In Kotlin, we use coroutines instead of traditional threads. Coroutines are lightweight, easy to read, and far more memory-efficient than Java threads, so we can track thousands of salespeople without crashing the app.
+Kotlin runs multiple coroutines on a single thread by pausing one and switching to another, all within the same thread. This avoids the heavy context switching done by the OS with threads. If a coroutine runs too long without pausing, Kotlin must spin up new threads, which loses the performance benefits. To optimize even further, Kotlin reuses threads from internal pools (e.g., IO, Default, Main). The first coroutine starts a thread, but after that, existing threads are reused, making coroutine setup extremely fast.
 
+Coroutines work on all platforms but are especially useful in apps, which often run on resource-limited devices and handle frequent data transfers that pause execution. Their lightweight nature makes them ideal for this.
+On Android, features like lifecycleScope (from Jetpack (\autoref{sec:jetpack}) ) help manage coroutines by automatically canceling them when an activity is destroyed, preventing memory leaks.
+% means splitting your Hardware among multipile programms like multiple computers working at once
 \section{Conclusion}
 Kotlin is a modern programming language that offers a concise syntax, improved class structures, and innovative features such as null safety. Its seamless interoperability with Java makes it a great choice for projects integrating with existing codebases and libraries. Kotlin's support for multiplatform development, particularly in Android, establishes it as a powerful option for cross-platform development.
 
