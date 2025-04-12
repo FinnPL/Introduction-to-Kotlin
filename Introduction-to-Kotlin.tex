@@ -423,13 +423,12 @@ Functions in companion or named objects can be marked as static to be accessed i
 Besides interoperability with Java, Kotlin also supports interoperability with JavaScript~\cite{interopjs}, a scripting language that runs in both the browser and on Node.js servers. To achieve this, you need to create a Kotlin/JS project and compile it with Gradle, a build automation tool commonly used in the Kotlin and Java ecosystems~\cite{gradle}, into \texttt{.js} files, which can then be used like regular JavaScript files. Unlike Kotlin/Java interoperability, a Kotlin/JS project requires more setup due to the Gradle build system and the specialized Kotlin-to-JavaScript compiler. However, the Kotlin documentation~\cite{interopjs} provides a step-by-step setup guide. With this setup, it is possible to use JavaScript libraries or the DOM API~\cite{interopjs-dom} for web development using the familiar Kotlin syntax, thus making it a valid alternative to plain JavaScript. Furthermore, Gradle provides features that improve the workflow and simplify the development process.
 
 \section{Multiplatform development}
-Kotlin can be compiled not only for the JVM but also to native binaries, eliminating the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where running a large virtual machine is not possible. Furthermore, Kotlin is not only interoperable with Java but can also be compiled to pure JavaScript or WebAssembly, making it a viable option for web development as well. For performance-critical applications, Kotlin is also developing interoperability features for C and Objective-C.
-%All those platforms make it ...
-All those platforms make it complicated to track the code across them all and keep them uptodate with their different dependencies
+Kotlin can be compiled not only for the JVM but also to native binaries, eliminating the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where running a large virtual machine is not possible. Besides Java, Kotlin is also interoperable C and Swift/Objective-C and can be compiled to pure JavaScript or WebAssembly. Because Kotlin can be compiled to multiple targets, it is well suited for multiplatform development. To further simplify the process of writing code for multiple applications across various platforms, Kotlin offers a hierarchical project structure. In this structure, a common codebase can be defined and shared across subprojects for specific platforms. Each subproject can then use this shared codebase alongside its required platform-specific libraries, thus enhancing code maintainability and reducing duplication.
+
+With Kotlin's Multiplatform programming support, you can develop applications for servers, desktop, web, and mobile, making it a key feature of the Kotlin programming language. 
+% Ab hier würde ich den rest einfach weg cutten, und den platz für android nutzen
+
 %and prevent bugs caused by unupdated code for one platform
-
-
-
 %Multiplatform development is a key benefit in Kotlin. By reusing the same code across multibile platforms we can save alot of time writing the code and can concentrate more on the differences between the platforms.
 
 \subsection{Hierarchical project structure}
