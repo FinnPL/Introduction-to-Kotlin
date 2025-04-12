@@ -271,7 +271,7 @@ This chapter focuses on interoperability between Java and Kotlin. In this contex
 \subsection{Call Java in Kotlin}
 Everything written in Java is accessible in Kotlin~\cite{interop}, making interoperability especially useful when working with one of the countless Java libraries, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
 
-\subsubsection{Create and access objects}
+\subsubsection{Create and Access Objects}
 To illustrate how Java code can be accessed in a Kotlin project, consider the following example of a Salesman class that stores basic information and provides getters and setters.
 \begin{lstlisting}[language=Java,title={Example Java class}]
 public class Salesman {
@@ -303,7 +303,7 @@ Kotlin detects that the name field in the Java class is final, therefore only a 
 \subsubsection{Mapped types}
 By default, when instances of a Java class are used in Kotlin, they are loaded as Java objects. However, some Java types have a corresponding Kotlin counterpart, these objects are automatically mapped to their equivalent Kotlin type~\cite{interop-mapped-types}. For example, \texttt{java.lang.Integer} is converted to \texttt{kotlin.Int?}~because Java wrapper objects can be null. This applies to all Java wrapper classes and some important types, such as \texttt{java.lang.Object}, which is mapped to \texttt{kotlin.Any!}\footnote{The exclamation mark indicates that this is a platform type. More on this in the next chapter.}. However, all Java primitive types are mapped to their non-nullable Kotlin counterparts, as primitive types cannot be null in Java. For instance, Java's \texttt{int} is converted to \texttt{kotlin.Int}. Additionally, collections like Lists, Maps and Arrays are also converted. For a exhaustive list of all mapped types, consult the official documentation~\cite{interop-mapped-types}. Java's return type \texttt{void} is replaced by Kotlin's \texttt{Unit} type.
 
-\subsubsection{Null safety with Java}
+\subsubsection{Null Safety with Java}
 Since Java does not distinguish between nullable and non-nullable types, any object returned from Java code can be null. This contradicts Kotlin's strict null safety concept and would make working with Java objects impractical.
 To address this, Kotlin introduces \textit{platform types} for objects created through Java code. If a Java type does not have a direct Kotlin equivalent, as is the case with most Java types, the compiler assigns it a platform type, which is non-denotable.~\cite{interop-null-safety}. This means we cannot explicitly declare this type as we do with nullable types using a question mark\footnote{When the compiler needs to report a type-related error, it uses an exclamation mark to indicate the platform type~\cite{interop-platform-notation}.}. With platform types, Kotlin relaxes its strict null safety rules, making their handling similar to Java. However, this increases the risk of NullPointerExceptions.
 To demonstrate how this can be used in practice, the previously introduced Java Salesman class has been extended with the following method:
@@ -333,7 +333,7 @@ public static @NotNull String getString() { return "Not null"; }
 val str: String = Salesman.getString() // non-nullable type
 \end{lstlisting}
 
-\subsubsection{Java arrays in Kotlin}
+\subsubsection{Java Arrays in Kotlin}
 In Java, arrays of primitive types can be used to achieve better performance, as they avoid the overhead associated with objects. Kotlin prohibits the direct use of primitive arrays but provides specialized classes for each primitive type instead~\cite{interop-arrays}. For example, Java's \texttt{int[]} corresponds to Kotlin's \texttt{IntArray}. These classes compile down to actual primitive arrays to minimize object overhead.
 
 Let's assume we have a function in Java that requires a primitive array:
