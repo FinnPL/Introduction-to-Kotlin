@@ -353,7 +353,7 @@ for (i in array.indices) // no iterator created
 \subsection{Call Kotlin in Java}
 Just as Kotlin can create instances of Java classes, Java can also create and use instances of Kotlin classes~\cite{interop-java}.
 
-\subsubsection{Kotlin properties in Java}
+\subsubsection{Kotlin Properties in Java}
 Kotlin properties cannot be directly accessed from Java, and must therefore be compiled into private fields, along with their corresponding getter and setter methods~\cite{interop-properties}. However, if the Kotlin property is final, no setter method will be created. For example, consider this simple property in the SalesPerson class:
 \begin{lstlisting}[language=Kotlin]
 var name: String
@@ -366,10 +366,10 @@ public void setName(String name) { this.name = name; }
 \end{lstlisting}
 The Kotlin compiler will preserve the restricted visibility of setters and getters when generating the corresponding Java methods.
 
-\subsubsection{Null safety} % change this headline
+\subsubsection{Null Safety} % change this headline
 If a public Kotlin function with a non-nullable parameter is called from Java, a nullable value can be passed to this function from Java. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null~\cite{interop-java-null-safety}.
 
-\subsubsection{Instance fields}
+\subsubsection{Instance Fields}
 In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin in order to maintain code integrity. However, we can add the \texttt{@JvmField} annotation before our property to make it accessible in Java through dot notation~\cite{interop-instance-fields}. The field will have the same visibility as the property in Kotlin.
 This example demonstrates how to use the annotation.
 \begin{lstlisting}[language=Kotlin]
@@ -384,7 +384,7 @@ System.out.println(person.name); // prints 'Carl'
 
 Functions in companion or named objects can be marked as static to be accessed in Java using the same annotation~\cite{interop-static-fields}, though this topic is beyond the scope of this paper.
 
-\section{Multiplatform development}
+\section{Multiplatform Development}
 Kotlin can be compiled not only for the JVM but also into native binaries, removing the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where the overhead of running a virtual machine is impractical. In addition to Java, Kotlin is also interoperable with C as well as Swift/Objective-C and can be compiled to pure JavaScript or WebAssembly. Because Kotlin can be compiled to multiple targets, it is well suited for multiplatform development. To further simplify the process of writing code for multiple applications across various platforms, Kotlin offers a hierarchical project structure. This structure allows the definition of a shared codebase that can be reused across platform-specific subprojects. Each subproject can integrate this shared code with its platform-specific libraries, improving code maintainability and minimizing redundancy.
 
 Leveraging Kotlin's Multiplatform programming support, you can develop applications for servers, desktop, web, and mobile, making it a key advantage of the Kotlin programming language. 
