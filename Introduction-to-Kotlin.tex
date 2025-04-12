@@ -17,12 +17,12 @@
 \maketitle
 
 \begin{abstract}
-This paper introduces Kotlin, a statically typed, object-oriented programming language designed to be fully interoperable with Java and the Java Virtual Machine (JVM). It focuses on Kotlin's concise syntax, advanced features such as null safety, and extensive multiplatform development capability. These features make Kotlin a modern and powerful programming language.
+This paper introduces Kotlin, a statically typed, object-oriented programming language designed to be fully interoperable with Java. It focuses on Kotlin's concise syntax, advanced features such as null safety, and extensive multiplatform development capability. These features make Kotlin a modern and powerful programming language that offers significant improvements over Java.
 \end{abstract}
 
 \section{Introduction}
-Kotlin is a modern programming language developed by JetBrains, a renowned software development company. Designed as a safer and more concise alternative to Java, Kotlin offers full interoperability with Java, allowing developers to leverage existing Java libraries and frameworks while benefiting from Kotlin's modern features. Its clean and expressive syntax has made it increasingly popular, particularly in Android development. In fact, Google announced Kotlin as its preferred language for Android app development in 2019~\cite{intro-google}. Beyond Android, Kotlin supports multiplatform development, enabling developers to build applications for the server, desktop, web, and iOS from a shared codebase~\cite{intro-multiplatform-dev}.
-This paper presents an overview of Kotlin’s concise syntax and highlights key language features that illustrate its advantages over Java. It assumes a basic understanding of Java and begins by examining core syntactic differences between Kotlin and Java, followed by an introduction to concepts such as null safety and seamless Java interoperability. The paper concludes with a discussion of Kotlin’s multiplatform capabilities, with particular emphasis on its application in Android development.
+Kotlin is a modern programming language developed by JetBrains, a renowned software development company. Designed as a safer and more concise alternative to Java, Kotlin offers full interoperability with Java and the JVM, thus allowing developers to leverage existing Java libraries and frameworks while benefiting from Kotlin's modern features. Its clean and concise syntax has made it increasingly popular, particularly in Android development. In fact, Google announced Kotlin as its preferred language for Android development in 2019~\cite{intro-google}. Beyond Android, Kotlin supports multiplatform development, enabling developers to build applications for the server, desktop, web, and iOS from a shared codebase~\cite{intro-multiplatform-dev}. 
+This paper presents an overview of Kotlin's elegant syntax and highlights key language features that demonstrate its advantages over Java. It assumes a basic understanding of Java and begins by examining core syntactic differences between Kotlin and Java, followed by an introduction to concepts such as null safety and seamless Java interoperability. The paper concludes with a discussion of Kotlin's multiplatform capabilities, focusing on its application in Android development.
 
 \section{Basic Syntax}
 This section covers the basic syntax of Kotlin and highlights its differences compared to Java. The goal is to provide a concise overview focused on the most important distinctions.
@@ -325,7 +325,7 @@ println(item.name) // allowed but would throw NPE
 \end{lstlisting}
 If the type is set to non-nullable but the object is actually null, attempting to access it will result in a NullPointerException, as shown above. Therefore, using nullable types is generally safer.
 
-Some Java compilers use annotations~\cite{interop-nullability-annotations} to specify whether a value is nullable or non-nullable, such as JetBrains' @Nullable or @NotNull annotation~\cite{JetBrains-annotations}. If these annotations are present in the Java code, the compiler assigns the corresponding nullable or non-nullable Kotlin type to the variable instead of a platform type. For example, if a method in the Salesman class returns a string annotated with @NotNull, the variable would be assigned a non-nullable type instead of a platform type:
+Some Java compilers use annotations~\cite{interop-nullability-annotations} to specify whether a value is nullable or non-nullable, such as JetBrains' \texttt{@Nullable} or \texttt{@NotNull} annotation~\cite{JetBrains-annotations}. If these annotations are present in the Java code, the compiler assigns the corresponding nullable or non-nullable Kotlin type to the variable instead of a platform type. For example, if a method in the Salesman class returns a string annotated with \texttt{@NotNull}, the variable would be assigned a non-nullable type instead of a platform type:
 \begin{lstlisting}[language=Java]
 public static @NotNull String getString() { return "Not null"; }
 \end{lstlisting}
@@ -334,27 +334,20 @@ val str: String = Salesman.getString() // non-nullable type
 \end{lstlisting}
 
 \subsubsection{Java arrays in Kotlin}
-In Java, arrays of primitive types can be used to achieve better performance, as they avoid the overhead associated with objects. Kotlin prohibits the direct use of primitive arrays but provides specialized classes for each primitive type instead~\cite{interop-arrays}. The compiler optimizes the code and uses primitive arrays whenever possible. For example, Java's \texttt{int[]} corresponds to Kotlin's \texttt{IntArray}. These classes compile down to actual primitive arrays to minimize object overhead.
+In Java, arrays of primitive types can be used to achieve better performance, as they avoid the overhead associated with objects. Kotlin prohibits the direct use of primitive arrays but provides specialized classes for each primitive type instead~\cite{interop-arrays}. For example, Java's \texttt{int[]} corresponds to Kotlin's \texttt{IntArray}. These classes compile down to actual primitive arrays to minimize object overhead.
 
 Let's assume we have a function in Java that requires a primitive array:
 \begin{lstlisting}[language=Java]
 public static void takeArray(int[] array) { ... }
 \end{lstlisting}
-To call this function from Kotlin without unnecessary boxing, we should use \texttt{intArrayOf()} instead of \texttt{arrayOf()}. This ensures that the array compiles down to Java's \texttt{int[]}, avoiding the overhead of boxed Integer objects. Even in for loops, the Kotlin compiler optimizes iteration over primitive arrays, ensuring that no iterator is created~\cite{interop-arrays}. This results in significant performance improvements compared to iterating over an \texttt{Array<Int>}, which would involve additional function calls and object overhead.
+
+In order to call this function from Kotlin without unnecessary boxing, we should use \texttt{intArrayOf()} instead of \texttt{arrayOf()}. This ensures that the array compiles down to Java's \texttt{int[]}, avoiding the overhead of boxed Integer objects. Even in for loops, the Kotlin compiler optimizes iteration over primitive arrays, ensuring that no iterator is created~\cite{interop-arrays}. This results in significant performance improvements compared to iterating over an \texttt{Array<Int>}, which would involve additional function calls and object overhead.
+
 \begin{lstlisting}[language=Kotlin]
 var array: IntArray = intArrayOf(1, 2, 3)
 takeArray(array) // passes int[] to Java function
 for (i in array.indices) // no iterator created
     println(array[i]) // no calls to Array's get() or set()
-\end{lstlisting}
-% Ab hier besser streichen, vllt in einem satz erwähnen, dass es das gibt
-In Java, arrays are covariant, meaning an array of a subtype can be assigned to an array of its superclass. This is allowed at compile time, but Java enforces type safety at runtime. If an instance of a type that differs from the array's original type is assigned to it, an ArrayStoreException will be thrown. This happens because mixing different types in the array would break type safety. To counteract this problem, Kotlin simply does not allow this, thus there arrays are invariant~\cite{interop-arrays}. However there is an exception when you need to parse an array to Java, it is allowed for platform types, because Java treats arrays as covariant. If we had a method, that requires an Object array, we could parse a string array of platform type to it.
-\begin{lstlisting}[language=Java]
-public static void takeArray(Object[] array) { ... }
-\end{lstlisting}
-\begin{lstlisting}[language=Kotlin]
-var array: Array<String> = arrayOf("string", "array")
-takeArray(array) // array is treated as platform type
 \end{lstlisting}
 
 \subsection{Call Kotlin in Java}
@@ -377,7 +370,7 @@ The Kotlin compiler will preserve the restricted visibility of setters and gette
 If a public Kotlin function with a non-nullable parameter is called from Java, a nullable value can be passed to this function from Java. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null~\cite{interop-java-null-safety}.
 
 \subsubsection{Instance fields}
-In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin to maintain code integrity. However, we can add the @JvmField annotation before our property to make it accessible in Java through dot notation~\cite{interop-instance-fields}. The field will have the same visibility as the property in Kotlin\footnote{This does not apply to private properties.}.
+In Java, it is possible to access public attributes without using getter and setter methods. This kind of direct access is prohibited in Kotlin in order to maintain code integrity. However, we can add the \texttt{@JvmField} annotation before our property to make it accessible in Java through dot notation~\cite{interop-instance-fields}. The field will have the same visibility as the property in Kotlin.
 This example demonstrates how to use the annotation.
 \begin{lstlisting}[language=Kotlin]
 class SalesPerson (@JvmField var name:String) {}
