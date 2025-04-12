@@ -391,30 +391,22 @@ System.out.println(person.name); // prints 'Carl'
 
 Functions in companion or named objects can be marked as static to be accessed in Java using the same annotation~\cite{interop-static-fields}, though this topic is beyond the scope of this paper.
 
-\subsection{Interoperability with JavaScript}
-Besides interoperability with Java, Kotlin also supports interoperability with JavaScript~\cite{interopjs}, a scripting language that runs in both the browser and on Node.js servers. To achieve this, you need to create a Kotlin/JS project and compile it with Gradle, a build automation tool commonly used in the Kotlin and Java ecosystems~\cite{gradle}, into \texttt{.js} files, which can then be used like regular JavaScript files. Unlike Kotlin/Java interoperability, a Kotlin/JS project requires more setup due to the Gradle build system and the specialized Kotlin-to-JavaScript compiler. However, the Kotlin documentation~\cite{interopjs} provides a step-by-step setup guide. With this setup, it is possible to use JavaScript libraries or the DOM API~\cite{interopjs-dom} for web development using the familiar Kotlin syntax, thus making it a valid alternative to plain JavaScript. Furthermore, Gradle provides features that improve the workflow and simplify the development process.
-
 \section{Multiplatform development}
 Kotlin can be compiled not only for the JVM but also into native binaries, removing the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where the overhead of running a virtual machine is impractical. In addition to Java, Kotlin is also interoperable with C as well as Swift/Objective-C and can be compiled to pure JavaScript or WebAssembly. Because Kotlin can be compiled to multiple targets, it is well suited for multiplatform development. To further simplify the process of writing code for multiple applications across various platforms, Kotlin offers a hierarchical project structure. This structure allows the definition of a shared codebase that can be reused across platform-specific subprojects. Each subproject can integrate this shared code with its platform-specific libraries, improving code maintainability and minimizing redundancy.
 
 Leveraging Kotlin's Multiplatform programming support, you can develop applications for servers, desktop, web, and mobile, making it a key advantage of the Kotlin programming language. 
 
 \section{Android}
-This sections concentrates on the benefits Kotlin has in the Android enviorment not only the language itself but also Kotlin based Tools for Android %cut? -> and gives examples based on the salesperson example from New Language Constructs along the way.
+This section focuses on the benefits Kotlin offers in the Android environment, not only through the language itself but also through Kotlin-based tools for Android.
 
 \subsection{Jetpack Compose}\label{sec:jetpack}
-  %TODO(
-  %Kotlin based Ui Tool Kit -
-  %JC automaticly updates Ui hierarchy-
-  %functions with @Composable /composables-
-  %)
-Jetpack Compose is a Kotlin-based UI toolkit that simplifies Android UI development. Unlike XML, it can cut UI code by up to 50\%. While it may slightly increase APK size and build time, the gains in productivity and maintainability outweigh these downsides.
-Compose improves readability and handles UI updates automatically based on state changes so there is no need to manually update views or manage the states.
-It also combines UI and logic. Unlike XML, where logic must be handled separately, Compose keeps everything together.
-All UI functions must use the @Composable annotation so the compiler knows to treat them as UI elements that react to state. Without it, using elements like Text() would cause a compiler error.
+Jetpack Compose is a Kotlin-based UI toolkit that simplifies Android UI development. Unlike XML, the traditional method for designing Android UIs, it can reduce required code by up to 50\%. While it may slightly increase APK size and build time, the gains in productivity and maintainability far outweigh these downsides.
+Compose improves readability and handles UI updates automatically based on state changes, so there is no need to manually update views or manage the states.
+Jetpack Compose also integrates logic seamlessly. Unlike XML, where logic must be handled separately, Compose keeps everything unified.
+All UI functions must be annotated with \texttt{@Composable}, which informs the compiler to treat them as UI elements that react to state. Without it, using elements like \texttt{Text()} would cause a compiler error.
 
 \subsection{Android KTX}
-Android KTX is a collection of Kotlin-friendly libraries that sit on top of the existing Android APIs. It doesn’t replace the Android SDK, but simplifies and enhances it to work better with Kotlin by for example using Coroutines instead of Threads.
+Android KTX is a collection of Kotlin-friendly libraries that build on top of the existing Android APIs, enhancing the development process by providing Kotlin-friendly APIs, such as Coroutines.
 
 \subsection{Coroutine}
 Imagine we want an app that shows a salesperson’s live sales. Checking this every second would freeze the app unless we use multithreading, this means splitting tasks across parallel threads, threads are subprocesses which can run independent from the main process, thus beeing able to freeze without stopping the main thread. This speeds things up and keeps the app responsive, though memory limits how many threads we can run.
