@@ -21,7 +21,7 @@ This paper introduces Kotlin, a statically typed, object-oriented programming la
 \end{abstract}
 
 \section{Introduction}
-Kotlin is a modern programming language developed by JetBrains, a renowned software development company. Designed as a safer and more concise alternative to Java, Kotlin offers full interoperability with Java and the JVM, thus allowing developers to leverage existing Java libraries and frameworks while benefiting from Kotlin's modern features. Its clean and concise syntax has made it increasingly popular, particularly in Android development. In fact, Google announced Kotlin as its preferred language for Android development in 2019~\cite{intro-google}. Beyond Android, Kotlin supports multiplatform development, enabling developers to build applications for the server, desktop, web, and iOS from a shared codebase~\cite{intro-multiplatform-dev}. 
+Kotlin is a modern programming language developed by JetBrains. Designed as a safer and more concise alternative to Java, Kotlin offers full interoperability with Java and the JVM, thus allowing developers to leverage existing Java libraries and frameworks while benefiting from Kotlin's modern features. Its clean and concise syntax has made it increasingly popular, particularly in Android development. In fact, Google announced Kotlin as its preferred language for Android development in 2019~\cite{intro-google}. Beyond Android, Kotlin supports multiplatform development, enabling developers to build applications for the server, desktop, web, and iOS from a shared codebase~\cite{intro-multiplatform-dev}. 
 This paper presents an overview of Kotlin's elegant syntax and highlights key language features that demonstrate its advantages over Java. It assumes a basic understanding of Java and begins by examining core syntactic differences between Kotlin and Java, followed by an introduction to concepts such as null safety and seamless Java interoperability. The paper concludes with a discussion of Kotlin's multiplatform capabilities, focusing on its application in Android development.
 
 \section{Basic Syntax}
@@ -253,14 +253,14 @@ The following example demonstrates how to define and properly use an extension f
 
 \begin{lstlisting}[language=Kotlin,title={Usage of an extension function}]
 // define the extension function
-fun SalesPeron?.print() {
-    if (this == null) return println("This person dose not exist.")
+fun SalesPerson?.print() {
+    if (this == null) return println("This person does not exist.")
     return println("$name: $salesVolume sold")
 }
 // use the extension function
-var sales: SalesPeron? = null
-sales.print() // This person dose not exist.
-sales = SalesPeron("Carl", 1200)
+var sales: SalesPerson? = null
+sales.print() // This person does not exist.
+sales = SalesPerson("Carl", 1200)
 sales.print() // Carl: 0.0 sold
 \end{lstlisting}
 
@@ -295,7 +295,7 @@ If we want to access this class, we can use the familiar Kotlin syntax~\cite{int
 var carl = Salesman("carl mueller", 4500)
 println(carl.name) // prints 'carl mueller'
 carl.salary = 4600 // sets salary to 4600
-carl.setSalary(4600) // alternivly to the above
+carl.setSalary(4600) // alternatively to the above
 \end{lstlisting}
 
 Kotlin detects that the name field in the Java class is final, therefore only a getter method will be created. If the field had only a setter, the method would not be converted into a synthetic property, as Kotlin does not support set-only properties~\cite{interop-synthetic-property}.
