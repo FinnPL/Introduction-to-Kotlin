@@ -11,7 +11,8 @@
 \renewcommand{\subsectionautorefname}{Sect.}
 \renewcommand{\subsubsectionautorefname}{Sect.}
 
-\usepackage{breakurl}
+\usepackage{etoolbox}
+\apptocmd{\bibsetup}{\sloppy}{}{}
 
 \lstdefinelanguage{Kotlin}{
   comment=[l]{//},
