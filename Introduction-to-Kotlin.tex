@@ -393,7 +393,7 @@ Leveraging Kotlin's Multiplatform programming support, you can develop applicati
 This section focuses on the benefits Kotlin offers in the Android environment, not only through the language itself but also through Kotlin-based tools for Android.
 
 \subsection{Jetpack Compose}\label{sec:jetpack}
-Jetpack Compose is a Kotlin-based UI toolkit that simplifies Android UI development. Unlike XML, the traditional method for designing Android UIs, it can reduce required code by up to 50\%. While it may slightly increase APK size and build time, the gains in productivity and maintainability far outweigh these downsides.
+Jetpack Compose is a Kotlin-based UI \footnote{User Interface. This is what we see when we open up an App} toolkit that simplifies Android UI development. Unlike XML, the traditional method for designing Android UIs, it can reduce required code by up to 50\%. While it may slightly increase APK size and build time, the gains in productivity and maintainability far outweigh these downsides.
 Compose improves readability and handles UI updates automatically based on state changes, so there is no need to manually update views or manage the states.
 Jetpack Compose also integrates logic seamlessly. Unlike XML, where logic must be handled separately, Compose keeps everything unified.
 All UI functions must be annotated with \texttt{@Composable}, which informs the compiler to treat them as UI elements that react to state. Without it, using elements like \texttt{Text()} would cause a compiler error.
@@ -409,7 +409,7 @@ Kotlin solves this with coroutines, which are lightweight, readable, and far mor
 Coroutines work by sharing threads. When one coroutine pauses (e.g. waiting for a response), another one takes over on the same thread. This avoids the expensive context switching that happens with OS-level threads. If a coroutine takes too long without pausing, Kotlin may need to create additional threads.
 To manage this efficiently, Kotlin uses thread pools, each specialized for different types of tasks. The Default pool matches the number of CPU cores. It handles most tasks, like calculations (e.g. summing up a salesperson’s monthly revenue). The IO pool can hold up to 64 threads by default. It’s perfect for operations that spend time waiting,like downloading files or making API calls,since these are ideal for coroutine suspension.The Main pool contains only one thread, the main/UI thread, which is responsible for updating the interface. Eventough this thread is already given by Android, Kotlin wraps it to manage access and protect it from blocking operations, ensuring the app stays responsive.
 Coroutines are especially helpful in mobile apps, where devices are resource-limited and often rely on frequent network operations. Their lightweight design makes them a great fit for these conditions.
-On Android, Kotlin offers helpful tools like lifecycleScope (from Jetpack\autoref{sec:jetpack}), which automatically cancels coroutines when their associated activity is destroyed. This helps prevent memory leaks and keeps the app running efficiently.
+On Android, Kotlin offers helpful tools like \texttt{lifecycleScope} (from Jetpack\autoref{sec:jetpack}), which automatically cancels coroutines when their associated activity is destroyed. This helps prevent memory leaks and keeps the app running efficiently.
 
 % means splitting your Hardware among multipile programms like multiple computers working at once
 \section{Conclusion}
