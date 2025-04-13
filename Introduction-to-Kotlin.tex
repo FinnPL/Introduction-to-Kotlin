@@ -401,18 +401,16 @@ All UI functions must be annotated with \texttt{@Composable}, which informs the 
 \subsection{Android KTX}
 Android KTX is a collection of Kotlin-friendly libraries that build on top of the existing Android APIs, enhancing the development process by providing Kotlin-friendly APIs, such as Coroutines.
 
-\subsection{Coroutine}
-
+\subsection{Coroutines}
 Consider an app that displays a salesperson's live sales numbers. To keep the data updated, the app needs to fetch new sales data every second. Performing this task on the main thread\footnote{Threads are independent subprocesses that can run in parallel.} would cause the app to become unresponsive as it would be waiting for the server response, making it unable to update the UI or respond to user interactions.
 
 To address this, multithreading is used to distribute tasks across multiple threads. This allows the app to fetch data for multiple salespeople simultaneously, improving responsiveness and performance. Without multithreading, the app would process requests sequentially, leading to delays and a poor user experience. However, traditional threads consume significant memory, limiting the number of threads that can run at once.
-Kotlin solves this with coroutines, which are lightweight, readable, and far more memory-efficient than Java threads. Coroutines enable the management of thousands of concurrent tasks without overwhelming the system or causing crashes, by sharing threads. When one coroutine pauses (e.g.\ when waiting for a response), another one resumes execution on the same thread. This avoids the expensive context switching required by OS-level threads. In cases where a coroutine runs for an extended period without pausing, Kotlin may create additional threads as needed.
 
-Kotlin uses thread pools, each optimized for different tasks. The Default pool, typically matching the number of CPU cores, handles computational tasks (e.g.\ when calculating a salesperson's monthly revenue). The IO pool, which can hold up to 64 threads by default, is ideal for operations that involve waiting, such as downloading files or making API calls, since these tasks benefit from coroutine suspension. The Main pool contains a single thread, the main/UI thread, which is responsible for updating the interface. 
-While Android already provides this thread, Kotlin wraps it to manage access and prevent blocking operations, ensuring the app remains responsive.
+Kotlin solves this with coroutines, which are lightweight, readable, and far more memory-efficient than Java threads. Coroutines enable the management of thousands of concurrent tasks without overwhelming the system or causing crashes by sharing threads. When one coroutine pauses (e.g., when waiting for a response), another one resumes execution on the same thread. This avoids the expensive context switching required by OS-level threads. In cases where a coroutine runs for an extended period without pausing, Kotlin may create additional threads as needed.
 
-Coroutines are especially helpful in mobile apps, where devices are resource-limited and often rely on frequent network operations. Their lightweight design makes them a great fit for these conditions.
-On Android, Kotlin offers helpful tools like \texttt{lifecycleScope} (from Jetpack\autoref{sec:jetpack}), which automatically cancels coroutines when their associated activity is destroyed. This helps prevent memory leaks and keeps the app running efficiently.
+Kotlin uses thread pools, each optimized for different tasks. The Default pool, typically matching the number of CPU cores, handles computational tasks (e.g., calculating a salesperson's monthly revenue). The IO pool, which can hold up to 64 threads by default, is ideal for operations that involve waiting, such as downloading files or making API calls, since these tasks benefit from coroutine suspension. The Main pool contains a single thread, the main/UI thread, which is responsible for updating the interface. While Android already provides this thread, Kotlin wraps it to manage access and prevent blocking operations, ensuring the app remains responsive.
+
+Coroutines are especially helpful in mobile apps, where devices are resource-limited and often rely on frequent network operations. Their lightweight design makes them a great fit for these conditions. On Android, Kotlin offers helpful tools like \texttt{lifecycleScope} (from Jetpack~\autoref{sec:jetpack}), which automatically cancels coroutines when their associated activity is destroyed. This helps prevent memory leaks and keeps the app running efficiently.
 
 \section{Conclusion}
 Kotlin is a modern programming language that offers a concise syntax, improved class structures, and innovative features such as null safety. Its seamless interoperability with Java makes it a great choice for projects integrating with existing codebases and libraries. Kotlin's support for multiplatform development, particularly in Android, establishes it as a powerful option for cross-platform development.
@@ -422,5 +420,5 @@ While this paper provides a solid foundation, it only scratches the surface of K
 These features, combined with its modern design and developer-friendly syntax, make Kotlin a powerful alternative to Java and a compelling choice for developers.
 
 \newpage
-\printbibliography
+\printbibliography[]
 \end{document}
