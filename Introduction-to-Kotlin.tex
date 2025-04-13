@@ -272,13 +272,13 @@ This chapter focuses on interoperability between Java and Kotlin. In this contex
 Everything written in Java is accessible in Kotlin~\cite{interop}, making interoperability especially useful when working with one of the countless Java libraries, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
 
 \subsubsection{Create and Access Objects}
-To illustrate how Java code can be accessed in a Kotlin project, consider the following example of a Salesman class that stores basic information and provides getters and setters.
+To illustrate how Java code can be accessed in a Kotlin project, consider the following example of a SalesPerson class that stores basic information and provides getters and setters.
 \begin{lstlisting}[language=Java,title={Example Java class}]
 public class SalesPerson {
   private final String name;
   private double salesVolume;
   
-  public Salesman(String name, Double salesVolume) {
+  public SalesPerson(String name, Double salesVolume) {
     this.name = name;
     this.salesVolume = salesVolume;
   }
@@ -291,7 +291,7 @@ public class SalesPerson {
 
 If we want to access this class, we can use the familiar Kotlin syntax~\cite{interop} to instantiate the object and access its properties. There is no syntactical difference between accessing a Java class and a Kotlin class, since Java methods following Java's conventions for getters and setters are converted~\cite{interop-getter-setter} into so-called synthetic properties~\cite{interop-synthetic-property}. These can be accessed using Kotlin's property syntax. If the getters and setters do not follow Java conventions, they can still be accessed as regular methods.
 
-\begin{lstlisting}[language=Kotlin, title={Access a Salesman instance in Kotlin}]
+\begin{lstlisting}[language=Kotlin, title={Access a SalesPerson instance in Kotlin}]
 var carl = SalesPerson("Carl Mueller", 4500.0)
 println(carl.name) // prints 'Carl Mueller'
 carl.salesVolume = 4600.0 // sets salesVolume to 4600.0
@@ -329,7 +329,7 @@ Some Java compilers use annotations~\cite{interop-nullability-annotations} to sp
 public static @NotNull String getString() { return "Not null"; }
 \end{lstlisting}
 \begin{lstlisting}[language=Kotlin]
-val str: String = Salesman.getString() // non-nullable type
+val str: String = SalesPerson.getString() // non-nullable type
 \end{lstlisting}
 
 \subsubsection{Java Arrays in Kotlin}
