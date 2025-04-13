@@ -363,7 +363,7 @@ private String name;
 public String getName() { return name; }
 public void setName(String name) { this.name = name; }
 \end{lstlisting}
-The Kotlin compiler will preserve the restricted visibility of setters and getters when generating the corresponding Java methods.
+The Kotlin compiler will preserve restricted visibility of getters and setters when generating the corresponding Java methods.
 
 \subsubsection{Kotlin's Null Safety in Java}
 If a public Kotlin function with a non-nullable parameter is called from Java, a nullable value can be passed to this function from Java. To retain null safety, Kotlin generates checks for those functions and throws a NullPointerException if the value is indeed null~\cite{interop-java-null-safety}.
