@@ -21,7 +21,7 @@ This paper introduces Kotlin, a statically typed, object-oriented programming la
 \end{abstract}
 
 \section{Introduction}
-Kotlin is a modern programming language developed by JetBrains. It is designed as a safer and more concise alternative to Java, offering full interoperability with Java and the JVM. This allows developers to leverage existing Java libraries and frameworks while benefiting from Kotlin's modern features. Its clean and concise syntax has made it increasingly popular, particularly in Android development. In fact, Google announced Kotlin as its preferred language for Android development in 2019~\cite{intro-google}. Beyond Android, Kotlin supports multiplatform development, enabling developers to build applications for the server, desktop, web, and iOS from a shared codebase~\cite{intro-multiplatform-dev}. 
+Kotlin is a modern programming language developed by JetBrains. It is designed as a safer and more concise alternative to Java, offering full interoperability with Java and the JVM. This allows developers to leverage existing Java libraries and frameworks while benefiting from Kotlin's modern features. Its clean and concise syntax has made it increasingly popular, particularly in Android development. In fact, Google announced Kotlin as its preferred language for Android development in 2019~\cite{intro-google}. Beyond Android, Kotlin supports multiplatform development, enabling developers to build applications for the server, desktop, web, and iOS from a shared codebase~\cite{multi}. 
 This paper presents an overview of Kotlin's elegant syntax and highlights key language features that demonstrate its advantages over Java. It assumes a basic understanding of Java and begins by examining core syntactic differences between Kotlin and Java, followed by an introduction to concepts such as null safety and seamless Java interoperability. The paper concludes with a discussion of Kotlin's multiplatform capabilities, focusing on its application in Android development.
 
 \section{Basic Syntax}
@@ -178,7 +178,7 @@ fun main() {
 \end{lstlisting}
 
 \section{Null Safety}
-Whenever a method or attribute is accessed on a null reference in Java, a \texttt{NullPointer\allowbreak Exception} (NPE) is thrown. Kotlin eliminates this risk with a null safety system that distinguishes between nullable and non-nullable types~\cite{nullsafety,nullsafety-nullable-types}. By default, all types in Kotlin are non-nullable, meaning variables cannot hold a null value unless explicitly declared with a question mark:
+Whenever a method or attribute is accessed on a null reference in Java, a \texttt{NullPointer\allowbreak Exception} (NPE) is thrown. Kotlin eliminates this risk with a null safety system that distinguishes between nullable and non-nullable types~\cite{nullsafety,nullsafety-nullable-types}. By default, all types in Kotlin are non-nullable, meaning variables cannot hold a null value unless explicitly declared with a question mark.
 Kotlin enforces this distinction at compile time, requiring developers to handle nullable types explicitly. At runtime, both types are treated the same.
 \begin{lstlisting}[language=Kotlin]
 var a: String = "a is non-nullable"
@@ -187,7 +187,7 @@ var b: String? = "b is nullable"
 
 \subsection{Null Safety Operators}
 When working with nullable types, you cannot directly access properties or methods, because the reference could be \texttt{null}, potentially causing an NPE\@.
-In Java, this is typically handled with an if check, as shown in the following example:
+In Java, this is typically handled with an if statement, as shown in the following example:
 \begin{lstlisting}[language=Java]
   private final SalesPerson supervisor;
 
@@ -272,7 +272,7 @@ This chapter focuses on interoperability between Java and Kotlin. In this contex
 Everything written in Java is accessible in Kotlin~\cite{interop}, making interoperability especially useful when working with one of the countless Java libraries, eliminating the need to rewrite a library with the same functionality specifically for Kotlin. This applies to both the official Java standard libraries and more specialized external libraries. Additionally, interoperability makes it much easier to migrate existing Java projects to Kotlin, as they do not need to be completely rewritten. This once again shows that Kotlin is a well-thought-out language designed to serve as an improvement over Java.
 
 \subsubsection{Create and Access Objects}
-To illustrate how Java code can be accessed in a Kotlin project, consider the following example of a SalesPerson class that stores basic information and provides getters and setters.
+To illustrate how Java code can be accessed in a Kotlin project, consider the following example of a salesperson class that stores basic information and provides getters and setters.
 \begin{lstlisting}[language=Java,title={Example Java class}]
 public class SalesPerson {
   private final String name;
@@ -305,8 +305,8 @@ By default, when instances of a Java class are used in Kotlin, they are loaded a
 
 \subsubsection{Null Safety with Java}
 Since Java does not distinguish between nullable and non-nullable types, any object returned from Java code can be null. This contradicts Kotlin's strict null safety concept and would make working with Java objects impractical.
-To address this, Kotlin introduces \textit{platform types} for objects created through Java code. If a Java type does not have a direct Kotlin equivalent, as is the case with most Java types, the compiler assigns it a platform type, which is non-denotable.~\cite{interop-null-safety}. This means we cannot explicitly declare this type as we do with nullable types using a question mark\footnote{When the compiler needs to report a type-related error, it uses an exclamation mark to indicate the platform type~\cite{interop-platform-notation}.}. With platform types, Kotlin relaxes its strict null safety rules, making their handling similar to Java. However, this increases the risk of NullPointerExceptions.
-To demonstrate how this can be used in practice, the previously introduced Java SalesPerson class has been extended with the following method:
+To address this, Kotlin introduces \textit{platform types} for objects created through Java code. If a Java type does not have a direct Kotlin equivalent, as is the case with most Java types, the compiler assigns it a platform type, which is non-denotable~\cite{interop-null-safety}. This means we cannot explicitly declare this type as we do with nullable types using a question mark\footnote{When the compiler needs to report a type-related error, it uses an exclamation mark to indicate the platform type~\cite{interop-platform-notation}.}. With platform types, Kotlin relaxes its strict null safety rules, making their handling similar to Java. However, this increases the risk of NullPointerExceptions.
+To demonstrate how this can be used in practice, the previously introduced Java salesperson class has been extended with the following method:
 \begin{lstlisting}[language=Java]
 public static List<SalesPerson> createList() {
   List<SalesPerson> list = new ArrayList<>();
@@ -324,7 +324,7 @@ println(item.name) // allowed but would throw NPE
 \end{lstlisting}
 If the type is set to non-nullable but the object is actually null, attempting to access it will result in a NullPointerException, as shown above. Therefore, using nullable types is generally safer.
 
-Some Java compilers use annotations~\cite{interop-nullability-annotations} to specify whether a value is nullable or non-nullable, such as JetBrains' \texttt{@Nullable} or \texttt{@NotNull} annotation~\cite{JetBrains-annotations}. If these annotations are present in the Java code, the compiler assigns the corresponding nullable or non-nullable Kotlin type to the variable instead of a platform type. For example, if a method in the SalesPerson class returns a string annotated with \texttt{@NotNull}, the variable would be assigned a non-nullable type instead of a platform type:
+Some Java compilers use annotations~\cite{interop-nullability-annotations} to specify whether a value is nullable or non-nullable, such as JetBrains' \texttt{@Nullable} or \texttt{@NotNull} annotation~\cite{JetBrains-annotations}. If these annotations are present in the Java code, the compiler assigns the corresponding nullable or non-nullable Kotlin type to the variable instead of a platform type. For example, if a method in the salesperson class returns a string annotated with \texttt{@NotNull}, the variable would be assigned a non-nullable type instead of a platform type:
 \begin{lstlisting}[language=Java]
 public static @NotNull String getString() { return "Not null"; }
 \end{lstlisting}
@@ -353,7 +353,7 @@ for (i in array.indices) // no iterator created
 Just as Kotlin can create instances of Java classes, Java can also create and use instances of Kotlin classes~\cite{interop-java}.
 
 \subsubsection{Kotlin Properties in Java}
-Kotlin properties cannot be directly accessed from Java, and must therefore be compiled into private fields, along with their corresponding getter and setter methods~\cite{interop-properties}. However, if the Kotlin property is final, no setter method will be created. For example, consider this simple property in the SalesPerson class:
+Kotlin properties cannot be directly accessed from Java, and must therefore be compiled into private fields, along with their corresponding getter and setter methods~\cite{interop-properties}. However, if the Kotlin property is final, no setter method will be created. For example, consider this simple property in the salesperson class:
 \begin{lstlisting}[language=Kotlin]
 var name: String
 \end{lstlisting}
