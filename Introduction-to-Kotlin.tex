@@ -402,7 +402,7 @@ All UI functions must be annotated with \texttt{@Composable}, which informs the 
 Android KTX is a collection of Kotlin-friendly libraries that build on top of the existing Android APIs, enhancing the development process by providing Kotlin-friendly APIs, such as Coroutines.
 
 \subsection{Coroutines}
-Consider an app that displays a salesperson's live sales numbers. To keep the data updated, the app needs to fetch new sales data every second. Performing this task on the main thread\footnote{Threads are independent subprocesses that can run in parallel.} would cause the app to become unresponsive as it would be waiting for the server response, making it unable to update the UI or respond to user interactions.
+Consider an app that displays a salesperson's live sales numbers. To keep the data updated, the app needs to fetch new sales data every second. Performing this task on the main thread\footnote{Threads are independent subprocesses that can run in parallel.} would block the app from responding to user interactions or updating the UI while waiting for the server's response, potentially causing it to become unresponsive. Therefore, Android prohibits such I/O calls on the UI thread.
 
 To address this, multithreading is used to distribute tasks across multiple threads. This allows the app to fetch data for multiple salespeople simultaneously, improving responsiveness and performance. Without multithreading, the app would process requests sequentially, leading to delays and a poor user experience. However, traditional threads consume significant memory, limiting the number of threads that can run at once.
 
