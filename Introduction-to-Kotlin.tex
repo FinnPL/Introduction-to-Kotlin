@@ -254,8 +254,8 @@ The following example demonstrates how to define and properly use an extension f
 \begin{lstlisting}[language=Kotlin,title={Usage of an extension function}]
 // define the extension function
 fun SalesPerson?.print() {
-    if (this == null) return println("This person does not exist.")
-    return println("$name: $salesVolume sold")
+  if (this == null) return println("This person does not exist.")
+  return println("$name: $salesVolume sold")
 }
 // use the extension function
 var sales: SalesPerson? = null
@@ -347,7 +347,7 @@ In order to call this function from Kotlin without unnecessary boxing, we should
 var array: IntArray = intArrayOf(1, 2, 3)
 takeArray(array) // passes int[] to Java function
 for (i in array.indices) // no iterator created
-    println(array[i]) // no calls to Array's get() or set()
+  println(array[i]) // no calls to Array's get() or set()
 \end{lstlisting}
 
 \subsection{Call Kotlin in Java}
@@ -377,17 +377,17 @@ class SalesPerson (@JvmField var name:String) {}
 \end{lstlisting}
 \begin{lstlisting}[language=Java]
 public void example() {
-SalesPerson person = new SalesPerson("Carl");
-System.out.println(person.name); // prints 'Carl'
+  SalesPerson person = new SalesPerson("Carl");
+  System.out.println(person.name); // prints 'Carl'
 }
 \end{lstlisting}
 
 Functions in companion or named objects can be marked as static to be accessed in Java using the same annotation~\cite{interop-static-fields}, though this topic is beyond the scope of this paper.
 
 \section{Multiplatform Development}
-Kotlin can be compiled not only for the JVM but also into native binaries, removing the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where the overhead of running a virtual machine is impractical. In addition to Java, Kotlin is also interoperable with C as well as Swift/Objective-C and can be compiled to pure JavaScript or WebAssembly. Because Kotlin can be compiled to multiple targets, it is well suited for multiplatform development. To further simplify the process of writing code for multiple applications across various platforms, Kotlin offers a hierarchical project structure. This structure allows the definition of a shared codebase that can be reused across platform-specific subprojects. Each subproject can integrate this shared code with its platform-specific libraries, improving code maintainability and minimizing redundancy.
+Kotlin can be compiled not only for the JVM~\cite{multi-interopJava} but also into native binaries~\cite{multi-kotlinNative}, removing the need for a virtual machine as required by Java. This makes Kotlin suitable for use in embedded systems, where the overhead of running a virtual machine is impractical. In addition to Java, Kotlin is also interoperable with C~\cite{multi-interopC} as well as Swift/Objective-C~\cite{multi-interopObjC} and can be compiled to pure JavaScript~\cite{multi-kotlinJS} or WebAssembly~\cite{multi-webass}. Because Kotlin can be compiled to multiple targets, it is well suited for multiplatform development. To further simplify the process of writing code for multiple applications across various platforms, Kotlin offers a hierarchical project structure~\cite{multi-structure,multi}. This structure allows the definition of a shared codebase that can be reused across platform-specific subprojects. Each subproject can integrate this shared code with its platform-specific libraries, improving code maintainability and minimizing redundancy.
 
-Leveraging Kotlin's Multiplatform programming support, you can develop applications for servers, desktop, web, and mobile, making it a key advantage of the Kotlin programming language. 
+Leveraging Kotlin's Multiplatform programming support, you can develop applications for servers, desktop, web, and mobile~\cite{multi}, making it a key advantage of the Kotlin programming language. 
 
 \section{Android}
 This section focuses on the benefits Kotlin offers in the Android environment, not only through the language itself but also through Kotlin-based tools for Android.
