@@ -1,8 +1,5 @@
 \documentclass{beamer}
-\setbeamertemplate{navigation symbols}{}
-\usepackage{xcolor}
-\usetheme{Madrid}
-\definecolor{kotlin-purple}{HTML}{7954ff}
+\input{config.tex}
 
 \title{Kotlin}
 \subtitle{Proseminar: Fortgeschrittene Programmierkonzepte}
@@ -18,6 +15,24 @@
 \begin{frame}
   \frametitle{Inhalt}
   \tableofcontents
+\end{frame}
+
+\begin{frame}[fragile]{Java vs Kotlin: Main Methode}
+
+\begin{lstlisting}[language=Java, xleftmargin=2em]
+  <rBlue>public class</rBlue><r> Main {</r>
+  <rBlue>public static void</rBlue> main(<r>String[] args</r>) {
+      <r>System.out.</r>println("Hello, World!")<r>;</r>
+  }
+<r>}</r>
+\end{lstlisting}
+
+\begin{lstlisting}[language=Kotlin, xleftmargin=2em]
+<gBlue>fun</gBlue> main() {
+    println("Hello, World!")
+}
+\end{lstlisting}
+
 \end{frame}
 
 \end{document}
