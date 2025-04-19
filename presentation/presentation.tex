@@ -3,7 +3,7 @@
 
 \title{Kotlin}
 \subtitle{Proseminar: Fortgeschrittene Programmierkonzepte}
-\author[C. Konersmann, F. P. Lippok, P. Lukas]{
+\author[C. Konersmann, F. Lippok, P. Lukas]{
   Christian Konersmann, Finn Paul Lippok, Paul Lukas
 }
 \date{05.05.2025}
@@ -12,27 +12,31 @@
 \begin{document}
 
 \frame{\titlepage}
-\begin{frame}
-  \frametitle{Inhalt}
-  \tableofcontents
-\end{frame}
 
-\begin{frame}[fragile]{Java vs Kotlin: Main Methode}
-
-\begin{lstlisting}[language=Java, xleftmargin=2em]
-  <rBlue>public class</rBlue><r> Main {</r>
-  <rBlue>public static void</rBlue> main(<r>String[] args</r>) {
-      <r>System.out.</r>println("Hello, World!")<r>;</r>
-  }
-<r>}</r>
-\end{lstlisting}
-
-\begin{lstlisting}[language=Kotlin, xleftmargin=2em]
-<gBlue>fun</gBlue> main() {
-    println("Hello, World!")
-}
-\end{lstlisting}
-
+\begin{frame}{Was ist Kotlin?}
+  \begin{columns}
+    \begin{column}{0.7\textwidth}
+      \begin{itemize}
+        \item \textbf{Statisch typisierte}, \textbf{objektorientierte} Programmiersprache.
+        \item \textbf{Basierend auf Java und der JVM}, mit vollständiger \textbf{Interoperabilität} zu beiden.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{Kotlin Full Color Logo Mark RGB.png}
+      \end{figure}
+    \end{column}
+  \end{columns}
+  \pause\vspace{0.5cm}
+  \begin{itemize}
+    \item \textbf{Vorteile gegenüber Java:}
+    \begin{itemize}
+      \item Klare und präzise Syntax.
+      \item Erweiterte Funktionen wie Null-Sicherheit.
+      \item Umfassende Multiplattform-Entwicklungsmöglichkeiten.
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \end{document}
