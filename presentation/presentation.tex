@@ -41,7 +41,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Main-Methode}
-  \begin{lstlisting}[language=Java, title=Java Main-Methode, xleftmargin=2em]
+  \begin{lstlisting}[language=Java, title=Java Main-Methode, xleftmargin=1em]
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
@@ -49,7 +49,7 @@ public class Main {
 }
   \end{lstlisting}
   \pause\vspace{0cm}
-  \begin{lstlisting}[language=Kotlin, title=Kotlin Main-Methode, xleftmargin=2em]
+  \begin{lstlisting}[language=Kotlin, title=Kotlin Main-Methode, xleftmargin=1em]
 fun main() {
     println("Hello, World!")
 }
@@ -62,18 +62,19 @@ fun main() {
       \item \texttt{args}-Parameter ist optional.
       \item Semikolons sind nicht erforderlich.
     \end{itemize}
+    \vspace{1cm}
 \end{frame}
 
 \begin{frame}[fragile]{Variablen-Deklaration}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \begin{lstlisting}[language=Java, title=Java, xleftmargin=1.2em]
+      \begin{lstlisting}[language=Java, title=Java, xleftmargin=1em]
 int a = 5;
 final String b = "Hallo";
       \end{lstlisting}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1.2em, numbers=none]
+      \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em, numbers=none]
 var a: Int = 5
 val b: String = "Hallo"
       \end{lstlisting}
@@ -94,5 +95,33 @@ val b: String = "Hallo"
   \end{itemize}
   \end{frame}
 
+\begin{frame}[fragile]{Klassen}
+  \vspace{-0.25cm}
+  \begin{lstlisting}[language=Java, title=Java, xleftmargin=1em]
+public class SalesPerson {
+  public final String name;
+  private Double commissionRate;
+
+  public SalesPerson (String name, Double commissionRate) {...}
+}
+  \end{lstlisting}
+  \pause\vspace{-0.25cm}
+  \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em]
+class SalesPerson(
+    val name: String,
+    private var commissionRate: Double = 0.2
+) {}
+  \end{lstlisting}
+  \pause
+  \begin{itemize}
+    \item Ähnlich wie Java-Records, aber flexibler.
+    \item Nur vererbbar, wenn als \texttt{open} deklariert.
+  \end{itemize}
+\end{frame}
+
+
+  %TODO
+  %Methoden return type
+  %Properties
 
 \end{document}
