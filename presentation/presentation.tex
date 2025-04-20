@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \input{config.tex}
 
+
 \title{Kotlin}
 \subtitle{Proseminar: Fortgeschrittene Programmierkonzepte}
 \author[C. Konersmann, F. Lippok, P. Lukas]{
@@ -17,8 +18,8 @@
   \begin{columns}
     \begin{column}{0.7\textwidth}
       \begin{itemize}
-        \item \textbf{Statisch typisierte}, \textbf{objektorientierte} Programmiersprache.
-        \item \textbf{Basierend auf Java und der JVM}, mit vollständiger \textbf{Interoperabilität} zu beiden.
+        \item \textbf{Statisch typisierte} und \textbf{objektorientierte} Programmiersprache.
+        \item \textbf{Basierend auf Java und der JVM} mit vollständiger \textbf{Interoperabilität} zu beiden.
       \end{itemize}
     \end{column}
     \begin{column}{0.3\textwidth}
@@ -30,13 +31,68 @@
   \end{columns}
   \pause\vspace{0.5cm}
   \begin{itemize}
-    \item \textbf{Vorteile gegenüber Java:}
-    \begin{itemize}
+    \item \textbf{Wichtigste Vorteile gegenüber Java:} %Notes: Wichtigste Vorteile, auf die wir näher eingehen -> Erwähnen, wer welches Thema behandelt.
+    \begin{itemize} %Sollten wir nochmal Interoperabilität als Vorteil erwähnen, da "leverage existing Java libraries"?
       \item Klare und präzise Syntax.
       \item Erweiterte Funktionen wie Null-Sicherheit.
       \item Umfassende Multiplattform-Entwicklungsmöglichkeiten.
     \end{itemize}
   \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]{Main-Methode}
+  \begin{lstlisting}[language=Java, title=Java Main-Methode, xleftmargin=2em]
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+  \end{lstlisting}
+  \pause\vspace{0cm}
+  \begin{lstlisting}[language=Kotlin, title=Kotlin Main-Methode, xleftmargin=2em]
+fun main() {
+    println("Hello, World!")
+}
+  \end{lstlisting}
+    \pause\vspace{0cm}
+    \begin{itemize}
+      \item Keine explizite Klassendeklaration erforderlich. %Notes: Methoden auserhalb einer Klasse sind quasi statisch, aber ohne klassenzugehörigkeit. (Siehe auch println)
+      \item Verwendung des Schlüsselworts \texttt{fun} zur Funktionsdeklaration.
+      \item Standardzugriffsmodifikator ist \texttt{public}.
+      \item \texttt{args}-Parameter ist optional.
+      \item Semikolons sind nicht erforderlich.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Variablen Deklaration}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{lstlisting}[language=Java, title=Java, xleftmargin=1.2em]
+int a = 5;
+final String b = "Hallo";
+      \end{lstlisting}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1.2em, numbers=none]
+var a: Int = 5
+val b: String = "Hallo"
+      \end{lstlisting}
+    \end{column}
+  \end{columns}
+  \pause\vspace{0.5cm}
+  \begin{itemize}
+    \item \texttt{var} für veränderliche Variablen, \texttt{val} für unveränderliche Variablen.
+    \item Typangabe nach dem Variablennamen mit Doppelpunkt.
+    \item In Kotlin gibt es \textbf{keine} primitiven Typen. %Notes: konsistenteres objektorientiertes Design. Auch funktionen sind Objekte -> erlaubt Funktionale Programmierung.
+  \end{itemize}
+  \pause\vspace{0.5cm}
+  \begin{itemize}
+    \item Kotlin unterstützt \textbf{Typinferenz} d.h.\ der Typ kann weggelassen werden.
+    \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses beispiel weglasen und oben im code block per animation einfügen?
+    \item Der Compiler leitet den Typ aus dem initialisierten Wert ab.
+    \item Nutzt \textit{Constraint Solving}, ähnlich wie Unifikation in Haskell.
+  \end{itemize}
+  \end{frame}
+
 
 \end{document}
