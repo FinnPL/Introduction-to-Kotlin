@@ -56,7 +56,7 @@ fun main() {
   \end{lstlisting}
     \pause\vspace{0cm}
     \begin{itemize}
-      \item Keine explizite Klassendeklaration erforderlich. %Notes: Methoden auserhalb einer Klasse sind quasi statisch, aber ohne klassenzugehörigkeit. (Siehe auch println)
+      \item Keine explizite Klassendeklaration erforderlich. %Notes: Methoden außerhalb einer Klasse sind quasi statisch, aber ohne Klassenzugehörigkeit. (Siehe auch println)
       \item Verwendung des Schlüsselworts \texttt{fun} zur Funktionsdeklaration.
       \item Standardzugriffsmodifikator ist \texttt{public}.
       \item \texttt{args}-Parameter ist optional.
@@ -64,7 +64,7 @@ fun main() {
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Variablen Deklaration}
+\begin{frame}[fragile]{Variablen-Deklaration}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{lstlisting}[language=Java, title=Java, xleftmargin=1.2em]
@@ -83,12 +83,12 @@ val b: String = "Hallo"
   \begin{itemize}
     \item \texttt{var} für veränderliche Variablen, \texttt{val} für unveränderliche Variablen.
     \item Typangabe nach dem Variablennamen mit Doppelpunkt.
-    \item In Kotlin gibt es \textbf{keine} primitiven Typen. %Notes: konsistenteres objektorientiertes Design. Auch funktionen sind Objekte -> erlaubt Funktionale Programmierung.
+    \item In Kotlin gibt es \textbf{keine} primitiven Typen. %Notes: konsistenteres objektorientiertes Design. Auch Funktionen sind Objekte -> erlaubt funktionale Programmierung.
   \end{itemize}
   \pause\vspace{0.5cm}
   \begin{itemize}
-    \item Kotlin unterstützt \textbf{Typinferenz} d.h.\ der Typ kann weggelassen werden.
-    \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses beispiel weglasen und oben im code block per animation einfügen?
+    \item Kotlin unterstützt \textbf{Typinferenz}, d.h.\ der Typ kann weggelassen werden.
+    \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses Beispiel weglassen und oben im Codeblock per Animation einfügen?
     \item Der Compiler leitet den Typ aus dem initialisierten Wert ab.
     \item Nutzt \textit{Constraint Solving}, ähnlich wie Unifikation in Haskell.
   \end{itemize}
