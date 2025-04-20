@@ -174,13 +174,31 @@ class SalesPerson(val name: String,
 % Null safety
 
 \begin{frame}[fragile]{Null safety}
+  Motiviation: Null safety
   \begin{lstlisting}[language=Kotlin, title=Java example, xleftmargin=1em]
 SalesPerson person = null;
 System.out.println(person.name);
   \end{lstlisting}
   \begin{itemize}
     \item Exception in thread "main" java.lang.NullPointerException
+    \item Kann zu Programmabbruch führen oder weitere Fehler nach sich ziehen
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Null safety}
+  \begin{itemize}
+    \item unterscheidung zwischen nullable types und non-nullable types
+    \item Programmierer muss Null safety gewährleisten
+  \end{itemize}
+  \begin{lstlisting}
+var a : String = "a is non-nullable"
+var b : String? = "b is nullable"
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Null safety: Safe call operator}
+  \begin{lstlisting}
+  \end{lstlisting}
 \end{frame}
 
 \end{document}
