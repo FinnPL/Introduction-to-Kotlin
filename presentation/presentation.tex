@@ -108,8 +108,8 @@ public class SalesPerson {
   \pause\vspace{-0.25cm}
   \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em]
 class SalesPerson(
-    val name: String,
-    private var commissionRate: Double = 0.2
+  val name: String,
+  private var commissionRate: Double = 0.2
 ) {}
   \end{lstlisting}
   \pause
@@ -119,6 +119,52 @@ class SalesPerson(
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{Properties}
+  \begin{onlyenv}<1>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin: Properties, xleftmargin=1em]
+class SalesPerson(val name: String, 
+    private var commissionRate: Double = 0.2) {
+            
+  var sales : Int = 0
+
+
+
+      
+      
+      
+}
+    \end{lstlisting}
+  \end{onlyenv}
+  \begin{onlyenv}<2>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin: Properties Zugriffsmodifikator, xleftmargin=1em]
+class SalesPerson(val name: String, 
+    private var commissionRate: Double = 0.2) {
+      
+  var sales : Int = 0
+    private set
+
+
+
+
+
+}
+    \end{lstlisting}
+  \end{onlyenv}
+  \begin{onlyenv}<3>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin: Benutzerdefinierter Zugriffsmethoden, xleftmargin=1em]
+class SalesPerson(val name: String, 
+    private var commissionRate: Double = 0.2) {
+
+  var sales : Int = 0
+    private set(value) {
+      if (value < 0)
+        throw IllegalArgumentException("Sales volume must be positive")
+      field = value
+    }
+}
+    \end{lstlisting}
+  \end{onlyenv}
+\end{frame}
 
   %TODO
   %Methoden return type
