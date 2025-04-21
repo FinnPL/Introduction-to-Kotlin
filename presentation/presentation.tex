@@ -55,7 +55,7 @@ fun main() {
 }
   \end{lstlisting}
     \pause\vspace{0cm}
-    \begin{itemize}
+    \begin{itemize}[<+->]
       \item Keine explizite Klassendeklaration erforderlich. %Notes: Methoden außerhalb einer Klasse sind quasi statisch, aber ohne Klassenzugehörigkeit. (Siehe auch println)
       \item Verwendung des Schlüsselworts \texttt{fun} zur Funktionsdeklaration.
       \item Standardzugriffsmodifikator ist \texttt{public}.
@@ -87,45 +87,80 @@ val b: String = "Hallo"
     \item In Kotlin gibt es \textbf{keine} primitiven Typen. %Notes: konsistenteres objektorientiertes Design. Auch Funktionen sind Objekte -> erlaubt funktionale Programmierung.
   \end{itemize}
   \pause\vspace{0.5cm}
+  Kotlin unterstützt \textbf{Typinferenz}, d.h.\ der Typ kann weggelassen werden.
   \begin{itemize}
-    \item Kotlin unterstützt \textbf{Typinferenz}, d.h.\ der Typ kann weggelassen werden.
-    \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses Beispiel weglassen und oben im Codeblock per Animation einfügen?
     \item Der Compiler leitet den Typ aus dem initialisierten Wert ab.
-    \item Nutzt \textit{Constraint Solving}, ähnlich wie Unifikation in Haskell.
+    \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses Beispiel weglassen und oben im Codeblock per Animation einfügen?
+    %Notes Nutzt \textit{Constraint Solving}, ähnlich wie Unifikation in Haskell. 
   \end{itemize}
-  \end{frame}
+\end{frame}
 
 \begin{frame}[fragile]{Klassen}
   \vspace{-0.25cm}
   \begin{lstlisting}[language=Java, title=Java, xleftmargin=1em]
-public class SalesPerson {
+public class Verkaufsperson {
   public final String name;
-  private Double commissionRate;
+  private Double provision;
 
-  public SalesPerson (String name, Double commissionRate) {...}
+  public Verkaufsperson (String name, Double provision) {...}
 }
   \end{lstlisting}
-  \pause\vspace{-0.25cm}
-  \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em]
-class SalesPerson(
+  \only<1>{\vspace{8.8\baselineskip}}
+  \vspace{-0.25cm}
+  \begin{onlyenv}<2>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em]
+class Verkaufsperson() {
+
+
+
+  val name: String
+  private var provision: Double
+}
+    \end{lstlisting} 
+  \end{onlyenv}
+  \begin{onlyenv}<3>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em]
+class Verkaufsperson(
+  name: String,
+  provision: Double = 0.2
+) {
+  val name: String = name
+  private var provision: Double = provision
+}
+    \end{lstlisting} 
+  \end{onlyenv}
+  \begin{onlyenv}<4>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em]
+class Verkaufsperson(
   val name: String,
-  private var commissionRate: Double = 0.2
+  private var provision: Double = 0.2
+) {
+
+
+}
+    \end{lstlisting} 
+  \end{onlyenv}
+  \begin{onlyenv}<5>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin, xleftmargin=1em]
+class Verkaufsperson(
+  val name: String,
+  private var provision: Double = 0.2
 ) {}
-  \end{lstlisting}
-  \pause
-  \begin{itemize}
-    \item Ähnlich wie Java-Records, aber flexibler.
-    \item Nur vererbbar, wenn als \texttt{open} deklariert.
-  \end{itemize}
+    \end{lstlisting} 
+    \begin{itemize}
+      \item Ähnlich wie Java-Records, aber flexibler.
+      \item Nur vererbbar, wenn als \texttt{open} deklariert.
+    \end{itemize}
+  \end{onlyenv}
 \end{frame}
 
 \begin{frame}[fragile]{Properties}
   \begin{onlyenv}<1>
     \begin{lstlisting}[language=Kotlin, title=Kotlin: Properties, xleftmargin=1em]
-class SalesPerson(val name: String, 
-    private var commissionRate: Double = 0.2) {
+class Verkaufsperson(val name: String, 
+    private var provision: Double = 0.2) {
             
-  var sales : Int = 0
+  var umsatz : Int = 0
 
 
 
@@ -137,10 +172,10 @@ class SalesPerson(val name: String,
   \end{onlyenv}
   \begin{onlyenv}<2>
     \begin{lstlisting}[language=Kotlin, title=Kotlin: Properties Zugriffsmodifikator, xleftmargin=1em]
-class SalesPerson(val name: String, 
-    private var commissionRate: Double = 0.2) {
+class Verkaufsperson(val name: String, 
+    private var provision: Double = 0.2) {
       
-  var sales : Int = 0
+  var umsatz : Int = 0
     private set
 
 
@@ -150,25 +185,32 @@ class SalesPerson(val name: String,
 }
     \end{lstlisting}
   \end{onlyenv}
-  \begin{onlyenv}<3>
-    \begin{lstlisting}[language=Kotlin, title=Kotlin: Benutzerdefinierter Zugriffsmethoden, xleftmargin=1em]
-class SalesPerson(val name: String, 
-    private var commissionRate: Double = 0.2) {
+  \begin{onlyenv}<3,4>
+    \begin{lstlisting}[language=Kotlin, title=Kotlin: Benutzerdefinierte Zugriffsmethoden, xleftmargin=1em]
+class Verkaufsperson(val name: String, 
+    private var provision: Double = 0.2) {
 
-  var sales : Int = 0
+  var umsatz : Int = 0
     private set(value) {
       if (value < 0)
-        throw IllegalArgumentException("Sales volume must be positive")
+        throw IllegalArgumentException("Umsatz muss positiv sein")
       field = value
     }
 }
     \end{lstlisting}
   \end{onlyenv}
+  \begin{uncoverenv}<4>
+    \begin{itemize}
+    \item Punkt-Notation ruft automatisch Setter/Getter auf.
+    \item Beispiel: \lstinline[language=kotlin]|verkaufsperson.umsatz = -1| wirft eine \texttt{IllegalArgumentException}.
+    % Notes: 
+    \end{itemize}
+  \end{uncoverenv}
 \end{frame}
 
-  %TODO
+%TODO
   %Methoden return type
-  %Properties
+  %story? -> Unser Ziel ist es eine Verkaufsperson Klasse zu erstellen um ...
 
 
 % Null safety
@@ -176,11 +218,11 @@ class SalesPerson(val name: String,
 \begin{frame}[fragile]{Null safety}
   Motiviation: Null safety
   \begin{lstlisting}[language=Kotlin, title=Java example, xleftmargin=1em]
-SalesPerson person = null;
+Verkaufsperson person = null;
 System.out.println(person.name);
   \end{lstlisting}
   \begin{itemize}
-    \item Exception in thread "main" java.lang.NullPointerException
+    \item Exception in thread "main" java.lang.NullPointerException %Falsche Anführungszeichen?
     \item Kann zu Programmabbruch führen oder weitere Fehler nach sich ziehen
   \end{itemize}
 \end{frame}
