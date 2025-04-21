@@ -190,15 +190,101 @@ System.out.println(person.name);
     \item unterscheidung zwischen nullable types und non-nullable types
     \item Programmierer muss Null safety gewährleisten
   \end{itemize}
-  \begin{lstlisting}
+  \begin{lstlisting}[language=Kotlin]
 var a : String = "a is non-nullable"
 var b : String? = "b is nullable"
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Null safety: Safe call operator}
-  \begin{lstlisting}
+  Ziel: sicherer Zugriff auf Datenfeld
+  \begin{lstlisting}[language=Java, title=in Java]
+private final SalesPerson supervisor;
+
+public void printSupervisor() {
+  if (supervisor == null)
+    System.out.println("null");
+  else System.out.println(supervisor.name);
+}
   \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin, title=in Kotlin]
+val supervisor: SalesPerson? = null
+
+fun printSupervisor() {
+  println(supervisor?.name)
+} 
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Null safety: Safe call operator}
+  \begin{lstlisting}[language=Kotlin]
+val name: String? = supervisor?.supervisor?.name   
+  \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin]
+supervisor?.supervisor?.salesVolume = 0.0
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Null safety: Elvis operator}
+  \begin{lstlisting}[language=Java]
+public void printSupervisor() {
+  if (supervisor == null)
+    System.out.println("No supervisor");
+  else System.out.println(supervisor.name);
+}   
+  \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin]
+fun printSupervisor() {
+  println(supervisor?.name ?: "No supervisor")
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Null safety: Elvis operator}
+  \begin{lstlisting}[language=Java]
+public void printSupervisor() {
+  if (supervisor == null)
+    System.out.println("No supervisor");
+  else System.out.println(supervisor.name);
+}   
+  \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin]
+fun printSupervisor() {
+  println(supervisor?.name ?: "No supervisor")
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Null safety: Not-null assertion}
+  \begin{lstlisting}[language=Java]
+val couldBeNull: String? = null
+var b: String = possiblyNull!!
+  \end{lstlisting}
+  \begin{itemize}
+    \item Kann zu NullPointerExceptions führen
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Null safety: Nullable Receiver}
+  \begin{itemize}
+    \item Baut auf Extension functions
+    \item erlauben Methodenaufruf auf nullable types
+    \item Null Werte werden innerhalb der Methode behandelt
+  \end{itemize}
+  \begin{lstlisting}[language=Kotlin]
+fun SalesPerson?.print() {
+  if (this == null) return println("This person does not exist.")
+  return println("$name: $salesVolume sold")
+}
+  \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin]
+var sales: SalesPerson? = null
+sales.print() // This person does not exist
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability}
+  
 \end{frame}
 
 \end{document}
