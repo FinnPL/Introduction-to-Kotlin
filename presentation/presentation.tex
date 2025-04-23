@@ -214,8 +214,8 @@ class Verkaufsperson(val name: String,
 
 % Null safety
 
-\begin{frame}[fragile]{Null safety}
-  Motiviation: Null safety
+\begin{frame}[fragile]{Null Safety}
+  Motiviation: Null Safety
   \pause\vspace{1cm}
   \begin{lstlisting}[language=Kotlin, title=Java Beispiel, xleftmargin=1em]
 Verkaufsperson person = null;
@@ -228,7 +228,7 @@ System.out.println(person.name);
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety}
+\begin{frame}[fragile]{Null Safety}
   \begin{lstlisting}[language=Kotlin]
 var a : String = "a ist non-nullable"
 var b : String? = "b ist nullable"
@@ -240,7 +240,7 @@ var b : String? = "b ist nullable"
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Safe call operator}
+\begin{frame}[fragile]{Null Safety: Safe call Operator}
   Ziel: sicherer Zugriff auf Datenfelder und Methoden durch \texttt{?.}
   \pause
   \begin{lstlisting}[language=Java, title=in Java]
@@ -261,7 +261,7 @@ fun printVorgesetzer() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Safe call operator}
+\begin{frame}[fragile]{Null Safety: Safe call Operator}
   \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators]
 val name: String? = vorgesetzer?.vorgesetzer?.name   
   \end{lstlisting}
@@ -271,7 +271,7 @@ vorgesetzer?.vorgesetzer?.provision = 0.0
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Elvis operator}
+\begin{frame}[fragile]{Null Safety: Elvis Operator}
   \begin{itemize}[<+->]
     \item Weiterentwicklung des Safe call Operators
     \item Ermöglicht setzen von Default-Werten anstelle \textit{null}
@@ -292,7 +292,7 @@ fun printVorgesetzer() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Not-null assertion}
+\begin{frame}[fragile]{Null Safety: Not-null assertion Operator}
   \begin{lstlisting}[language=Java]
 val a: String? = null
 var b: String = possiblyNull!!
@@ -303,7 +303,7 @@ var b: String = possiblyNull!!
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Nullable Receiver}
+\begin{frame}[fragile]{Null Safety: Nullable Receiver}
   \begin{itemize}[<+->]
     \item Baut auf Extension functions
     \item erlauben Methodenaufruf auf nullable types
@@ -323,7 +323,7 @@ sales.print()
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability}
+\begin{frame}[fragile]{Interoperabilität}
   \begin{lstlisting}[language=Java]
 public class Verkaufsperson {
   private final String name;
@@ -349,7 +349,7 @@ carl.provision = 0.2
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability: Mapped types}
+\begin{frame}[fragile]{Interoperabilität: Mapped types}
   \begin{itemize}[<+->]
     \item normalerweise werden die java-Typen übernommen
     \item Manche haben einen zugehörige Kotlin Typ
@@ -363,7 +363,7 @@ carl.provision = 0.2
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability: Null safety mit Java}
+\begin{frame}[fragile]{Interoperabilität: Null safety mit Java}
   \begin{lstlisting}[language=Java]
 public Verkaufsperson erstellePerson() {
   return null;
@@ -383,7 +383,7 @@ println(person.name)
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability: Java Arrays in Kotlin}
+\begin{frame}[fragile]{Interoperabilität: Java Arrays in Kotlin}
   \begin{itemize}[<+->]
     \item Es gibt keine primitiven Typen in Kotlin
     \item Extra Kotlin Klassen für primitive Arrays
@@ -400,7 +400,7 @@ takeArray(array)
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability: Kotlin Properties in Java}
+\begin{frame}[fragile]{Interoperabilität: Kotlin Properties in Java}
   \begin{lstlisting}[language=Kotlin]
 var name: String
     \end{lstlisting}
@@ -412,7 +412,7 @@ public void setName(String name) { this.name = name; }
       \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability: Instance Fields}
+\begin{frame}[fragile]{Interoperabilität: Instance Fields}
   \begin{itemize}[<+->]
     \item Aufruf von Attributen durch Punkt-Notation
     \item In Java ist der Aufruf durch die \texttt{@JvmField} Annotation möglich
