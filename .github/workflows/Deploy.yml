@@ -25,6 +25,7 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           root_file: presentation/presentation.tex
+          work_in_root_file_dir: true
 
       # Create a folder to hold published artifacts
       - name: Prepare gh-pages directory
