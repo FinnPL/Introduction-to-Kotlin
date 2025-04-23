@@ -214,7 +214,7 @@ class Verkaufsperson(val name: String,
 
 % Null safety
 
-\begin{frame}[fragile]{Null safety}
+\begin{frame}[fragile]{Null Safety}
   Motiviation: Null safety
   \begin{lstlisting}[language=Kotlin, title=Java example, xleftmargin=1em]
 Verkaufsperson person = null;
@@ -226,7 +226,7 @@ System.out.println(person.name);
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety}
+\begin{frame}[fragile]{Null Safety}
   \begin{itemize}
     \item unterscheidung zwischen nullable types und non-nullable types
     \item Programmierer muss Null safety gewährleisten
@@ -237,7 +237,7 @@ var b : String? = "b ist nullable"
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Safe call operator}
+\begin{frame}[fragile]{Null Safety: Safe Call Operator}
   Ziel: sicherer Zugriff auf Datenfeld
   \begin{lstlisting}[language=Java, title=in Java]
 private final SalesPerson supervisor;
@@ -257,7 +257,7 @@ fun printSupervisor() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Safe call operator}
+\begin{frame}[fragile]{Null Safety: Safe call Operator}
   \begin{lstlisting}[language=Kotlin]
 val name: String? = supervisor?.supervisor?.name   
   \end{lstlisting}
@@ -266,7 +266,7 @@ supervisor?.supervisor?.salesVolume = 0.0
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Elvis operator}
+\begin{frame}[fragile]{Null Safety: Elvis Operator}
   \begin{lstlisting}[language=Java]
 public void printSupervisor() {
   if (supervisor == null)
@@ -281,7 +281,7 @@ fun printSupervisor() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Elvis operator}
+\begin{frame}[fragile]{Null Safety: Elvis Operator}
   \begin{lstlisting}[language=Java]
 public void printSupervisor() {
   if (supervisor == null)
@@ -296,7 +296,7 @@ fun printSupervisor() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Not-null assertion}
+\begin{frame}[fragile]{Null Safety: Not-null assertion}
   \begin{lstlisting}[language=Java]
 val couldBeNull: String? = null
 var b: String = possiblyNull!!
@@ -306,7 +306,7 @@ var b: String = possiblyNull!!
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Nullable Receiver}
+\begin{frame}[fragile]{Null Safety: Nullable Receiver}
   \begin{itemize}
     \item Baut auf Extension functions
     \item erlaubt Methodenaufruf auf nullable types
@@ -324,7 +324,7 @@ sales.print() // This person does not exist
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability}
+\begin{frame}[fragile]{Interoperabilität}
   \begin{lstlisting}[language=Java]
 public class SalesPerson {
   private final String name;
@@ -357,10 +357,10 @@ carl.setSalesVolume(4600.0)
 
 \begin{frame}[fragile]{Interoperability: Mapped types}
   \begin{itemize}
-    \item \texttt{java.lang.Object} \Rightarrow \texttt{kotlin.Any!}
-    \item \texttt{java.lang.Integer} \Rightarrow \texttt{kotlin.Int?}
-    \item primitive typ \texttt{int} \Rightarrow \texttt{kotlin.Int}
-    \item Rückgabewert \texttt{void} \Rightarrow \texttt{Unit}
+    \item \texttt{java.lang.Object} $\Rightarrow$ \texttt{kotlin.Any!}
+    \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
+    \item Primitiver Typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
+    \item Rückgabewert \texttt{void} $\Rightarrow$ \texttt{Unit}
   \end{itemize}
 \end{frame}
 
