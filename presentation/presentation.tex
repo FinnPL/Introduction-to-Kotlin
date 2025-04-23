@@ -1,5 +1,72 @@
+
 \documentclass{beamer}
-\input{pres-config.tex}
+\input{config.tex}
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+
+
+
+
+
+\iffalse %wird bis \fi ignoriert
+% Brighter, cohesive color scheme
+\definecolor{bgcolor}{HTML}{E8F1FB}
+\definecolor{bgcoloralt}{HTML}{F2F4F7}
+\definecolor{basecolor}{HTML}{60A5FA}
+\definecolor{secondarycolor}{HTML}{93C5FD}
+\definecolor{textcolor}{HTML}{1E293B}
+\definecolor{popcolor}{HTML}{FCD34D}
+\definecolor{bgpopcolor}{HTML}{FFF7ED}
+
+
+% altcolor scheme
+\definecolor{altbgcolor}{HTML}{FFF7ED}
+\definecolor{altbgcoloralt}{HTML}{FEFCF8}
+\definecolor{altbasecolor}{HTML}{6B7280}
+\definecolor{altsecondarycolor}{HTML}{D1D5DB}
+\definecolor{alttextcolor}{HTML}{1F2937}
+\definecolor{altpopcolor}{HTML}{8054FC}
+
+%thread colors
+%\definecolor{main}{HTML}{60A5FA}  % Red → Blue
+\definecolor{defaultcolor}{HTML}{C084FC}  % Yellow → Violet
+\definecolor{iocolor}{HTML}{A3E635}  % Blue → Lime Green
+%thread colors
+%\definecolor{main}{HTML}{60A5FA}  % Red → Blue
+\definecolor{defaultcolor}{HTML}{C084FC}  % Yellow → Violet
+\definecolor{iocolor}{HTML}{A3E635}  % Blue → Lime Green
+
+\definecolor{altbasecolor}{HTML}{8054FC}  % Red shifted → Violet
+
+\fi
+
+% color scheme
+
+\definecolor{bgcolor}{HTML}{EDE9FB}
+\definecolor{bgcoloralt}{HTML}{F4F4F7}
+\definecolor{bgpopcolor}{HTML}{FFF7ED}
+\definecolor{basecolor}{HTML}{8054FC}
+\definecolor{secondarycolor}{HTML}{B69DFD}
+\definecolor{textcolor}{HTML}{1E1B2E}
+\definecolor{popcolor}{HTML}{FBBF24}
+
+
+
+% altcolor scheme
+
+\definecolor{altbgcolor}{HTML}{E0E7FF}
+\definecolor{altbgcoloralt}{HTML}{D1D5DB}
+\definecolor{altbasecolor}{HTML}{334155}
+\definecolor{altsecondarycolor}{HTML}{94A3B8}
+\definecolor{alttextcolor}{HTML}{1E293B}
+\definecolor{altpopcolor}{HTML}{EDE9FB}
+
+%thread colors
+\definecolor{defaultcolor}{HTML}{FB61B4}
+\definecolor{iocolor}{HTML}{6EE7B7}  
+
+
 
 \title{Kotlin}
 \subtitle{Proseminar: Fortgeschrittene Programmierkonzepte}
@@ -216,215 +283,62 @@ class Verkaufsperson(val name: String,
 
 \begin{frame}[fragile]{Null safety}
   Motiviation: Null safety
-  \pause\vspace{1cm}
-  \begin{lstlisting}[language=Kotlin, title=Java Beispiel, xleftmargin=1em]
 Verkaufsperson person = null;
 System.out.println(person.name);
   \end{lstlisting}
-  \pause\vspace{1cm}
-  \begin{itemize}[<+->]
     \item Exception in thread "main" java.lang.NullPointerException %Falsche Anführungszeichen?
     \item Kann zu Programmabbruch führen oder weitere Fehler nach sich ziehen
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Null safety}
-  \begin{lstlisting}[language=Kotlin]
-var a : String = "a ist non-nullable"
-var b : String? = "b ist nullable"
-  \end{lstlisting}
-  \pause \vspace{1cm}
   \begin{itemize}
-    \item Unterscheidung zwischen \textit{nullable} und \textit{non-nullable} types
     \item Programmierer muss Null safety gewährleisten
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Null safety: Safe call operator}
-  Ziel: sicherer Zugriff auf Datenfelder und Methoden durch \texttt{?.}
-  \pause
   \begin{lstlisting}[language=Java, title=in Java]
-private final Verkaufsperson vorgesetzer;
 
-public void printVorgesetzer() {
-  if (vorgesetzer == null) System.out.println(null);
-  else System.out.println(vorgesetzer.name);
 }
   \end{lstlisting}
-  \pause
   \begin{lstlisting}[language=Kotlin, title=in Kotlin]
-val vorgesetzer: Verkaufsperson? = null
 
-fun printVorgesetzer() {
-  println(vorgesetzer?.name)
 } 
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Null safety: Safe call operator}
-  \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators]
-val name: String? = vorgesetzer?.vorgesetzer?.name   
   \end{lstlisting}
-  \pause
-  \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator]
-vorgesetzer?.vorgesetzer?.provision = 0.0
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Null safety: Elvis operator}
-  \begin{itemize}[<+->]
-    \item Weiterentwicklung des Safe call Operators
-    \item Ermöglicht setzen von Default-Werten anstelle \textit{null}
-  \end{itemize}
-  \pause
   \begin{lstlisting}[language=Java]
-public void printVorgesetzer() {
-  if (vorgesetzer == null)
-    System.out.println("Kein Vorgesetzer");
-  else System.out.println(vorgesetzer.name);
 }   
   \end{lstlisting}
-  \pause
   \begin{lstlisting}[language=Kotlin]
-fun printVorgesetzer() {
-  println(vorgesetzer?.name ?: "Kein Vorgesetzer")
 }
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null safety: Not-null assertion}
   \begin{lstlisting}[language=Java]
-val a: String? = null
-var b: String = possiblyNull!!
   \end{lstlisting}
-  \pause
-  \begin{itemize}[<+->]
-    \item Kann zu NullPointerExceptions führen
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Null safety: Nullable Receiver}
-  \begin{itemize}[<+->]
-    \item Baut auf Extension functions
-    \item erlauben Methodenaufruf auf nullable types
-    \item Null Werte werden innerhalb der Methode behandelt
-  \end{itemize}
-  \pause \vspace{1cm}
   \begin{lstlisting}[language=Kotlin]
-fun Verkaufsperson?.print() {
-  if (this == null) return println("Diese Person existiert nicht")
-  return println("$name: $provision Anteil")
 }
-  \end{lstlisting}
-  \pause
-  \begin{lstlisting}[language=Kotlin]
-var sales: Verkaufsperson? = null
-sales.print()
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability}
   \begin{lstlisting}[language=Java]
-public class Verkaufsperson {
-  private final String name;
-  private double provision;
-
-  public Verkaufsperson(String name, double provision) {...}
-
-  public String getName() {...}
-  public Double getProvision() {...}
-  public void setProvision(double provision) {...}
-}
   \end{lstlisting}
-  \pause
-  \begin{lstlisting}[language=Java]
-var carl = Verkaufsperson("Carl Mueller", 0.1)
-println(carl.name)
-carl.provision = 0.2
-  \end{lstlisting}
-  \pause
   \begin{itemize}
-    \item Kotlin erstellt synthetic properties
-    \item Aufruf über getter/setter Methoden weiterhin möglich
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperability: Mapped types}
-  \begin{itemize}[<+->]
-    \item normalerweise werden die java-Typen übernommen
-    \item Manche haben einen zugehörige Kotlin Typ
   \end{itemize}
-  \pause \vspace{0.2cm}
-  \begin{itemize}[<+->]
-    \item \texttt{java.lang.Object} $\Rightarrow $\texttt{kotlin.Any!}
-    \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
-    \item primitive typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
-    \item Rückgabewert \texttt{void} $\Rightarrow$ \texttt{Unit}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Null safety mit Java}
-  \begin{lstlisting}[language=Java]
-public Verkaufsperson erstellePerson() {
-  return null;
-}
-  \end{lstlisting}
-  \pause
   \begin{lstlisting}[language=Kotlin]
-val person: Verkaufsperson = erstellePerson()
-println(person.name)
   \end{lstlisting}
-  \pause
-  \begin{itemize}[<+->]
-    \item Aus Java zurückgegebene Instanzen können \textit{null} sein
-    \item haben spezial-Typ: \textit{platform type}
-    \item gelockerte Regeln bezüglich Null safety
-    \item anfälliger für NullPointerExceptions
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Java Arrays in Kotlin}
-  \begin{itemize}[<+->]
-    \item Es gibt keine primitiven Typen in Kotlin
-    \item Extra Kotlin Klassen für primitive Arrays
-    \item Diese kompilieren zu primitiven Arrays
-  \end{itemize}
-  \pause \vspace{1cm}
-  \begin{lstlisting}[language=Java]
-public static void takeArray(int[] array) { ... }
-  \end{lstlisting}
-  \pause
   \begin{lstlisting}[language=Kotlin]
-var array: IntArray = intArrayOf(1, 2, 3)
-takeArray(array)
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Kotlin Properties in Java}
-  \begin{lstlisting}[language=Kotlin]
-var name: String
-    \end{lstlisting}
-    \pause
-    \begin{lstlisting}[language=Java]
-private String name;
-public String getName() { return name; }
-public void setName(String name) { this.name = name; }
-      \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Instance Fields}
-  \begin{itemize}[<+->]
-    \item Aufruf von Attributen durch Punkt-Notation
-    \item In Java ist der Aufruf durch die \texttt{@JvmField} Annotation möglich
-  \end{itemize}
-  \pause
-  \begin{lstlisting}[language=Java]
-Verkaufsperson person = new Verkaufsperson("carl", 0.0);
-System.out.println(person.name);
-  \end{lstlisting}
-  \pause
-  \begin{lstlisting}[language=Kotlin]
-class Verkaufsperson(@JvmField var name:String) {}
   \end{lstlisting}
 \end{frame}
 
@@ -485,7 +399,6 @@ class Verkaufsperson(@JvmField var name:String) {}
 \end{tikzpicture}
 \end{center}
 \end{frame}
-
 \begin{frame}[fragile]{Android}
   \begin{itemize}
   
@@ -494,7 +407,6 @@ class Verkaufsperson(@JvmField var name:String) {}
     \item Beispiel
   \end{itemize}
   
-      \end{frame}
 \iffalse
 \begin{frame}[fragile]{Android: Android KTX}
   \begin{itemize}
@@ -565,7 +477,6 @@ class Verkaufsperson(@JvmField var name:String) {}
     \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
     \foreach \x in {0,1.5}{
         \foreach \y in {0,0.2,...,3.8} {
-                \pgfmathsetmacro{\num}{random(0,10)*0.1}
                 \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
         }
     }
@@ -584,7 +495,6 @@ class Verkaufsperson(@JvmField var name:String) {}
 \end{tikzpicture}
 \end{center}
 
-\end{frame}
 
 
 \begin{frame}[fragile]{Android: Coroutines}
@@ -603,14 +513,6 @@ class Verkaufsperson(@JvmField var name:String) {}
   \begin{center}
 \item[\begin{tabular}{ |   c   |   c   |   c   |}
 \hline
-  Pool name & (Max. Threads) & (Min. Threads)\\
-  \hline
-  Main & (1) & (1)\\
-  \hline
-  Default & (Cpu Cores) & (2)\\
-  \hline
-  I/O & (64) & (0)\\
-  \hline
 \end{tabular}]
 \end{center}  
 \end{itemize}  
@@ -746,9 +648,7 @@ class Verkaufsperson(@JvmField var name:String) {}
 
 
 
-  \end{tikzpicture}
 \end{frame}
-
 \begin{frame}{Android: Coroutines: Beispiel}
 \begin{center}
     Multithreading mit Coroutines\\
@@ -757,7 +657,6 @@ class Verkaufsperson(@JvmField var name:String) {}
     Multithreading mit Coroutines
 \end{center}
 \end{frame}
-
 \begin{frame}{Android: Coroutines: Beispiel}
 
 %\begin{center}
@@ -787,7 +686,6 @@ class Verkaufsperson(@JvmField var name:String) {}
     \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
     \foreach \x in {0,1.5}{
         \foreach \y in {0,0.2,...,3.8} {
-                \pgfmathsetmacro{\num}{random(0,10)*0.1}
                 \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
         }
     }
@@ -993,7 +891,6 @@ class Verkaufsperson(@JvmField var name:String) {}
     
     \foreach \x in {0,1.5}{
         \foreach \y in {0,0.2,...,3.8} {
-                \pgfmathsetmacro{\num}{random(0,10)*0.1}
                 \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
         }
     }
