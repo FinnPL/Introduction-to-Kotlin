@@ -1,4 +1,4 @@
-name: Build and Deploy LaTeX Document
+name: Build and Deploy LaTeX Documents
 
 on:
   push:
@@ -14,26 +14,40 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Compile the LaTeX document using a dedicated LaTeX action.
-      - name: Compile LaTeX document
+      # Compile the main LaTeX document
+      - name: Compile Introduction-to-Kotlin.tex
         uses: xu-cheng/latex-action@v3
         with:
           root_file: Introduction-to-Kotlin.tex
+
+      # Compile the presentation LaTeX document
+      - name: Compile presentation.tex
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: presentation/presentation.tex
 
       # Create a folder to hold published artifacts
       - name: Prepare gh-pages directory
         run: mkdir -p gh-pages
 
-      # Move the compiled PDF to the deployment directory.
-      - name: Move PDF to gh-pages directory
-        run: mv Introduction-to-Kotlin.pdf gh-pages/
-      
-      # Create a simple index.html to redirect to the PDF
-      - name: Create redirect to PDF
+      # Move the compiled PDFs to the deployment directory
+      - name: Move PDFs to gh-pages directory
         run: |
-          echo '<html><head><meta http-equiv="refresh" content="0; url=Introduction-to-Kotlin.pdf"></head></html>' > gh-pages/index.html
+          mv Introduction-to-Kotlin.pdf gh-pages/
+          mv presentation/presentation.pdf gh-pages/
 
-      # Deploy the content of the 'gh-pages' folder to the gh-pages branch.
+      # Create a simple index.html to list and link the PDFs
+      - name: Create index.html
+        run: |
+          echo '<html><body>' > gh-pages/index.html
+          echo '<h1>Available Documents</h1>' >> gh-pages/index.html
+          echo '<ul>' >> gh-pages/index.html
+          echo '<li><a href="Introduction-to-Kotlin.pdf">Introduction-to-Kotlin.pdf</a></li>' >> gh-pages/index.html
+          echo '<li><a href="presentation.pdf">presentation.pdf</a></li>' >> gh-pages/index.html
+          echo '</ul>' >> gh-pages/index.html
+          echo '</body></html>' >> gh-pages/index.html
+
+      # Deploy the content of the 'gh-pages' folder to the gh-pages branch
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
