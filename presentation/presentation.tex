@@ -1,5 +1,72 @@
+
 \documentclass{beamer}
 \input{config.tex}
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
+
+
+
+
+
+\iffalse %wird bis \fi ignoriert
+% Brighter, cohesive color scheme
+\definecolor{bgcolor}{HTML}{E8F1FB}
+\definecolor{bgcoloralt}{HTML}{F2F4F7}
+\definecolor{basecolor}{HTML}{60A5FA}
+\definecolor{secondarycolor}{HTML}{93C5FD}
+\definecolor{textcolor}{HTML}{1E293B}
+\definecolor{popcolor}{HTML}{FCD34D}
+\definecolor{bgpopcolor}{HTML}{FFF7ED}
+
+
+% altcolor scheme
+\definecolor{altbgcolor}{HTML}{FFF7ED}
+\definecolor{altbgcoloralt}{HTML}{FEFCF8}
+\definecolor{altbasecolor}{HTML}{6B7280}
+\definecolor{altsecondarycolor}{HTML}{D1D5DB}
+\definecolor{alttextcolor}{HTML}{1F2937}
+\definecolor{altpopcolor}{HTML}{8054FC}
+
+%thread colors
+%\definecolor{main}{HTML}{60A5FA}  % Red → Blue
+\definecolor{defaultcolor}{HTML}{C084FC}  % Yellow → Violet
+\definecolor{iocolor}{HTML}{A3E635}  % Blue → Lime Green
+%thread colors
+%\definecolor{main}{HTML}{60A5FA}  % Red → Blue
+\definecolor{defaultcolor}{HTML}{C084FC}  % Yellow → Violet
+\definecolor{iocolor}{HTML}{A3E635}  % Blue → Lime Green
+
+\definecolor{altbasecolor}{HTML}{8054FC}  % Red shifted → Violet
+
+\fi
+
+% color scheme
+
+\definecolor{bgcolor}{HTML}{EDE9FB}
+\definecolor{bgcoloralt}{HTML}{F4F4F7}
+\definecolor{bgpopcolor}{HTML}{FFF7ED}
+\definecolor{basecolor}{HTML}{8054FC}
+\definecolor{secondarycolor}{HTML}{B69DFD}
+\definecolor{textcolor}{HTML}{1E1B2E}
+\definecolor{popcolor}{HTML}{FBBF24}
+
+
+
+% altcolor scheme
+
+\definecolor{altbgcolor}{HTML}{E0E7FF}
+\definecolor{altbgcoloralt}{HTML}{D1D5DB}
+\definecolor{altbasecolor}{HTML}{334155}
+\definecolor{altsecondarycolor}{HTML}{94A3B8}
+\definecolor{alttextcolor}{HTML}{1E293B}
+\definecolor{altpopcolor}{HTML}{EDE9FB}
+
+%thread colors
+\definecolor{defaultcolor}{HTML}{FB61B4}
+\definecolor{iocolor}{HTML}{6EE7B7}  
+
+
 
 \title{Kotlin}
 \subtitle{Proseminar: Fortgeschrittene Programmierkonzepte}
@@ -214,7 +281,7 @@ class Verkaufsperson(val name: String,
 
 % Null safety
 
-\begin{frame}[fragile]{Null Safety}
+\begin{frame}[fragile]{Null safety}
   Motiviation: Null safety
   \begin{lstlisting}[language=Kotlin, title=Java example, xleftmargin=1em]
 Verkaufsperson person = null;
@@ -226,18 +293,18 @@ System.out.println(person.name);
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Null Safety}
+\begin{frame}[fragile]{Null safety}
   \begin{itemize}
     \item unterscheidung zwischen nullable types und non-nullable types
     \item Programmierer muss Null safety gewährleisten
   \end{itemize}
   \begin{lstlisting}[language=Kotlin]
-var a : String = "a ist non-nullable"
-var b : String? = "b ist nullable"
+var a : String = "a is non-nullable"
+var b : String? = "b is nullable"
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null Safety: Safe Call Operator}
+\begin{frame}[fragile]{Null safety: Safe call operator}
   Ziel: sicherer Zugriff auf Datenfeld
   \begin{lstlisting}[language=Java, title=in Java]
 private final SalesPerson supervisor;
@@ -257,7 +324,7 @@ fun printSupervisor() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null Safety: Safe call Operator}
+\begin{frame}[fragile]{Null safety: Safe call operator}
   \begin{lstlisting}[language=Kotlin]
 val name: String? = supervisor?.supervisor?.name   
   \end{lstlisting}
@@ -266,7 +333,7 @@ supervisor?.supervisor?.salesVolume = 0.0
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null Safety: Elvis Operator}
+\begin{frame}[fragile]{Null safety: Elvis operator}
   \begin{lstlisting}[language=Java]
 public void printSupervisor() {
   if (supervisor == null)
@@ -281,13 +348,13 @@ fun printSupervisor() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null Safety: Elvis Operator}
+\begin{frame}[fragile]{Null safety: Elvis operator}
   \begin{lstlisting}[language=Java]
 public void printSupervisor() {
   if (supervisor == null)
     System.out.println("No supervisor");
   else System.out.println(supervisor.name);
-}
+}   
   \end{lstlisting}
   \begin{lstlisting}[language=Kotlin]
 fun printSupervisor() {
@@ -296,7 +363,7 @@ fun printSupervisor() {
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Null Safety: Not-null assertion}
+\begin{frame}[fragile]{Null safety: Not-null assertion}
   \begin{lstlisting}[language=Java]
 val couldBeNull: String? = null
 var b: String = possiblyNull!!
@@ -306,10 +373,10 @@ var b: String = possiblyNull!!
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Null Safety: Nullable Receiver}
+\begin{frame}[fragile]{Null safety: Nullable Receiver}
   \begin{itemize}
     \item Baut auf Extension functions
-    \item erlaubt Methodenaufruf auf nullable types
+    \item erlauben Methodenaufruf auf nullable types
     \item Null Werte werden innerhalb der Methode behandelt
   \end{itemize}
   \begin{lstlisting}[language=Kotlin]
@@ -324,110 +391,700 @@ sales.print() // This person does not exist
   \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperabilität}
-  \begin{lstlisting}[language=Java]
-public class SalesPerson {
-  private final String name;
-  private double salesVolume;
-  
-  public SalesPerson(String name, Double salesVolume) {
-    this.name = name;
-    this.salesVolume = salesVolume;
+%\begin{frame}[fragile]{Interoperability}
+%\end{frame}
+\begin{frame}{Multiplatform}
+
+\begin{itemize}
+    \item native binarie
+    \item verschiedene Targets
+    \item hierarchische Projektstruktur
+\end{itemize}
+
+\end{frame}
+\begin{frame}{Multiplatform: hierarchische Projektstruktur}
+  \begin{center}
+\begin{tikzpicture}[
+  node distance=1cm and 2.5cm,
+  every node/.style={rectangle, draw=black, rounded corners, minimum width=2.8cm, minimum height=1cm, align=center, font=\bfseries},
+  edge from parent/.style={draw, thick, -latex}
+  ]
+
+
+\begin{scope}[on background layer]
+\uncover<1->{
+  \fill[basecolor!30] (-6,2.3) rectangle (6,1.1);        % Common Source Set
+  \node[draw=none, fill=none, font=\Large\bfseries] at (-4,1.8) {\small Common Source Set};
+  \node[fill=basecolor!60] (common) at (0,1.7) {commonMain};
   }
+\uncover<2->{
+  \fill[secondarycolor!30] (-6,1.1) rectangle (6,-0.7);  % Intermediate Source Sets
+  \node[draw=none, fill=none, font=\Large\bfseries] at (-4,0.8) {\small Intermediate Source Sets};
 
-  public String getName() { return name; }
-  public Double getSalesVolume() { return salesVolume; }
-  public void setSalesVolume(Double salesVolume) { this.salesVolume = salesVolume; }
+\node[fill=secondarycolor!60] (jvm) at (-3,0) {jvmMain};
+\node[fill=secondarycolor!60] (js) at (0,0) {jsMain};
+\node[fill=secondarycolor!60] (native) at (3,0) {nativeMain};
+
+\draw[->, thick] (common) -- (jvm);
+\draw[->, thick] (common) -- (js);
+\draw[->, thick] (common) -- (native);
+
+  }
+  \uncover<3->{
+  \fill[bgcolor!30] (-6,-0.7) rectangle (6,-2.8);        % Targets
+  \node[draw=none, fill=none, font=\Large\bfseries] at (-4,-1.0) {\small Targets};
+
+  \node[fill=bgcolor!70] (android) at (-3.5,-2) {androidMain};
+\node[fill=bgcolor!70] (ios) at (3.5,-2) {iosMain};
+
+\draw[->, thick] (jvm) -- (android);
+\draw[->, thick] (native) -- (ios);
+  }
+  \uncover<4->{
+  
+\node[draw=none, fill=none, font=\Large\bfseries] at (4,1.8) {\small expected};
+\node[draw=none, fill=none, font=\Large\bfseries] at (4,0.8) {\small expected/actual};
+\node[draw=none, fill=none, font=\Large\bfseries] at (4,-1.0) {\small actual};
+  }
+\end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+\begin{frame}[fragile]{Android}
+  \begin{itemize}
+  
+    \item Jetpack compose
+    \item Coroutines
+    \item Beispiel
+  \end{itemize}
+  
+     \end{frame}
+\iffalse
+\begin{frame}[fragile]{Android: Android KTX}
+  \begin{itemize}
+  \item Kotlins APK version
+  \end{itemize}
+\end{frame}
+\fi
+\begin{frame}[fragile]{Android: Jetpack compose}
+  \begin{itemize}
+  \item Ui Tool
+  \item @composables
+  \item Kotlin basiert
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Android: Composable: Beispiel}
+
+
+%\begin{flushright}
+
+%\end{flushright}
+
+\begin{center}
+\begin{tikzpicture}
+
+% Phone body
+\draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
+
+% Screen area
+\only<1,2>\draw[fill=bgcoloralt, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+\only<3>{\draw[fill=bgpopcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\uncover<4>{\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\uncover<5->{\draw[fill=basecolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+
+% Speaker
+\draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
+
+% Home button (circle)
+\draw[fill=black!20] (2,0.4) circle (0.3);
+
+% App squares (3x4 grid)
+\uncover<-4>{
+    %\foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
+        \foreach \y in {1.4, 2.4, 3.4, 4.4, 5.4} {
+        
+            \draw[fill=basecolor] (0.6,\y) rectangle +(2.8,0.8); %blue!20
+            \draw[fill=secondarycolor] (0.6+0.1,\y+0.1) rectangle +(0.6,0.6) %yellow!5
+            \draw[fill = textcolor] (0.6+0.9,\y+0.1) rectangle +(1.8,0.05);
+            \draw[fill = textcolor] (0.6+0.9,\y+0.25) rectangle +(1.8,0.05);
+            \draw[fill = textcolor] (0.6+0.9,\y+0.4) rectangle +(0.9,0.2);
+            
+        }
+    
 }
-  \end{lstlisting}
-\end{frame}
+\uncover<2-4>{\draw[fill=popcolor] (0.6, 6.4) rectangle +(2.8,0.8) node[midway] {\small Farbe ändern}}
+\visible<1>{
+\draw[fill = bgcolor] (0.65,5.6) rectangle +(-2,0.4) node[midway] {\small @composable}
+\draw[fill = bgcolor] (0.75,4.6) rectangle +(-2,0.4) node[midway] {\small @composable}
+\draw[fill = bgcolor] (0.45,6.6) rectangle +(-2,0.4) node[midway] {\small @composable}
 
-\begin{frame}[fragile]{Interoperability}
-  \begin{lstlisting}[language=Java]
-var carl = SalesPerson("Carl Mueller", 4500.0)
-println(carl.name)
-carl.salesVolume = 4600.0
-carl.setSalesVolume(4600.0)
-  \end{lstlisting}
-  \begin{itemize}
-    \item Kotlin erstellt synthetic properties
-    \item Aufruf über getter/setter Methoden weiterhin möglich
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Mapped types}
-  \begin{itemize}
-    \item \texttt{java.lang.Object} $\Rightarrow$ \texttt{kotlin.Any!}
-    \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
-    \item Primitiver Typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
-    \item Rückgabewert \texttt{void} $\Rightarrow$ \texttt{Unit}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Null safety mit Java}
-  \begin{itemize}
-    \item Aus Java zurückgegebene Instanzen können \texttt{null} sein
-    \item haben spezial-Typ: platform type
-    \item gelockerte Regeln bezüglich Null safety
-    \item anfälliger für NullPointerExceptions
-  \end{itemize}
-  \begin{lstlisting}[language=Java]
-public SalesPerson createSalesPerson() {
-  return null;
 }
-  \end{lstlisting}
-  \begin{lstlisting}[language=Kotlin]
-val sales: SalesPerson = createSalesPerson()
-println(sales.name)
-  \end{lstlisting}
-\end{frame}
+        
+\visible<5->{
 
-\begin{frame}[fragile]{Interoperability: Java Arrays in Kotlin}
-  \begin{itemize}
-    \item Es gibt keine primitiven Typen in Kotlin
-    \item Extra Kotlin Klassen für primitive Arrays
-  \end{itemize}
-  \begin{lstlisting}[language=Java]
-public static void takeArray(int[] array) { ... }
-  \end{lstlisting}
-  \begin{lstlisting}[language=Kotlin]
-var array: IntArray = intArrayOf(1, 2, 3)
-takeArray(array)
-  \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Kotlin Properties in Java}
-  \begin{lstlisting}[language=Kotlin]
-var name: String
-    \end{lstlisting}
-    \begin{lstlisting}[language=Java]
-private String name;
-public String getName() { return name; }
-public void setName(String name) { this.name = name; }
-      \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Instance Fields}
-  \begin{lstlisting}[language=Java]
-SalesPerson person = new SalesPerson("carl", 0.0);
-System.out.println(person.name);
-  \end{lstlisting}
-  \begin{itemize}
-    \item Aufruf von Attributen durch Punkt-Notation
-    \item In Java ist der Aufruf durch die \texttt{@JvmField} Annotation möglich
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperability: Instance Fields}
-  \begin{lstlisting}[language=Kotlin]
-class SalesPerson (@JvmField var name:String) {}
-  \end{lstlisting}
-  \begin{lstlisting}[language=Java]
-public void example() {
-  SalesPerson person = new SalesPerson("Carl", 0.0);
-  System.out.println(person.name);
+      % \pgfmathsetmacro{\randnum}{int(random(0,10))*0.1} 
+    \draw[fill = secondarycolor] (0.6,5.4) rectangle +(1.5,1.5);
+    \draw[fill = textcolor] (2.2,6.4) rectangle +(1,0.4);
+    \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
+    \foreach \x in {0,1.5}{
+        \foreach \y in {0,0.2,...,3.8} {
+               \pgfmathsetmacro{\num}{random(0,10)*0.1}
+                \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
+        }
+    }
 }
-  \end{lstlisting}
+
+
+\node[draw, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-4,6) {States};
+\only<1>{\node[draw,fill = black!5, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-4,3) {Home};}
+%\only<2>{\node[draw, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-2,2) {Homay};}
+\uncover<2-4>{\node[draw,fill = bgcoloralt, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-5,3) {Home};}
+\uncover<5->{\node[draw,fill = bgcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-5,3) {Profil};}
+\uncover<2>{\node[draw,fill = bgcoloralt, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Grau};}
+\uncover<3>{\node[draw,fill = bgpopcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Grau Gelb};}
+\uncover<4>{\node[draw,fill = bgcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Grau Lila};}
+\uncover<5->{\node[draw,fill = basecolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Lila};}
+\end{tikzpicture}
+\end{center}
+
+   \end{frame}
+
+
+\begin{frame}[fragile]{Android: Coroutines}
+  \begin{itemize}
+    \item Threads unterschiede 
+    \item Threads sind:
+    \item subprocess
+    \item Os heavy
+    \item Build from(stack...)
+    \item besseres organisier System
+  
+  \item Thread pools:
+
+
+
+  \begin{center}
+\item[\begin{tabular}{ |   c   |   c   |   c   |}
+\hline
+ Pool name & (Max. Threads) & (Min. Threads)\\
+ \hline
+ Main & (1) & (1)\\
+ \hline
+ Default & (Cpu Cores) & (2)\\
+ \hline
+ I/O & (64) & (0)\\
+ \hline
+\end{tabular}]
+\end{center}  
+\end{itemize}  
+\end{frame}
+
+
+\begin{frame}{Android: Coroutines}
+    \begin{tikzpicture}
+%linker Thread
+\draw[fill = bgcolor] (0.25,5) rectangle +(5,0.75) node[midway] {\small Thread}
+
+\draw[fill = bgcoloralt] (0,1.5) rectangle +(5.5,3.5) node[midway] {\small Stack}
+
+\uncover<2->{\draw[fill = basecolor] (0.25,1.75) rectangle +(5,0.75) node[midway] {\small Main}}
+\uncover<2>{
+\draw[fill = bgcolor] (7,6.5) rectangle +(5,-7.25)
+\node at (9.5,6) {\huge -Subprocese}
+\node at (9.5,5) {\huge -Besteht aus:}
+\draw[fill = bgcoloralt] (7.125,4.5) rectangle +(4.75,-3)
+\node at (9.5,4) {\huge Stack}
+\node at (9.5,3) {\huge Thread Context}
+\node at (9.5,2) {\huge TCB}
+\node at (9.5,1) {\huge -OS Lastig}
+
+}
+\uncover<3-5>{
+\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1};
+}
+\uncover<3-5>{
+\draw[fill = basecolor] (0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun2};
+}
+\uncover<4>{
+\draw[fill = basecolor] (0.25,4) rectangle +(5,0.75) node[midway] {\small  cast Thread};
+}
+\uncover<4->{
+
+\draw[fill = bgcolor] (6.75,5) rectangle +(5,0.75) node[midway] {\small Thread}
+
+\draw[fill = bgcoloralt] (6.5,1.5) rectangle +(5.5,3.5) node[midway] {\small Stack}
+
+}
+\uncover<5>{
+
+\draw[fill = basecolor] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small fun3}
+
+\draw[fill = basecolor] (6.5+0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun4};
+\draw[fill = basecolor] (6.5+0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun5};
+%\draw[fill = basecolor] (6.5+0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
+
+
+}
+
+\uncover<6>{
+\draw[fill = altbasecolor] (3.5,1.125) rectangle +(5.25,-2) node[midway] {CPU}
+\draw[fill = basecolor] (3.75,1) rectangle +(4.75,-0.5) node[midway] {\small fun3 }
+\draw[fill = basecolor] (3.75,0.375) rectangle +(4.75,-0.5) node[midway] {\small fun4};
+\draw[fill = basecolor] (3.75,-0.25) rectangle +(4.75,-0.5) node[midway] {\small fun5}
+}
+\uncover<7>{
+%\draw[fill = basecolor] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small fun0}
+
+\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun3};
+\draw[fill = basecolor] (0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun4};
+\draw[fill = basecolor] (0.25,4) rectangle +(5,0.75) node[midway] {\small  fun5};
+
+
+}
+%ab hier
+\uncover<8>{
+\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small cast Coroutine};
+}
+
+
+\uncover<9-12>{
+\draw[fill = basecolor] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small Coroutine}
+}
+\uncover<10-12>{
+
+\draw[fill = basecolor] (6.5+0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1 - Verkaufsperson Name};
+\draw[fill = basecolor] (6.5+0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun2 - Server ip finden};
+\draw[fill = basecolor] (6.5+0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
+}
+
+\uncover<11-12>{
+
+\draw[fill = bgcolor] (5.75,6) rectangle +(6.5,0.75) node[midway] {\small Suspends: delay(),yield(),withContext(),...}
+
+}
+
+\uncover<12>{
+\draw[fill = popcolor] (6.5+0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
+%\draw[fill = popcolor] (6.5+0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1 - Verkaufsperson Name};
+\draw[fill = altbgcoloralt] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small Coroutine};
+}
+
+\uncover<13>{
+\draw[fill = basecolor] (6.5,1.125) rectangle +(5.5,-2);
+%\fill[basecolor] (6.5+0.125,0.6) rectangle +(2,0.5) %node[midway] {\small Coroutine};
+\node at (7.5+0.125,1-0.15) {\texttt{Coroutine:}}
+\node at (7.5+0.125,1-0.55) {Variablen:}
+\node at (7.5+0.125+3,1-0.55) {Name,Ip}
+\node at (7.5+0.125,1-0.95) {State:}
+\node at (7.5+0.125+3,1-0.95) {1}
+\node at (7.5+0.125,1-1.35) {Path:}
+\node at (7.5+0.125+3,1-1.35) {fun1-fun2-fun3}
+}
+\uncover<14-20>{
+\draw[fill = altbasecolor] (0.5,1.125) rectangle +(6+5.25,-2) node[midway] {Heap}
+\draw[fill = basecolor] (0.625,1.0) rectangle +(0.125,-1.75)
+}
+\uncover<15-20>{
+\foreach \x in {0,0.25,...,5}{
+\draw[fill = basecolor] (0.625+\x,1.0) rectangle +(0.125,-1.75)
+}
+}
+
+\uncover<16>{
+\draw[fill = popcolor] (0.625,1.0) rectangle +(0.125,-1.75)
+
+}
+\uncover<17>{
+\draw[fill = basecolor] (0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
+}
+\uncover<17-18>{
+\draw[fill = basecolor] (0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun2 - Server ip finden};}
+\uncover<17-19>{
+\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1 - Verkaufsperson Name};}
+
+\uncover<19>{
+\draw[fill = basecolor] (0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun4 - update UI}; 
+
+}
+
+
+
+    \end{tikzpicture}
+\end{frame}
+\begin{frame}{Android: Coroutines: Beispiel}
+\begin{center}
+    Multithreading mit Coroutines\\
+    ein Thread\\
+    Multithreading\\
+    Multithreading mit Coroutines
+\end{center}
+\end{frame}
+\begin{frame}{Android: Coroutines: Beispiel}
+
+%\begin{center}
+\begin{tikzpicture}
+
+% Phone body
+\draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
+
+% Screen area
+
+\uncover<1>{\draw[fill=basecolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\uncover<2,8->{\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\uncover<3-7>{\draw[fill=altbgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+
+% Speaker
+\draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
+
+% Home button (circle)
+\draw[fill=black!20] (2,0.4) circle (0.3);
+
+% App squares (3x4 grid)
+\visible<1>{
+
+          % \pgfmathsetmacro{\randnum}{int(random(0,10))*0.1} 
+    \draw[fill = secondarycolor] (0.6,5.4) rectangle +(1.5,1.5);
+    \draw[fill = textcolor] (2.2,6.4) rectangle +(1,0.4);
+    \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
+    \foreach \x in {0,1.5}{
+        \foreach \y in {0,0.2,...,3.8} {
+               \pgfmathsetmacro{\num}{random(0,10)*0.1}
+                \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
+        }
+    }
+}
+
+
+\uncover<2,8->{
+\foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
+    \foreach \y in {1.4, 2.4, 3.4, 4.4, 5.4, 6.4} {
+        \draw[fill=basecolor] (\x,\y) rectangle +(2.8,0.8);
+        \draw[fill=secondarycolor] (\x+0.1,\y+0.1) rectangle +(0.6,0.6)
+        \draw[fill = textcolor] (\x+0.9,\y+0.1) rectangle +(1.8,0.05);
+        \draw[fill = textcolor] (\x+0.9,\y+0.25) rectangle +(1.8,0.05);
+        \draw[fill = textcolor] (\x+0.9,\y+0.4) rectangle +(0.9,0.2);
+    }
+}
+}
+\uncover<4->{\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {ein Thread};}
+\uncover <4->{
+\draw [fill = basecolor] (8.25,6.5) rectangle +(0.125,-6)
+
+}
+\uncover<5-7>{ %running process
+
+\draw [fill = bgcolor] (8.25,4.5) rectangle +(0.125,-4)
+\draw [fill = altbgcolor] (8.125,5) rectangle +(0.375,-1)
+}
+\uncover<6,7>{ %paused process
+\draw [fill = altbasecolor] (8.125,6.5) rectangle +(0.375,-1)
+}
+
+
+\uncover<8>{
+
+%\draw [fill = bgcolor] (8.25,4.5) rectangle +(0.125,-4)
+\draw [fill = altbgcolor] (8.125,1.25) rectangle +(0.375,-1)
+}
+\uncover<3-7>{
+\foreach \x in {0.6, 1.6, 2.6} {
+    \foreach \y in {1.4, 2.4, 3.4, 4.4} {
+        \draw[fill=altbasecolor] (\x,\y) rectangle +(0.8,0.8);
+    }
+}
+
+\draw[fill=altpopcolor] (2.6,3.4) rectangle +(0.8,0.8);
+%\draw[fill=altsecondarycolor] 
+\draw[fill=altsecondarycolor, rounded corners=0.3cm] (0.6,5.4) rectangle +(2.8,1.9) node[midway] { \Huge\texttt{\textcolor{alttextcolor}{12:30}}};
+}
+\uncover<7>{
+%ANRs
+\draw [fill = altbgcoloralt, rounded corners=0.3cm] (0.8,2) rectangle +(2.4,3.6) node[midway] {\Huge\texttt{ANR}}
+}
+\end{tikzpicture}
+%\end{center}
+
+    
+\end{frame}
+\begin{frame}{Android: Coroutines: Beispiel}
+    \begin{tikzpicture}
+
+% Phone body
+\draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
+
+% Screen area
+
+
+\uncover<6->{\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\uncover<1-5>{\draw[fill=altbgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+
+% Speaker
+\draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
+
+% Home button (circle)
+\draw[fill=black!20] (2,0.4) circle (0.3);
+
+
+
+
+\uncover<6->{
+\foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
+    \foreach \y in {1.4, 2.4, 3.4, 4.4, 5.4, 6.4} {
+        \draw[fill=basecolor] (\x,\y) rectangle +(2.8,0.8);
+        \draw[fill=secondarycolor] (\x+0.1,\y+0.1) rectangle +(0.6,0.6)
+        \draw[fill = textcolor] (\x+0.9,\y+0.1) rectangle +(1.8,0.05);
+        \draw[fill = textcolor] (\x+0.9,\y+0.25) rectangle +(1.8,0.05);
+        \draw[fill = textcolor] (\x+0.9,\y+0.4) rectangle +(0.9,0.2);
+    }
+}
+}
+
+\uncover<1->{\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Multithreading};}
+\uncover <2->{
+\draw [fill = basecolor] (8.25,5.5) rectangle +(0.125,-5)
+
+}
+\uncover<4>{ %paused process
+\draw [fill = altbasecolor] (8.125,6) rectangle +(0.375,-1)
+}
+\uncover <2->{
+\draw[fill = bgcolor] (7.25,5.75) rectangle +(2,0.75) node[midway] {\small Main/Ui}
+
+
+}
+\uncover<3-5>{ %running process
+
+\draw [fill = bgcolor] (8.25,4.5) rectangle +(0.125,-4)
+\draw [fill = altbgcolor] (8.125,5) rectangle +(0.375,-1)
+}
+
+
+\uncover<5>{
+
+%\draw [fill = bgcolor] (8.25,4.5) rectangle +(0.125,-4)
+%\draw [fill = altbgcolor] (8.125,1.25) rectangle +(0.375,-1)
+}
+\uncover<5->{
+\draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small Threads}
+%\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5)
+\draw [fill = defaultcolor] (6.75+0.125,5.5) rectangle +(0.125,-5)
+\draw [fill = defaultcolor] (5.75+0.125 ,5.5) rectangle +(0.125,-5)
+\draw [fill = defaultcolor] (4.75+0.125,5.5) rectangle +(0.125,-5)
+
+
+\draw [fill = bgcolor] (6.75+0.125,2.5) rectangle +(0.125,-2)
+\draw [fill = altbgcolor] (6.75,3) rectangle +(0.375,-1)
+
+
+\draw [fill = bgcolor] (5.75+0.125,4.5) rectangle +(0.125,-4)
+\draw [fill = altbgcolor] (5.75,5) rectangle +(0.375,-1)
+
+\draw [fill = altbgcolor] (4.75,1.25) rectangle +(0.375,-1)
+}
+\uncover<6->{
+\draw [fill = altbgcolor] (8.125,1.25) rectangle +(0.375,-1)
+
+
+}
+\uncover<1-5>{
+\foreach \x in {0.6, 1.6, 2.6} {
+    \foreach \y in {1.4, 2.4, 3.4, 4.4} {
+        \draw[fill=altbasecolor] (\x,\y) rectangle +(0.8,0.8);
+    }
+    \draw[fill=altpopcolor] (2.6,3.4) rectangle +(0.8,0.8);
+%\draw[fill=altsecondarycolor] 
+\draw[fill=altsecondarycolor, rounded corners=0.3cm] (0.6,5.4) rectangle +(2.8,1.9) node[midway] { \Huge\texttt{\textcolor{alttextcolor}{12:30}}};
+}
+}
+\uncover<7>{
+\draw[fill = bgcolor] (9.25,4.75) rectangle +(3,0.75) node[midway] {\small Threads}
+\draw[fill = bgcolor] (9.25,3.75) rectangle +(3,0.75) node[midway] {\small Threads}
+\draw[fill = bgcolor] (9.25,2.75) rectangle +(3,0.75) node[midway] {\small Threads}
+\draw[fill = bgcolor] (9.25,1.75) rectangle +(3,0.75) node[midway] {\small Threads}
+\draw[fill = bgcolor] (9.25,0.75) rectangle +(3,0.75) node[midway] {\small Threads}
+\draw[fill = bgcolor] (9.25,-1.75) rectangle +(3,0.75) node[midway] {\small Threads}
+}
+
+
+\end{tikzpicture}
+\end{frame}
+\begin{frame}{Android: Coroutines: Beispiel}
+\begin{tikzpicture}
+    
+
+% Phone body
+\draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
+
+% Screen area
+\uncover<1-5>{\draw[fill=altbgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+
+
+\foreach \x in {0.6, 1.6, 2.6} {
+    \foreach \y in {1.4, 2.4, 3.4, 4.4} {
+        \draw[fill=altbasecolor] (\x,\y) rectangle +(0.8,0.8);
+    }
+    \draw[fill=altpopcolor] (2.6,3.4) rectangle +(0.8,0.8);
+%\draw[fill=altsecondarycolor] 
+\draw[fill=altsecondarycolor, rounded corners=0.3cm] (0.6,5.4) rectangle +(2.8,1.9) node[midway] { \Huge\texttt{\textcolor{alttextcolor}{12:30}}};
+}
+
+
+
+
+}
+\uncover<6-9>{
+\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+
+\foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
+    \foreach \y in {1.4, 2.4, 3.4, 4.4, 5.4, 6.4} {
+        \draw[fill=basecolor] (\x,\y) rectangle +(2.8,0.8);
+        \draw[fill=secondarycolor] (\x+0.1,\y+0.1) rectangle +(0.6,0.6);
+        \draw[fill = textcolor] (\x+0.9,\y+0.1) rectangle +(1.8,0.05);
+        \draw[fill = textcolor] (\x+0.9,\y+0.25) rectangle +(1.8,0.05);
+        \draw[fill = textcolor] (\x+0.9,\y+0.4) rectangle +(0.9,0.2);
+    }
+}
+
+}
+\visible<10->{
+\draw[fill=basecolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+      % \pgfmathsetmacro{\randnum}{int(random(0,10))*0.1} 
+    \draw[fill = secondarycolor] (0.6,5.4) rectangle +(1.5,1.5);
+    \draw[fill = textcolor] (2.2,6.4) rectangle +(1,0.4);
+    
+    \foreach \x in {0,1.5}{
+        \foreach \y in {0,0.2,...,3.8} {
+               \pgfmathsetmacro{\num}{random(0,10)*0.1}
+                \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
+        }
+    }
+}
+\uncover<11->{
+\draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
+}
+% Speaker
+\draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
+
+% Home button (circle)
+\draw[fill=black!20] (2,0.4) circle (0.3);
+
+
+%right side slide
+\uncover<1->{\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Coroutines};}
+\uncover<2->{
+%Default
+\draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small Default}
+%\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5)
+\draw [fill = defaultcolor] (6.75+0,5.5) rectangle +(0.125,-5)
+\draw [fill = defaultcolor] (5.75+0 ,5.5) rectangle +(0.125,-5)
+
+
+%Main
+\draw [fill = basecolor] (8.25,5.5) rectangle +(0.125,-5)
+\draw[fill = bgcolor] (7.25,5.75) rectangle +(2,0.75) node[midway] {\small Main/Ui}
+
+%I/O
+\draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small I/O}
+%\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5)
+%\draw [fill = bgcolor] (6.75+0.125,2.5) rectangle +(0.125,-2)
+%\draw [fill = altbgcolor] (6.75,3) rectangle +(0.375,-1)
+
+
+%\draw [fill = bgcolor] (5.75+0.125,4.5) rectangle +(0.125,-4)
+%\draw [fill = altbgcolor] (5.75,5) rectangle +(0.375,-1)
+
+%\draw [fill = altbgcolor] (4.75,1.25) rectangle +(0.375,-1)
+}
+\uncover<3->{
+%\draw [fill = defaultcolor] (4.75+0,5.5) rectangle +(0.125,-5)
+
+
+\draw [fill = iocolor] (6.75+5,5.5) rectangle +(0.125,-5)
+\draw [fill = iocolor] (5.75+5 ,5.5) rectangle +(0.125,-5)
+\draw [fill = iocolor] (4.75+5,5.5) rectangle +(0.125,-5)
+
+}
+\uncover<3>{
+\draw [fill = altbgcolor] (6.75+5-0.125,5.6) rectangle +(0.375,-1) node[midway] {1};
+\draw [fill = altbgcolor] (5.75+5-0.125,5.6) rectangle +(0.375,-1) node[midway] {2};
+\draw [fill = altbgcolor] (4.75+5-0.125,5.6) rectangle +(0.375,-1) node[midway] {3};
+
+}
+\uncover<4>{
+
+\draw [fill = bgcolor] (6.75+5,2.5) rectangle +(0.125,-2)
+\draw [fill = altbgcolor] (6.75+5-0.125,3) rectangle +(0.375,-1) node[midway] {1};
+\draw [fill = bgcolor] (5.75+5,3.5) rectangle +(0.125,-3)
+\draw [fill = altbgcolor] (5.75+5-0.125,4) rectangle +(0.375,-1) node[midway] {2};
+\draw [fill = bgcolor] (4.75+5,4) rectangle +(0.125,-3.5)
+\draw [fill = altbgcolor] (4.75+5-0.125,4.5) rectangle +(0.375,-1) node[midway] {3};
+
+}
+
+\uncover<5>{
+
+\draw [fill = bgcolor] (6.75+5,4) rectangle +(0.125,-3.5)
+\draw [fill = altbgcolor] (6.75+5-0.125,4.5) rectangle +(0.375,-1) node[midway] {4};
+\draw [fill = bgcolor] (5.75+5,4.5) rectangle +(0.125,-4)
+\draw [fill = altbgcolor] (5.75+5-0.125,5) rectangle +(0.375,-1) node[midway] {5};
+\draw [fill = bgcolor] (4.75+5,3) rectangle +(0.125,-2.5)
+\draw [fill = altbgcolor] (4.75+5-0.125,3.5) rectangle +(0.375,-1) node[midway] {6};
+%paused coroutines
+\draw[fill = alttextcolor] (4+5-0.25+0.0625,5.5) rectangle +(0.5,-5) %node[midway] {3};
+\draw [fill = altbgcoloralt] (4+5-0.125,5) rectangle +(0.375,-1) node[midway] {3};
+\draw [fill = altbgcoloralt] (4+5-0.125,3.5) rectangle +(0.375,-1) node[midway] {2};
+\draw [fill = altbgcoloralt] (4+5-0.125,2) rectangle +(0.375,-1) node[midway] {1};
+
+}
+\uncover<6>{
+
+%\draw [fill = bgcolor] (6.75+5,2.5) rectangle +(0.125,-2)
+\draw [fill = altbgcolor] (6.75+5-0.125,3) rectangle +(0.375,-1) node[midway] {1};
+%\draw [fill = bgcolor] (5.75+5,3.5) rectangle +(0.125,-3)
+\draw [fill = altbgcolor] (5.75+5-0.125,4) rectangle +(0.375,-1) node[midway] {2};
+%\draw [fill = bgcolor] (4.75+5,4) rectangle +(0.125,-3.5)
+\draw [fill = altbgcolor] (8.25-0.125,1.5) rectangle +(0.375,-1) node[midway] {3};
+%paused coroutines
+\draw[fill = alttextcolor] (4+5-0.25+0.0625,5.5) rectangle +(0.5,-5) %node[midway] {3};
+\draw [fill = altbgcoloralt] (4+5-0.125,5) rectangle +(0.375,-1) node[midway] {6};
+\draw [fill = altbgcoloralt] (4+5-0.125,3.5) rectangle +(0.375,-1) node[midway] {5};
+\draw [fill = altbgcoloralt] (4+5-0.125,2) rectangle +(0.375,-1) node[midway] {4};
+
+}
+\uncover<7>{
+
+
+%\draw [fill = bgcolor] (4.75+5,4) rectangle +(0.125,-3.5)
+\draw [fill = altbgcolor] (5.75+5-0.125,4) rectangle +(0.375,-1) node[midway] {2};
+\draw [fill = altbgcolor] (4.75+5-0.125,4.5) rectangle +(0.375,-1) node[midway] {1};
+
+
+}
+\uncover<8>{
+
+\draw[fill = alttextcolor] (4+5-0.25+0.0625,5.5) rectangle +(0.5,-5) %node[midway] {3};
+%\draw [fill = bgcolor] (5.75+5,3.5) rectangle +(0.125,-3)
+\draw [fill = altbgcolor] (5.75+5-0.125,2) rectangle +(0.375,-1) node[midway] {2};
+\draw [fill = altbgcoloralt] (4+5-0.125,5) rectangle +(0.375,-1) node[midway] {1};
+
+
+}
+\uncover<9>{
+\draw [fill = altbgcolor] (8.25-0.125,5.5) rectangle +(0.375,-1) node[midway] {2};
+\draw [fill = altbgcolor] (6.75-0.125,5.5) rectangle +(0.375,-1) node[midway] {1};
+}
+\uncover<10>{
+\draw [fill = altbgcolor] (8.25-0.125,5.5) rectangle +(0.375,-1) node[midway] {1};
+\draw [fill = altbgcolor] (8.25-0.125,1.5) rectangle +(0.375,-1) node[midway] {2};
+
+}
+\uncover<11>{
+%\draw [fill = altbgcolor] (8.25-0.125,5.5) rectangle +(0.375,-1) node[midway] {1};
+\draw [fill = altbgcolor] (8.25-0.125,1.5) rectangle +(0.375,-1) node[midway] {1};
+
+}
+\end{tikzpicture}
 \end{frame}
 
 \end{document}
