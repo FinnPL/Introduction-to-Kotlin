@@ -1,7 +1,6 @@
 \documentclass{beamer}
 \input{config.tex}
 
-
 \title{Kotlin}
 \subtitle{Proseminar: Fortgeschrittene Programmierkonzepte}
 \author[C. Konersmann, F. Lippok, P. Lukas]{
@@ -288,7 +287,7 @@ public void printSupervisor() {
   if (supervisor == null)
     System.out.println("No supervisor");
   else System.out.println(supervisor.name);
-}   
+}
   \end{lstlisting}
   \begin{lstlisting}[language=Kotlin]
 fun printSupervisor() {
@@ -310,7 +309,7 @@ var b: String = possiblyNull!!
 \begin{frame}[fragile]{Null safety: Nullable Receiver}
   \begin{itemize}
     \item Baut auf Extension functions
-    \item erlauben Methodenaufruf auf nullable types
+    \item erlaubt Methodenaufruf auf nullable types
     \item Null Werte werden innerhalb der Methode behandelt
   \end{itemize}
   \begin{lstlisting}[language=Kotlin]
