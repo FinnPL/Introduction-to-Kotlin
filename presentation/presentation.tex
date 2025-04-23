@@ -413,15 +413,16 @@ public void setName(String name) { this.name = name; }
 \end{frame}
 
 \begin{frame}[fragile]{Interoperabilität: Instance Fields}
+  \begin{lstlisting}[language=Java]
+Verkaufsperson person =
+  new Verkaufsperson("carl", 0.0);
+System.out.println(person.name);
+  \end{lstlisting}
+  \pause
   \begin{itemize}[<+->]
     \item Aufruf von Attributen durch Punkt-Notation
     \item In Java ist der Aufruf durch die \texttt{@JvmField} Annotation möglich
   \end{itemize}
-  \pause
-  \begin{lstlisting}[language=Java]
-Verkaufsperson person = new Verkaufsperson("carl", 0.0);
-System.out.println(person.name);
-  \end{lstlisting}
   \pause
   \begin{lstlisting}[language=Kotlin]
 class Verkaufsperson(@JvmField var name:String) {}
