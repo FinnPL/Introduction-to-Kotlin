@@ -232,8 +232,8 @@ System.out.println(person.name);
     \item Programmierer muss Null safety gewährleisten
   \end{itemize}
   \begin{lstlisting}[language=Kotlin]
-var a : String = "a is non-nullable"
-var b : String? = "b is nullable"
+var a : String = "a ist non-nullable"
+var b : String? = "b ist nullable"
   \end{lstlisting}
 \end{frame}
 
@@ -324,7 +324,110 @@ sales.print() // This person does not exist
   \end{lstlisting}
 \end{frame}
 
-%\begin{frame}[fragile]{Interoperability}
-%\end{frame}
+\begin{frame}[fragile]{Interoperability}
+  \begin{lstlisting}[language=Java]
+public class SalesPerson {
+  private final String name;
+  private double salesVolume;
+  
+  public SalesPerson(String name, Double salesVolume) {
+    this.name = name;
+    this.salesVolume = salesVolume;
+  }
+
+  public String getName() { return name; }
+  public Double getSalesVolume() { return salesVolume; }
+  public void setSalesVolume(Double salesVolume) { this.salesVolume = salesVolume; }
+}
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability}
+  \begin{lstlisting}[language=Java]
+var carl = SalesPerson("Carl Mueller", 4500.0)
+println(carl.name)
+carl.salesVolume = 4600.0
+carl.setSalesVolume(4600.0)
+  \end{lstlisting}
+  \begin{itemize}
+    \item Kotlin erstellt synthetic properties
+    \item Aufruf über getter/setter Methoden weiterhin möglich
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability: Mapped types}
+  \begin{itemize}
+    \item \texttt{java.lang.Object} \Rightarrow \texttt{kotlin.Any!}
+    \item \texttt{java.lang.Integer} \Rightarrow \texttt{kotlin.Int?}
+    \item primitive typ \texttt{int} \Rightarrow \texttt{kotlin.Int}
+    \item Rückgabewert \texttt{void} \Rightarrow \texttt{Unit}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability: Null safety mit Java}
+  \begin{itemize}
+    \item Aus Java zurückgegebene Instanzen können \texttt{null} sein
+    \item haben spezial-Typ: platform type
+    \item gelockerte Regeln bezüglich Null safety
+    \item anfälliger für NullPointerExceptions
+  \end{itemize}
+  \begin{lstlisting}[language=Java]
+public SalesPerson createSalesPerson() {
+  return null;
+}
+  \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin]
+val sales: SalesPerson = createSalesPerson()
+println(sales.name)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability: Java Arrays in Kotlin}
+  \begin{itemize}
+    \item Es gibt keine primitiven Typen in Kotlin
+    \item Extra Kotlin Klassen für primitive Arrays
+  \end{itemize}
+  \begin{lstlisting}[language=Java]
+public static void takeArray(int[] array) { ... }
+  \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin]
+var array: IntArray = intArrayOf(1, 2, 3)
+takeArray(array)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability: Kotlin Properties in Java}
+  \begin{lstlisting}[language=Kotlin]
+var name: String
+    \end{lstlisting}
+    \begin{lstlisting}[language=Java]
+private String name;
+public String getName() { return name; }
+public void setName(String name) { this.name = name; }
+      \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability: Instance Fields}
+  \begin{lstlisting}[language=Java]
+SalesPerson person = new SalesPerson("carl", 0.0);
+System.out.println(person.name);
+  \end{lstlisting}
+  \begin{itemize}
+    \item Aufruf von Attributen durch Punkt-Notation
+    \item In Java ist der Aufruf durch die \texttt{@JvmField} Annotation möglich
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperability: Instance Fields}
+  \begin{lstlisting}[language=Kotlin]
+class SalesPerson (@JvmField var name:String) {}
+  \end{lstlisting}
+  \begin{lstlisting}[language=Java]
+public void example() {
+  SalesPerson person = new SalesPerson("Carl", 0.0);
+  System.out.println(person.name);
+}
+  \end{lstlisting}
+\end{frame}
 
 \end{document}
