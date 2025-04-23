@@ -216,38 +216,42 @@ class Verkaufsperson(val name: String,
 
 \begin{frame}[fragile]{Null safety}
   Motiviation: Null safety
-  \begin{lstlisting}[language=Kotlin, title=Java example, xleftmargin=1em]
+  \pause\vspace{1cm}
+  \begin{lstlisting}[language=Kotlin, title=Java Beispiel, xleftmargin=1em]
 Verkaufsperson person = null;
 System.out.println(person.name);
   \end{lstlisting}
-  \begin{itemize}
+  \pause\vspace{1cm}
+  \begin{itemize}[<+->]
     \item Exception in thread "main" java.lang.NullPointerException %Falsche Anführungszeichen?
     \item Kann zu Programmabbruch führen oder weitere Fehler nach sich ziehen
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Null safety}
-  \begin{itemize}
-    \item unterscheidung zwischen nullable types und non-nullable types
-    \item Programmierer muss Null safety gewährleisten
-  \end{itemize}
   \begin{lstlisting}[language=Kotlin]
 var a : String = "a ist non-nullable"
 var b : String? = "b ist nullable"
   \end{lstlisting}
+  \pause \vspace{1cm}
+  \begin{itemize}
+    \item Unterscheidung zwischen \textit{nullable} und \textit{non-nullable} types
+    \item Programmierer muss Null safety gewährleisten
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Null safety: Safe call operator}
-  Ziel: sicherer Zugriff auf Datenfeld
+  Ziel: sicherer Zugriff auf Datenfelder und Methoden durch \texttt{?.}
+  \pause
   \begin{lstlisting}[language=Java, title=in Java]
 private final SalesPerson supervisor;
 
 public void printSupervisor() {
-  if (supervisor == null)
-    System.out.println("null");
+  if (supervisor == null) System.out.println(null);
   else System.out.println(supervisor.name);
 }
   \end{lstlisting}
+  \pause
   \begin{lstlisting}[language=Kotlin, title=in Kotlin]
 val supervisor: SalesPerson? = null
 
@@ -258,10 +262,11 @@ fun printSupervisor() {
 \end{frame}
 
 \begin{frame}[fragile]{Null safety: Safe call operator}
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators]
 val name: String? = supervisor?.supervisor?.name   
   \end{lstlisting}
-  \begin{lstlisting}[language=Kotlin]
+  \pause
+  \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator]
 supervisor?.supervisor?.salesVolume = 0.0
   \end{lstlisting}
 \end{frame}
@@ -272,8 +277,9 @@ public void printSupervisor() {
   if (supervisor == null)
     System.out.println("No supervisor");
   else System.out.println(supervisor.name);
-}   
+}
   \end{lstlisting}
+  \pause
   \begin{lstlisting}[language=Kotlin]
 fun printSupervisor() {
   println(supervisor?.name ?: "No supervisor")
@@ -307,17 +313,19 @@ var b: String = possiblyNull!!
 \end{frame}
 
 \begin{frame}[fragile]{Null safety: Nullable Receiver}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Baut auf Extension functions
     \item erlaubt Methodenaufruf auf nullable types
     \item Null Werte werden innerhalb der Methode behandelt
   \end{itemize}
+  \pause \vspace{1cm}
   \begin{lstlisting}[language=Kotlin]
 fun SalesPerson?.print() {
   if (this == null) return println("This person does not exist.")
   return println("$name: $salesVolume sold")
 }
   \end{lstlisting}
+  \pause
   \begin{lstlisting}[language=Kotlin]
 var sales: SalesPerson? = null
 sales.print() // This person does not exist
