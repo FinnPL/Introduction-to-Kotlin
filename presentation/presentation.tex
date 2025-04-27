@@ -215,7 +215,7 @@ class Verkaufsperson(val name: String,
 % Null safety
 
 \begin{frame}[fragile]{Null Safety}
-  Motiviation: Null Safety
+  \textbf{Motiviation: Null Safety}
   \pause\vspace{1cm}
   \begin{lstlisting}[language=Kotlin, title=Java Beispiel, xleftmargin=1em]
 Verkaufsperson person = null;
@@ -225,6 +225,7 @@ System.out.println(person.name);
   \begin{itemize}[<+->]
     \item Code wirft \texttt{java.lang.NullPointerException}
     \item Kann zu Programmabbruch führen oder weitere Fehler nach sich ziehen
+    \item Konzept verhindert NullPointerExceptions
   \end{itemize}
 \end{frame}
 
@@ -234,7 +235,7 @@ var a : String = "a ist non-nullable"
 var b : String? = "b ist nullable"
   \end{lstlisting}
   \pause \vspace{1cm}
-  \begin{itemize}
+  \begin{itemize}[<+->]
     \item Unterscheidung zwischen \textit{nullable} und \textit{non-nullable} types
     \item Programmierer muss Null safety gewährleisten
   \end{itemize}
@@ -282,7 +283,7 @@ public void printVorgesetzer() {
   if (vorgesetzer == null)
     System.out.println("Kein Vorgesetzer");
   else System.out.println(vorgesetzer.name);
-}   
+}
   \end{lstlisting}
   \pause
   \begin{lstlisting}[language=Kotlin]
@@ -321,6 +322,13 @@ fun Verkaufsperson?.print() {
 var sales: Verkaufsperson? = null
 sales.print()
   \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Interoperabilität}
+  \begin{itemize}[<+->]
+    \item Kotlin aufbauend auf Java entworfen
+    \item Kotlin bietet einfachen Zugriff auf Java Code und umgekehrt
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Interoperabilität}
@@ -383,23 +391,6 @@ println(person.name)
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperabilität: Java Arrays in Kotlin}
-  \begin{itemize}[<+->]
-    \item Es gibt keine primitiven Typen in Kotlin
-    \item Extra Kotlin Klassen für primitive Arrays
-    \item Diese kompilieren zu primitiven Arrays
-  \end{itemize}
-  \pause \vspace{1cm}
-  \begin{lstlisting}[language=Java]
-public static void takeArray(int[] array) { ... }
-  \end{lstlisting}
-  \pause
-  \begin{lstlisting}[language=Kotlin]
-var array: IntArray = intArrayOf(1, 2, 3)
-takeArray(array)
-  \end{lstlisting}
-\end{frame}
-
 \begin{frame}[fragile]{Interoperabilität: Kotlin Properties in Java}
   \begin{lstlisting}[language=Kotlin]
 var name: String
@@ -410,23 +401,6 @@ private String name;
 public String getName() { return name; }
 public void setName(String name) { this.name = name; }
       \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperabilität: Instance Fields}
-  \begin{lstlisting}[language=Java]
-Verkaufsperson person =
-  new Verkaufsperson("carl", 0.0);
-System.out.println(person.name);
-  \end{lstlisting}
-  \pause
-  \begin{itemize}[<+->]
-    \item Aufruf von Attributen durch Punkt-Notation
-    \item In Java ist der Aufruf durch die \texttt{@JvmField} Annotation möglich
-  \end{itemize}
-  \pause
-  \begin{lstlisting}[language=Kotlin]
-class Verkaufsperson(@JvmField var name:String) {}
-  \end{lstlisting}
 \end{frame}
 
 \begin{frame}{Multiplatform}
