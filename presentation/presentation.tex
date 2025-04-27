@@ -587,12 +587,12 @@ class Verkaufsperson(@JvmField var name:String) {}
 
 \end{frame}
 
-
+\iffalse
 \begin{frame}[fragile]{Android: Coroutines}
   \begin{itemize}
     \item Threads unterschiede 
     \item Threads sind:
-    \item subprocess
+    \item unterprozess
     \item Os heavy
     \item Build from(stack...)
     \item besseres organisier System
@@ -616,26 +616,37 @@ class Verkaufsperson(@JvmField var name:String) {}
 \end{center}  
 \end{itemize}  
 \end{frame}
-
+\fi
 \begin{frame}{Android: Coroutines}
   \begin{tikzpicture}
+  
 %linker Thread
 \draw[fill = bgcolor] (0.25,5) rectangle +(5,0.75) node[midway] {\small Thread};
 
 \draw[fill = bgcoloralt] (0,1.5) rectangle +(5.5,3.5) node[midway] {\small Stack};
 
-\uncover<2->{\draw[fill = basecolor] (0.25,1.75) rectangle +(5,0.75) node[midway] {\small Main};}
-\uncover<2>{
-\draw[fill = bgcolor] (7,6.5) rectangle +(5,-7.25);
-\node at (9.5,6) {\huge -Subprocese};
-\node at (9.5,5) {\huge -Besteht aus:};
-\draw[fill = bgcoloralt] (7.125,4.5) rectangle +(4.75,-3);
-\node at (9.5,4) {\huge Stack};
-\node at (9.5,3) {\huge Thread Context};
-\node at (9.5,2) {\huge TCB};
-\node at (9.5,1) {\huge -OS Lastig};
+\uncover<1->{\draw[fill = basecolor] (0.25,1.75) rectangle +(5,0.75) node[midway] {\small Main};}
+%rechter Thread
+\uncover<3->{
+
+\draw[fill = bgcolor] (6.75,5) rectangle +(5,0.75) node[midway] {\small Thread};
+
+\draw[fill = bgcoloralt] (6.5,1.5) rectangle +(5.5,3.5) node[midway] {\small Stack};
 
 }
+\iffalse
+\uncover<2>{
+\draw[fill = bgcolor] (6.5,6.5) rectangle +(5.75,-7.25);
+\node at (9.25,6) {\huge -Unterprozess};
+\node at (9.25,5) {\huge -Besteht aus:};
+\draw[fill = bgcoloralt] (6.625,4.5) rectangle +(5.5,-3);
+\node at (9.35,4) {\huge Stack (Pointer)};
+\node at (9.35,3) {\huge Instruction Pointer};
+%\node at (9.5,2) {\huge };
+\node at (9.25,1) {\huge -OS Lastig};
+
+}
+
 \uncover<3-5>{
 \draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1};
 }
@@ -644,13 +655,6 @@ class Verkaufsperson(@JvmField var name:String) {}
 }
 \uncover<4>{
 \draw[fill = basecolor] (0.25,4) rectangle +(5,0.75) node[midway] {\small  cast Thread};
-}
-\uncover<4->{
-
-\draw[fill = bgcolor] (6.75,5) rectangle +(5,0.75) node[midway] {\small Thread};
-
-\draw[fill = bgcoloralt] (6.5,1.5) rectangle +(5.5,3.5) node[midway] {\small Stack};
-
 }
 \uncover<5>{
 
@@ -665,48 +669,41 @@ class Verkaufsperson(@JvmField var name:String) {}
 
 \uncover<6>{
 \draw[fill = altbasecolor] (3.5,1.125) rectangle +(5.25,-2) node[midway] {CPU};
-\draw[fill = basecolor] (3.75,1) rectangle +(4.75,-0.5) node[midway] {\small fun3 };
+\draw[fill = basecolor] (3.75,1) rectangle +(4.75,-0.5) node[midway] {\small fun5 };
 \draw[fill = basecolor] (3.75,0.375) rectangle +(4.75,-0.5) node[midway] {\small fun4};
-\draw[fill = basecolor] (3.75,-0.25) rectangle +(4.75,-0.5) node[midway] {\small fun5};
+\draw[fill = basecolor] (3.75,-0.25) rectangle +(4.75,-0.5) node[midway] {\small fun3};
 }
-\uncover<7>{
-%\draw[fill = basecolor] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small fun0};
-
-\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun3};
-\draw[fill = basecolor] (0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun4};
-\draw[fill = basecolor] (0.25,4) rectangle +(5,0.75) node[midway] {\small  fun5};
-
-
-}
+\fi
 %ab hier
-\uncover<8>{
-\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small cast Coroutine};
+\uncover<2>{
+\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small launch Coroutine};
+\draw[fill = basecolor!60] (6.5+0.25,2.5) rectangle +(2.5,0.75) node[midway] {\small launch\{\}};
+\draw[fill = basecolor!60] (9+0.25,2.5) rectangle +(2.5,0.75) node[midway] {\small async\{\}};
 }
 
-
-\uncover<9-12>{
+\uncover<3-6>{
 \draw[fill = basecolor] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small Coroutine};
 }
-\uncover<10-12>{
+\uncover<4-6>{
 
 \draw[fill = basecolor] (6.5+0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1 - Verkaufsperson Name};
 \draw[fill = basecolor] (6.5+0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun2 - Server ip finden};
 \draw[fill = basecolor] (6.5+0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
 }
 
-\uncover<11-12>{
+\uncover<5-6>{
 
 \draw[fill = bgcolor] (5.75,6) rectangle +(6.5,0.75) node[midway] {\small Suspends: delay(),yield(),withContext(),...};
 
 }
 
-\uncover<12>{
+\uncover<6>{
 \draw[fill = popcolor] (6.5+0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
 %\draw[fill = popcolor] (6.5+0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1 - Verkaufsperson Name};
 \draw[fill = altbgcoloralt] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small Coroutine};
 }
 
-\uncover<13>{
+\uncover<7>{
 \draw[fill = basecolor] (6.5,1.125) rectangle +(5.5,-2);
 %\fill[basecolor] (6.5+0.125,0.6) rectangle +(2,0.5) %node[midway] {\small Coroutine};
 \node at (7.5+0.125,1-0.15) {\texttt{Coroutine:}};
@@ -717,32 +714,32 @@ class Verkaufsperson(@JvmField var name:String) {}
 \node at (7.5+0.125,1-1.35) {Path:};
 \node at (7.5+0.125+3,1-1.35) {fun1-fun2-fun3};
 }
-\uncover<14-20>{
+\uncover<8-14>{
 \draw[fill = altbasecolor] (0.5,1.125) rectangle +(6+5.25,-2) node[midway] {Heap};
 \draw[fill = basecolor] (0.625,1.0) rectangle +(0.125,-1.75);
 }
-\uncover<15-20>{
+\uncover<9-14>{
 \foreach \x in {0,0.25,...,5}{
 \draw[fill = basecolor] (0.625+\x,1.0) rectangle +(0.125,-1.75);
 }
 }
 
-\uncover<16>{
+\uncover<10>{
 \draw[fill = popcolor] (0.625,1.0) rectangle +(0.125,-1.75);
 
 }
-\uncover<17>{
+\uncover<11>{
 \draw[fill = basecolor] (0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
 }
-\uncover<17-18>{
+\uncover<11-12>{
 \draw[fill = basecolor] (0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun2 - Server ip finden};}
-\uncover<17-19>{
+\uncover<11-13>{
 \draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun1 - Verkaufsperson Name};}
 
-\uncover<19>{
+\uncover<13>{
 \draw[fill = basecolor] (0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun4 - update UI}; 
-
 }
+
 
 
 
@@ -751,13 +748,15 @@ class Verkaufsperson(@JvmField var name:String) {}
 
 \begin{frame}{Android: Coroutines: Beispiel}
 \begin{center}
+\iffalse
     Multithreading mit Coroutines\\
-    ein Thread\\
+    Single Thread\\
     Multithreading\\
-    Multithreading mit Coroutines
+    \fi
+    Beispiel Coroutines
 \end{center}
 \end{frame}
-
+\iffalse
 \begin{frame}{Android: Coroutines: Beispiel}
 
 %\begin{center}
@@ -947,6 +946,7 @@ class Verkaufsperson(@JvmField var name:String) {}
 
 \end{tikzpicture}
 \end{frame}
+\fi
 \begin{frame}{Android: Coroutines: Beispiel}
 \begin{tikzpicture}
 
@@ -1009,10 +1009,11 @@ class Verkaufsperson(@JvmField var name:String) {}
 
 
 %right side slide
-\uncover<1->{\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Coroutines};}
+\uncover<1->{\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7.75) {Coroutines};}
 \uncover<2->{
+\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Dispatcher.};
 %Default
-\draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small Default};
+\draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small (2)-Default-(Cores)};
 %\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
 \draw [fill = defaultcolor] (6.75+0,5.5) rectangle +(0.125,-5);
 \draw [fill = defaultcolor] (5.75+0 ,5.5) rectangle +(0.125,-5);
@@ -1023,7 +1024,7 @@ class Verkaufsperson(@JvmField var name:String) {}
 \draw[fill = bgcolor] (7.25,5.75) rectangle +(2,0.75) node[midway] {\small Main/Ui};
 
 %I/O
-\draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small I/O};
+\draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small (0)-I/O-(64)};
 %\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
 %\draw [fill = bgcolor] (6.75+0.125,2.5) rectangle +(0.125,-2);
 %\draw [fill = altbgcolor] (6.75,3) rectangle +(0.375,-1);
