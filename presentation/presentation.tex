@@ -85,13 +85,14 @@ val b: String = "Hallo"
     \item Typangabe nach dem Variablennamen mit Doppelpunkt.
     \item In Kotlin gibt es \textbf{keine} primitiven Typen. %Notes: konsistenteres objektorientiertes Design. Auch Funktionen sind Objekte -> erlaubt funktionale Programmierung.
   \end{itemize}
-  \pause\vspace{0.5cm}
-  Kotlin unterstützt \textbf{Typinferenz}, d.h.\ der Typ kann weggelassen werden.
-  \begin{itemize}
-    \item Der Compiler leitet den Typ aus dem initialisierten Wert ab.
-    \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses Beispiel weglassen und oben im Codeblock per Animation einfügen?
-    %Notes Nutzt \textit{Constraint Solving}, ähnlich wie Unifikation in Haskell. 
-  \end{itemize}
+  \uncover<+->{\vspace{0.5cm}
+    Kotlin unterstützt \textbf{Typinferenz}, d.h.\ der Typ kann weggelassen werden.
+    \begin{itemize}
+      \item Der Compiler leitet den Typ aus dem initialisierten Wert ab.
+      \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses Beispiel weglassen und oben im Codeblock per Animation einfügen?
+      %Notes Nutzt \textit{Constraint Solving}, ähnlich wie Unifikation in Haskell. 
+    \end{itemize}
+  }
 \end{frame}
 
 \begin{frame}[fragile]{Klassen}
