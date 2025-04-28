@@ -33,12 +33,16 @@
     \item \textbf{Wichtigste Vorteile gegenüber Java:} %Notes: Wichtigste Vorteile, auf die wir näher eingehen -> Erwähnen, wer welches Thema behandelt.
     \begin{itemize} %Sollten wir nochmal Interoperabilität als Vorteil erwähnen, da "leverage existing Java libraries"?
       \item Klare und präzise Syntax.
-      \item Erweiterte Funktionen wie Null-Sicherheit.
+      \item Erweiterte Funktionen wie Null Safety.
       \item Umfassende Multiplattform-Entwicklungsmöglichkeiten.
     \end{itemize}
   \end{itemize}
 \end{frame}
+\begin{frame}{Syntax}
+  \tableofcontents[sections={1-4}]  
+\end{frame}
 
+\section{Main-Methode}
 \begin{frame}[fragile]{Main-Methode}
   \begin{lstlisting}[language=Java, title=Java Main-Methode, xleftmargin=1em]
 public class Main {
@@ -62,6 +66,7 @@ fun main() {
     \vspace{1cm}
 \end{frame}
 
+\section{Variablen-Deklaration}
 \begin{frame}[fragile]{Variablen-Deklaration}
   \begin{columns}
     \begin{column}{0.5\textwidth}
@@ -82,6 +87,7 @@ val b: String = "Hallo"
     \item \texttt{var} für veränderliche Variablen, \texttt{val} für unveränderliche Variablen.
     \item Typangabe nach dem Variablennamen mit Doppelpunkt.
     \item In Kotlin gibt es \textbf{keine} primitiven Typen. %Notes: konsistenteres objektorientiertes Design. Auch Funktionen sind Objekte -> erlaubt funktionale Programmierung.
+    \item TODO: Funktionen sind Objekte.
   \end{itemize}
   \uncover<+->{\vspace{0.5cm}
     Kotlin unterstützt \textbf{Typinferenz}, d.h.\ der Typ kann weggelassen werden.
@@ -92,7 +98,7 @@ val b: String = "Hallo"
     \end{itemize}
   }
 \end{frame}
-
+\section{Klassen}
 \begin{frame}[fragile]{Klassen}
   \vspace{-0.25cm}
   \begin{lstlisting}[language=Java, title=Java, xleftmargin=1em]
@@ -150,6 +156,11 @@ class Verkaufsperson(
       \item Nur vererbbar, wenn als \texttt{open} deklariert.
     \end{itemize}
   \end{onlyenv}
+\end{frame}
+
+\section{Properties}
+\begin{frame}[fragile]{Java Getter und Setter}
+  TODO
 \end{frame}
 
 \begin{frame}[fragile]{Properties}
