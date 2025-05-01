@@ -38,6 +38,7 @@
     \end{itemize}
   \end{itemize}
 \end{frame}
+
 \begin{frame}{Syntax}
   \tableofcontents[sections={1-4}]  
 \end{frame}
@@ -255,8 +256,14 @@ class Verkaufsperson(val name: String,
 
 % Null safety
 
+\begin{frame}{Null Safety}
+  \tableofcontents[sections={5-8}]
+\end{frame}
+
+\section{Motivation}
+
 \begin{frame}[fragile]{Null Safety}
-  \textbf{Motiviation: Null Safety}
+  \textbf{Motivation: Null Safety}
   \pause\vspace{0.5cm}
   \begin{lstlisting}[language=Kotlin, title=Java Beispiel, xleftmargin=1em]
 Verkaufsperson person = null;
@@ -282,36 +289,40 @@ var b : String? = "b ist nullable"
   \end{itemize}
 \end{frame}
 
+\section{Safe call Operator}
+
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
   Ziel: sicherer Zugriff auf Datenfelder und Methoden durch \texttt{?.}
   \pause
   \begin{lstlisting}[language=Java, title=in Java]
-private final Verkaufsperson vorgesetzer;
+private final Verkaufsperson? vorgesetzter;
 
-public void printVorgesetzer() {
-  if (vorgesetzer == null) System.out.println(null);
-  else System.out.println(vorgesetzer.name);
+public void printVorgesetzter() {
+  if (vorgesetzter == null) System.out.println(null);
+  else System.out.println(vorgesetzter.name);
 }
   \end{lstlisting}
   \pause
   \begin{lstlisting}[language=Kotlin, title=in Kotlin]
-val vorgesetzer: Verkaufsperson? = null
+val vorgesetzter: Verkaufsperson? = null
 
-fun printVorgesetzer() {
-  println(vorgesetzer?.name)
+fun printVorgesetzter() {
+  println(vorgesetzter?.name)
 } 
   \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
   \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators]
-val name: String? = vorgesetzer?.vorgesetzer?.name   
+    var name: String? = vorgesetzter?.vorgesetzter?.name
   \end{lstlisting}
-  \pause
+  \vspace{1cm}
   \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator]
-vorgesetzer?.vorgesetzer?.provision = 0.0
+    vorgesetzter?.vorgesetzter?.provision = 0.0
   \end{lstlisting}
 \end{frame}
+
+\section{Elvis Operator}
 
 \begin{frame}[fragile]{Null Safety: Elvis Operator}
   \begin{itemize}[<+->]
@@ -320,19 +331,21 @@ vorgesetzer?.vorgesetzer?.provision = 0.0
   \end{itemize}
   \pause[\thebeamerpauses]
   \begin{lstlisting}[language=Java]
-public void printVorgesetzer() {
-  if (vorgesetzer == null)
-    System.out.println("Kein Vorgesetzer");
-  else System.out.println(vorgesetzer.name);
+public void printVorgesetzter() {
+  if (vorgesetzter == null)
+    System.out.println("Kein Vorgesetzter");
+  else System.out.println(vorgesetzter.name);
 }
   \end{lstlisting}
   \pause
   \begin{lstlisting}[language=Kotlin]
-fun printVorgesetzer() {
-  println(vorgesetzer?.name ?: "Kein Vorgesetzer")
+fun printVorgesetzter() {
+  println(vorgesetzter?.name ?: "Kein Vorgesetzter")
 }
   \end{lstlisting}
 \end{frame}
+
+\section{Not-null assertion Operator}
 
 \begin{frame}[fragile]{Null Safety: Not-null assertion Operator}
   \begin{lstlisting}[language=Java]
@@ -345,10 +358,12 @@ var b: String = possiblyNull!!
   \end{itemize}
 \end{frame}
 
+\section{Nullable Receiver Funktionen}
+
 \begin{frame}[fragile]{Null Safety: Nullable Receiver}
   \begin{itemize}[<+->]
-    \item Baut auf Extension functions
-    \item erlauben Methodenaufruf auf nullable types
+    \item Funktionen können extern deklariert werden
+    \item Erlaubt auch Methodenaufruf auf nullable types
     \item Null Werte werden innerhalb der Methode behandelt
   \end{itemize}
   \pause \vspace{1cm}
@@ -369,8 +384,18 @@ sales.print()
   \begin{itemize}[<+->]
     \item Kotlin aufbauend auf Java entworfen
     \item Kotlin bietet einfachen Zugriff auf Java Code und umgekehrt
+    \item bestehender Java Code kann weiter verwendet werden
   \end{itemize}
 \end{frame}
+
+\begin{frame}{Interoperabilität}
+  \textbf{Java in Kotlin benutzen}
+  \tableofcontents[sections={9-11}]
+  \textbf{Kotlin in Java benutzen}
+  \tableofcontents[sections={12}]
+\end{frame}
+
+\section{Zugriff auf Klassen und Instanzen}
 
 \begin{frame}[fragile]{Interoperabilität}
   \begin{lstlisting}[language=Java]
@@ -398,19 +423,22 @@ carl.provision = 0.2
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Interoperabilität: Mapped types}
+\section{Mapped Types}
+
+\begin{frame}[fragile]{Interoperabilität: Mapped Types}
   \begin{itemize}[<+->]
     \item normalerweise werden die java-Typen übernommen
     \item Manche haben einen zugehörige Kotlin Typ
   \end{itemize}
   \pause[\thebeamerpauses] \vspace{0.2cm}
   \begin{itemize}[<+->]
-    \item \texttt{java.lang.Object} $\Rightarrow $\texttt{kotlin.Any!}
+    \item \texttt{java.lang.Object} $\Rightarrow$ \texttt{kotlin.Any!}
     \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
     \item primitive typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
-    \item Rückgabewert \texttt{void} $\Rightarrow$ \texttt{Unit}
   \end{itemize}
 \end{frame}
+
+\section{Null safety mit Java}
 
 \begin{frame}[fragile]{Interoperabilität: Null safety mit Java}
   \begin{lstlisting}[language=Java]
@@ -431,6 +459,8 @@ println(person.name)
     \item anfälliger für NullPointerExceptions
   \end{itemize}
 \end{frame}
+
+\section{Kotlin Properties in Java}
 
 \begin{frame}[fragile]{Interoperabilität: Kotlin Properties in Java}
   \begin{lstlisting}[language=Kotlin]
