@@ -32,9 +32,9 @@
   \begin{itemize}
     \item \textbf{Wichtigste Vorteile gegenüber Java:} %Notes: Wichtigste Vorteile, auf die wir näher eingehen -> Erwähnen, wer welches Thema behandelt.
     \begin{itemize} %Sollten wir nochmal Interoperabilität als Vorteil erwähnen, da "leverage existing Java libraries"?
-      \item Klare und präzise Syntax.
-      \item Erweiterte Funktionen wie Null Safety.
-      \item Umfassende Multiplattform-Entwicklungsmöglichkeiten.
+      \item Klare und präzise Syntax
+      \item Erweiterte Funktionen wie Null Safety
+      \item Umfassende Multiplattform-Entwicklungsmöglichkeiten
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -57,11 +57,11 @@ fun main() {
 }
   \end{lstlisting}
   \pause[\thebeamerpauses]\begin{itemize}[<+->]
-      \item Keine explizite Klassendeklaration erforderlich. %Notes: Methoden außerhalb einer Klasse sind quasi statisch, aber ohne Klassenzugehörigkeit. (Siehe auch println)
-      \item Verwendung des Schlüsselworts \texttt{fun} zur Funktionsdeklaration.
-      \item Standardzugriffsmodifikator ist \texttt{public}.
-      \item \texttt{args}-Parameter ist optional.
-      \item Semikolons sind nicht erforderlich.
+      \item Klassendeklaration: nicht erforderlich %Notes: Methoden außerhalb einer Klasse sind quasi statisch, aber ohne Klassenzugehörigkeit. (Siehe auch println)
+      \item Schlüsselwort zur Funktionsdeklaration: \texttt{fun}
+      \item Standardzugriffsmodifikator: \texttt{public}
+      \item \texttt{args}-Parameter: optional
+      \item Semikolons: nicht notwendig
     \end{itemize}
     \vspace{1cm}
 \end{frame}
@@ -84,13 +84,13 @@ val b: String = "Hallo"
   \end{columns}
   \vspace{0.5cm}
   \begin{itemize}[<+->]
-    \item \texttt{var} für veränderliche Variablen, \texttt{val} für unveränderliche Variablen.
-    \item Typangabe nach dem Variablennamen mit Doppelpunkt.
-    \item In Kotlin gibt es \textbf{keine} primitiven Typen. %Notes: konsistenteres objektorientiertes Design. Auch Funktionen sind Objekte -> erlaubt funktionale Programmierung.
-    \item TODO: Funktionen sind Objekte.
+    \item \texttt{var} für veränderliche Variablen, \texttt{val} für unveränderliche Variablen
+    \item Typangabe nach dem Variablennamen mit Doppelpunkt
+    \item \textbf{Keine} primitiven Typen %Notes: konsistenteres objektorientiertes Design. Auch Funktionen sind Objekte -> erlaubt funktionale Programmierung.
+    \item Funktionen sind Objekte $\Rightarrow$ Funktionale Programmierung möglich
   \end{itemize}
   \uncover<+->{\vspace{0.5cm}
-    Kotlin unterstützt \textbf{Typinferenz}, d.h.\ der Typ kann weggelassen werden.
+    \textbf{Typinferenz} wird unterstützt:
     \begin{itemize}
       \item Der Compiler leitet den Typ aus dem initialisierten Wert ab.
       \item Beispiel: \lstinline[language=kotlin]|var a = 5| ist auch möglich. % Dieses Beispiel weglassen und oben im Codeblock per Animation einfügen?
@@ -152,15 +152,44 @@ class Verkaufsperson(
 ) {}
     \end{lstlisting} 
     \begin{itemize}
-      \item Ähnlich wie Java-Records, aber flexibler.
-      \item Nur vererbbar, wenn als \texttt{open} deklariert.
+      \item Ähnlich wie Java-Records, aber flexibler
+      \item Nur vererbbar, wenn als \texttt{open} deklariert
     \end{itemize}
   \end{onlyenv}
 \end{frame}
 
 \section{Properties}
 \begin{frame}[fragile]{Java Getter und Setter}
-  TODO
+  \begin{onlyenv}<1>
+    \begin{lstlisting}[language=Java,xleftmargin=1em]
+public class Verkaufsperson {
+  private final String name;
+  private double provision;
+
+  
+  public Verkaufsperson(String name, double provision) {...}
+  
+  public String getName() {...}
+
+
+}
+    \end{lstlisting}
+  \end{onlyenv}
+  \begin{onlyenv}<2>
+    \begin{lstlisting}[language=Java,xleftmargin=1em]
+public class Verkaufsperson {
+  private final String name;
+  private double provision;
+  private int umsatz;
+  
+  public Verkaufsperson(String name, double provision) {...}
+  
+  public String getName() {...}
+  public int getUmsatz() {...}
+  private void setUmsatz(int umsatz) {...}
+}
+    \end{lstlisting}
+  \end{onlyenv}
 \end{frame}
 
 \begin{frame}[fragile]{Properties}
@@ -210,8 +239,9 @@ class Verkaufsperson(val name: String,
   \end{onlyenv}
   \begin{uncoverenv}<4>
     \begin{itemize}
-    \item Punkt-Notation ruft automatisch Setter/Getter auf.
-    \item Beispiel: \lstinline[language=kotlin]|verkaufsperson.umsatz = -1| wirft eine \texttt{IllegalArgumentException}.
+    \item Punkt-Notation ruft automatisch Setter/Getter auf. \\
+    \hspace{0.25cm} Beispiel: \lstinline[language=kotlin]|verkaufsperson.umsatz = -1| wirft eine \\
+    \hspace{0.25cm} \texttt{IllegalArgumentException}
     % Notes: 
     \end{itemize}
   \end{uncoverenv}
