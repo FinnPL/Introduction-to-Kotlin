@@ -314,11 +314,11 @@ fun printVorgesetzter() {
 
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
   \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators]
-    var name: String? = vorgesetzter?.vorgesetzter?.name
+var name: String? = vorgesetzter?.vorgesetzter?.name
   \end{lstlisting}
   \pause \vspace{1cm}
   \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator]
-    vorgesetzter?.vorgesetzter?.provision = 0.0
+vorgesetzter?.vorgesetzter?.provision = 0.0
   \end{lstlisting}
 \end{frame}
 
@@ -350,7 +350,6 @@ fun printVorgesetzter() {
 \begin{frame}[fragile]{Null Safety: Not-null assertion Operator}
 
   \begin{lstlisting}[language=Kotlin]
-
 val a: String? = null
 var b: String = possiblyNull!!
   \end{lstlisting}
