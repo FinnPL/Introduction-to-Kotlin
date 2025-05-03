@@ -349,7 +349,7 @@ fun printVorgesetzter() {
 
   \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 val a: String? = null
-var b: String = possiblyNull!!
+var b: String = a!!
   \end{lstlisting}
   \pause
   \begin{itemize}[<+->]
@@ -413,13 +413,13 @@ carl.provision = 0.2
 
 \begin{frame}[fragile]{Interoperabilität: Mapped Types}
   \begin{itemize}[<+->]
-    \item normalerweise werden die java-Typen übernommen
+    \item Normalerweise werden die java-Typen übernommen
     \item Manche haben einen zugehörige Kotlin Typ
   \end{itemize}
   \pause[\thebeamerpauses] \vspace{0.2cm}
   \begin{itemize}[<+->]
     \item \texttt{java.lang.Object} $\Rightarrow$ \texttt{kotlin.Any!}
-    \item primitive typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
+    \item Primitiver Typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
     \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
   \end{itemize}
 \end{frame}
@@ -449,14 +449,19 @@ println(person.name)
 
 \begin{frame}[fragile]{Interoperabilität: Kotlin Properties in Java}
   \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
-var name: String
-    \end{lstlisting}
-    \pause
-    \begin{lstlisting}[language=Java, xleftmargin=1em]
-private String name;
-public String getName() { return name; }
-public void setName(String name) { this.name = name; }
-      \end{lstlisting}
+class Verkaufsperson() {
+  val name: String
+}
+  \end{lstlisting}
+  \pause
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
+public class Verkaufsperson {
+  private String name;
+
+  public String getName() { return name; }
+  public void setName(String name) { this.name = name; }
+}
+  \end{lstlisting}
 \end{frame}
 
 \begin{frame}{Multiplatform}
