@@ -441,7 +441,7 @@ println(person.name)
   \begin{itemize}[<+->]
     \item haben spezial-Typ: \textit{platform type}
     \item gelockerte Regeln bezüglich Null safety
-    \item anfälliger für NullPointerExceptions
+    \item anfälliger für \texttt{NullPointerExceptions}
   \end{itemize}
 \end{frame}
 
@@ -458,8 +458,13 @@ class Verkaufsperson() {
 public class Verkaufsperson {
   private String name;
 
-  public String getName() { return name; }
-  public void setName(String name) { this.name = name; }
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 }
   \end{lstlisting}
 \end{frame}
