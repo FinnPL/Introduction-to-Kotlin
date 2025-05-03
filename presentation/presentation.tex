@@ -273,7 +273,7 @@ System.out.println(person.name);
   \begin{itemize}[<+->]
     \item Code wirft \texttt{java.lang.NullPointerException}
     \item Kann zu Programmabbruch führen oder weitere Fehler nach sich ziehen
-    \item Konzept verhindert NullPointerExceptions
+    \item Konzept verhindert \texttt{NullPointerExceptions}
   \end{itemize}
 \end{frame}
 
@@ -285,7 +285,7 @@ var b : String? = "b ist nullable"
   \pause \vspace{1cm}
   \begin{itemize}[<+->]
     \item Unterscheidung zwischen \textit{nullable} und \textit{non-nullable} types
-    \item Programmierer muss Null safety gewährleisten
+    \item Programmierer muss \textit{Null safety} gewährleisten
   \end{itemize}
 \end{frame}
 
@@ -439,7 +439,6 @@ println(person.name)
   \end{lstlisting}
   \pause
   \begin{itemize}[<+->]
-    \item Aus Java zurückgegebene Instanzen können \textit{null} sein
     \item haben spezial-Typ: \textit{platform type}
     \item gelockerte Regeln bezüglich Null safety
     \item anfälliger für NullPointerExceptions
