@@ -278,7 +278,7 @@ System.out.println(person.name);
 \end{frame}
 
 \begin{frame}[fragile]{Null Safety}
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 var a : String = "a ist non-nullable"
 var b : String? = "b ist nullable"
   \end{lstlisting}
@@ -294,7 +294,7 @@ var b : String? = "b ist nullable"
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
   Ziel: sicherer Zugriff auf Datenfelder und Methoden durch \texttt{?.}
   \pause
-  \begin{lstlisting}[language=Java, title=in Java]
+  \begin{lstlisting}[language=Java, title=in Java, xleftmargin=1em]
 private final Verkaufsperson vorgesetzter;
 
 public void printVorgesetzter() {
@@ -303,7 +303,7 @@ public void printVorgesetzter() {
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin, title=in Kotlin]
+  \begin{lstlisting}[language=Kotlin, title=in Kotlin, xleftmargin=1em]
 val vorgesetzter: Verkaufsperson? = null
 
 fun printVorgesetzter() {
@@ -313,11 +313,11 @@ fun printVorgesetzter() {
 \end{frame}
 
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
-  \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators]
+  \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators, xleftmargin=1em]
 var name: String? = vorgesetzter?.vorgesetzter?.name
   \end{lstlisting}
   \pause \vspace{1cm}
-  \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator]
+  \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator, xleftmargin=1em]
 vorgesetzter?.vorgesetzter?.provision = 0.0
   \end{lstlisting}
 \end{frame}
@@ -330,7 +330,7 @@ vorgesetzter?.vorgesetzter?.provision = 0.0
     \item Ermöglicht setzen von Default-Werten anstelle \textit{null}
   \end{itemize}
   \pause[\thebeamerpauses]
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 public void printVorgesetzter() {
   if (vorgesetzter == null)
     System.out.println("Kein Vorgesetzter");
@@ -338,7 +338,7 @@ public void printVorgesetzter() {
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 fun printVorgesetzter() {
   println(vorgesetzter?.name ?: "Kein Vorgesetzter")
 }
@@ -349,7 +349,7 @@ fun printVorgesetzter() {
 
 \begin{frame}[fragile]{Null Safety: Not-null assertion Operator}
 
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 val a: String? = null
 var b: String = possiblyNull!!
   \end{lstlisting}
@@ -368,14 +368,14 @@ var b: String = possiblyNull!!
     \item Null Werte werden innerhalb der Methode behandelt
   \end{itemize}
   \pause \vspace{1cm}
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 fun Verkaufsperson?.print() {
   if (this == null) return println("Diese Person existiert nicht")
   return println("$name: $provision Anteil")
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 var sales: Verkaufsperson? = null
 sales.print()
   \end{lstlisting}
@@ -399,7 +399,7 @@ sales.print()
 \section{Zugriff auf Klassen und Instanzen}
 
 \begin{frame}[fragile]{Interoperabilität}
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 public class Verkaufsperson {
   private final String name;
   private double provision;
@@ -412,7 +412,7 @@ public class Verkaufsperson {
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 var carl = Verkaufsperson("Carl Mueller", 0.1)
 println(carl.name)
 carl.provision = 0.2
@@ -442,13 +442,13 @@ carl.provision = 0.2
 \section{Null safety mit Java}
 
 \begin{frame}[fragile]{Interoperabilität: Null safety mit Java}
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 public Verkaufsperson erstellePerson() {
   return null;
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 val person: Verkaufsperson = erstellePerson()
 println(person.name)
   \end{lstlisting}
@@ -464,11 +464,11 @@ println(person.name)
 \section{Kotlin Properties in Java}
 
 \begin{frame}[fragile]{Interoperabilität: Kotlin Properties in Java}
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 var name: String
     \end{lstlisting}
     \pause
-    \begin{lstlisting}[language=Java]
+    \begin{lstlisting}[language=Java, xleftmargin=1em]
 private String name;
 public String getName() { return name; }
 public void setName(String name) { this.name = name; }
