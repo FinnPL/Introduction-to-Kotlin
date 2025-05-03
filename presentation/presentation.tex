@@ -348,9 +348,7 @@ fun printVorgesetzter() {
 \section{Not-null assertion Operator}
 
 \begin{frame}[fragile]{Null Safety: Not-null assertion Operator}
-<<<<<<< HEAD
   \begin{lstlisting}[language=Kotlin]
-=======
   \begin{lstlisting}[language=Java]
 val a: String? = null
 var b: String = possiblyNull!!
@@ -574,7 +572,6 @@ public void setName(String name) { this.name = name; }
 \draw[fill = bgcolor] (0.75,4.6) rectangle +(-2,0.4) node[midway] {\small @composable};
 \draw[fill = bgcolor] (0.45,6.6) rectangle +(-2,0.4) node[midway] {\small @composable};
 
-=======
 
 % Screen area
 \only<1-3>\draw[fill=bgcoloralt, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
@@ -623,7 +620,6 @@ public void setName(String name) { this.name = name; }
 \draw[fill = bgcolor] (0.75,4.6) rectangle +(-2,0.4) node[midway] {\small @composable};
 \draw[fill = bgcolor] (0.45,6.6) rectangle +(-2,0.4) node[midway] {\small @composable};
 
->>>>>>> Android-pres
 };
     
 \visible<5->{
@@ -634,9 +630,7 @@ public void setName(String name) { this.name = name; }
   \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
   \foreach \x in {0,1.5}{
     \foreach \y in {0,0.2,...,3.8} {
-=======
     \foreach \y in {0,0.2,...,3.8} { 
->>>>>>> Android-pres
         \pgfmathsetmacro{\num}{random(0,10)*0.1};
         \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
     };
@@ -692,7 +686,6 @@ public void setName(String name) { this.name = name; }
 \fi
 \begin{frame}{Android: Coroutines}
   \begin{tikzpicture}
-=======
 \begin{frame}{Android: Coroutines}
 \begin{tikzpicture}
 %here
@@ -784,7 +777,6 @@ new Fiber<Void>(() -> {
 \fill[white] (0,1) rectangle (15,-2); 
 
 }
->>>>>>> Android-pres
   
 %linker Thread
 \draw[fill = bgcolor] (0.25,5) rectangle +(5,0.75) node[midway] {\small Thread};
@@ -829,10 +821,8 @@ new Fiber<Void>(() -> {
 \draw[fill = basecolor] (6.5+0.25,2.5) rectangle +(5,0.75) node[midway] {\small fun4};
 \draw[fill = basecolor] (6.5+0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun5};
 %\draw[fill = basecolor] (6.5+0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
-=======
 
 \draw[fill = bgcolor] (6.75,5) rectangle +(5,0.75) node[midway] {\small Thread};
->>>>>>> Android-pres
 
 \draw[fill = bgcoloralt] (6.5,1.5) rectangle +(5.5,3.5) node[midway] {\small Stack};
 
@@ -852,7 +842,6 @@ new Fiber<Void>(() -> {
 \draw[fill = basecolor!60] (9+0.25,2.5) rectangle +(2.5,0.75) node[midway] {\small async\{\}};
 }
 
-=======
 %ab hier
 \uncover<2>{
 \draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small launch Coroutine};
@@ -869,7 +858,6 @@ new Fiber<Void>(() -> {
 
 
 
->>>>>>> Android-pres
 \uncover<3-6>{
 \draw[fill = basecolor] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small Coroutine};
 }
@@ -883,9 +871,7 @@ new Fiber<Void>(() -> {
 \uncover<5-6>{
 
 \draw[fill = bgcolor] (5.75,6) rectangle +(6.5,0.75) node[midway] {\small Suspends: delay(),yield(),withContext(),...};
-=======
 \draw[fill = bgcolor] (5.75,6) rectangle +(6.5,0.75) node[midway] {\small suspends: delay(),yield(),withContext(),...};
->>>>>>> Android-pres
 
 }
 
@@ -945,9 +931,7 @@ new Fiber<Void>(() -> {
     Single Thread\\
     Multithreading\\
     \fi
-=======
 
->>>>>>> Android-pres
     Beispiel Coroutines
 \end{center}
 \end{frame}
@@ -1143,8 +1127,6 @@ new Fiber<Void>(() -> {
 \begin{frame}{Android: Coroutines: Beispiel}
 \begin{tikzpicture}
 
-=======
->>>>>>> Android-pres
 
 % Phone body
 \draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
@@ -1167,9 +1149,7 @@ new Fiber<Void>(() -> {
 
 };
 \uncover<6-9>{
-=======
 \uncover<6->{
->>>>>>> Android-pres
 \draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
 
 \foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
@@ -1199,9 +1179,7 @@ new Fiber<Void>(() -> {
 \uncover<11->{
 \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
 };
-=======
 
->>>>>>> Android-pres
 % Speaker
 \draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
 
@@ -1215,11 +1193,9 @@ new Fiber<Void>(() -> {
 \node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Dispatcher.};
 %Default
 \draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small (2)-Default-(Cores)};
-=======
 %\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Dispatcher.};
 %Default
 \draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small Default};
->>>>>>> Android-pres
 %\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
 \draw [fill = defaultcolor] (6.75+0,5.5) rectangle +(0.125,-5);
 \draw [fill = defaultcolor] (5.75+0 ,5.5) rectangle +(0.125,-5);
@@ -1231,9 +1207,7 @@ new Fiber<Void>(() -> {
 
 %I/O
 \draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small (0)-I/O-(64)};
-=======
 \draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small I/O};
->>>>>>> Android-pres
 %\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
 %\draw [fill = bgcolor] (6.75+0.125,2.5) rectangle +(0.125,-2);
 %\draw [fill = altbgcolor] (6.75,3) rectangle +(0.375,-1);
@@ -1332,26 +1306,16 @@ new Fiber<Void>(() -> {
 \draw [fill = altbgcolor] (8.25-0.125,1.5) rectangle +(0.375,-1) node[midway] {1};
 
 };
-=======
-
->>>>>>> Android-pres
 \end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Zusammenfassung} %Der gesamten Präsentation
-=======
-
->>>>>>> Android-pres
   \begin{itemize}
     \item Moderne Programmiersprache mit präziser Syntax und innovativen Features.
     \item Verbesserte Klassenstrukturen und Null-Sicherheit.
     \item Nahtlose Interoperabilität mit Java
     \item Multiplattform-Entwicklung (Android)
-=======
-
   \end{itemize}
-
->>>>>>> Android-pres
   \vspace{1cm}
   \pause\textbf{Aussicht:}
   \begin{itemize}
@@ -1359,9 +1323,6 @@ new Fiber<Void>(() -> {
     \item Unterstützung funktionaler Programmierparadigmen
   \end{itemize}
       %Notes: Koltin ist eine leistungstarke alternative zu Java
-=======
-      
->>>>>>> Android-pres
 \end{frame}
   
 
