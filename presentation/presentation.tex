@@ -349,6 +349,7 @@ fun printVorgesetzter() {
 
 \begin{frame}[fragile]{Null Safety: Not-null assertion Operator}
   \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Java]
 val a: String? = null
 var b: String = possiblyNull!!
   \end{lstlisting}
@@ -475,15 +476,6 @@ public void setName(String name) { this.name = name; }
 \end{frame}
 
 \begin{frame}{Multiplatform}
-
-\begin{itemize}
-    \item native binarie
-    \item verschiedene Targets
-    \item hierarchische Projektstruktur
-\end{itemize}
-
-\end{frame}
-\begin{frame}{Multiplatform: hierarchische Projektstruktur}
   \begin{center}
 \begin{tikzpicture}[
   node distance=1cm and 2.5cm,
@@ -532,31 +524,13 @@ public void setName(String name) { this.name = name; }
 \end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Android}
-  \begin{itemize}
-  
-    \item Jetpack compose
-    \item Coroutines
-    \item Beispiel
-  \end{itemize}
-  
-      \end{frame}
-\iffalse
-\begin{frame}[fragile]{Android: Android KTX}
-  \begin{itemize}
-  \item Kotlins APK version
-  \end{itemize}
-\end{frame}
-\fi
-\begin{frame}[fragile]{Android: Jetpack compose}
-  \begin{itemize}
-  \item Ui Tool
-  \item @composables
-  \item Kotlin basiert
-  \end{itemize}
+\begin{frame}{Android}
+  \tableofcontents[sections={14-16}]%{14,19,33}  
 \end{frame}
 
-\begin{frame}{Android: Composable: Beispiel}
+
+\section{Jetpack Compose}
+\begin{frame}{Android: Jetpack compose}%Composable: Beispiel
 
 
 %\begin{flushright}
@@ -566,14 +540,11 @@ public void setName(String name) { this.name = name; }
 \begin{center}
 \begin{tikzpicture}
 
+
+
+
 % Phone body
 \draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
-
-% Screen area
-\only<1,2>\draw[fill=bgcoloralt, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
-\only<3>{\draw[fill=bgpopcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
-\uncover<4>{\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
-\uncover<5->{\draw[fill=basecolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
 
 % Speaker
 \draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
@@ -601,6 +572,54 @@ public void setName(String name) { this.name = name; }
 \draw[fill = bgcolor] (0.75,4.6) rectangle +(-2,0.4) node[midway] {\small @composable};
 \draw[fill = bgcolor] (0.45,6.6) rectangle +(-2,0.4) node[midway] {\small @composable};
 
+
+% Screen area
+\only<1-3>\draw[fill=bgcoloralt, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+%\only<3>{\draw[fill=bgpopcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\uncover<4>{\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\uncover<5->{\draw[fill=basecolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\begin{scope}
+    
+\clip[rounded corners=0.5cm] (0.3,1) rectangle (3.7,7.5);
+
+\uncover<-3>{
+  %\foreach \x in { 0.6} { %{0.6, 1.6, 2.6};
+    \foreach \y in {0.4,1.4, 2.4, 3.4, 4.4, 5.4,6.4} {
+    
+      \draw[fill=basecolor] (0.6,\y) rectangle +(2.8,0.8); %blue!20;
+      \draw[fill=secondarycolor] (0.6+0.1,\y+0.1) rectangle +(0.6,0.6); %yellow!5;
+      \draw[fill = textcolor] (0.6+0.9,\y+0.1) rectangle +(1.8,0.05);
+      \draw[fill = textcolor] (0.6+0.9,\y+0.25) rectangle +(1.8,0.05);
+      \draw[fill = textcolor] (0.6+0.9,\y+0.4) rectangle +(0.9,0.2);
+      
+    };
+  
+};
+
+\uncover<4>{
+  %\foreach \x in { 0.6} { %{0.6, 1.6, 2.6};
+    \foreach \y in {1.2, 2.2,...,7.2} {
+    
+      \draw[fill=basecolor] (0.6,\y) rectangle +(2.8,0.8); %blue!20;
+      \draw[fill=secondarycolor] (0.6+0.1,\y+0.1) rectangle +(0.6,0.6); %yellow!5;
+      \draw[fill = textcolor] (0.6+0.9,\y+0.1) rectangle +(1.8,0.05);
+      \draw[fill = textcolor] (0.6+0.9,\y+0.25) rectangle +(1.8,0.05);
+      \draw[fill = textcolor] (0.6+0.9,\y+0.4) rectangle +(0.9,0.2);
+      
+    };
+  
+};
+
+
+\end{scope}
+
+
+%\uncover<2-4>{\draw[fill=popcolor] (0.6, 6.4) rectangle +(2.8,0.8) node[midway] {\small Farbe ändern};}
+\visible<1>{
+\draw[fill = bgcolor] (0.65,5.6) rectangle +(-2,0.4) node[midway] {\small @composable};
+\draw[fill = bgcolor] (0.75,4.6) rectangle +(-2,0.4) node[midway] {\small @composable};
+\draw[fill = bgcolor] (0.45,6.6) rectangle +(-2,0.4) node[midway] {\small @composable};
+
 };
     
 \visible<5->{
@@ -611,6 +630,7 @@ public void setName(String name) { this.name = name; }
   \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
   \foreach \x in {0,1.5}{
     \foreach \y in {0,0.2,...,3.8} {
+    \foreach \y in {0,0.2,...,3.8} { 
         \pgfmathsetmacro{\num}{random(0,10)*0.1};
         \draw[fill = textcolor] (0.6+\x,\y+1.25) rectangle +(1.5-\num,0.1);
     };
@@ -624,9 +644,11 @@ public void setName(String name) { this.name = name; }
 \uncover<2-4>{\node[draw,fill = bgcoloralt, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-5,3) {Home};}
 \uncover<5->{\node[draw,fill = bgcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-5,3) {Profil};}
 \uncover<2>{\node[draw,fill = bgcoloralt, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Grau};}
-\uncover<3>{\node[draw,fill = bgpopcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Grau Gelb};}
-\uncover<4>{\node[draw,fill = bgcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Grau Lila};}
-\uncover<5->{\node[draw,fill = basecolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Lila};}
+\uncover<3-4>{\node[draw,fill = bgpopcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Grau Gelb};}
+\uncover<4>{\node[draw,fill = bgcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-4,1) {Scroll:\\0.8};}
+\uncover<5->{\node[draw,fill = basecolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-3,3) {Farbe:\\Lila};
+\node[draw,fill = bgcolor, minimum width=1.5cm, minimum height=1.5cm, align=center] at (-4,1) {Scroll:\\0.0};
+}
 \end{tikzpicture}
 \end{center}
 
@@ -664,6 +686,97 @@ public void setName(String name) { this.name = name; }
 \fi
 \begin{frame}{Android: Coroutines}
   \begin{tikzpicture}
+\begin{frame}{Android: Coroutines}
+\begin{tikzpicture}
+%here
+% Phone body
+\draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
+
+% Screen area
+\draw[fill=altbgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+
+\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {multithreading};
+\foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
+  \foreach \y in {1.4, 2.4, 3.4, 4.4, 5.4, 6.4} {
+    \draw[fill=basecolor] (\x,\y) rectangle +(2.8,0.8);
+    \draw[fill=secondarycolor] (\x+0.1,\y+0.1) rectangle +(0.6,0.6);
+    \draw[fill = textcolor] (\x+0.9,\y+0.1) rectangle +(1.8,0.05);
+    \draw[fill = textcolor] (\x+0.9,\y+0.25) rectangle +(1.8,0.05);
+    \draw[fill = textcolor] (\x+0.9,\y+0.4) rectangle +(0.9,0.2);
+  };
+}
+
+
+    \draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small Threads};
+\draw [fill = defaultcolor] (6.75+0,5.5) rectangle +(0.125,-5);
+\draw [fill = defaultcolor] (5.75+0,5.5) rectangle +(0.125,-5);
+\draw [fill = defaultcolor] (4.75+0,5.5) rectangle +(0.125,-5);
+
+    \draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small Threads};
+\draw [fill = defaultcolor] (6.75+5,5.5) rectangle +(0.125,-5);
+\draw [fill = defaultcolor] (5.75+5,5.5) rectangle +(0.125,-5);
+\draw [fill = defaultcolor] (4.75+5,5.5) rectangle +(0.125,-5);
+
+
+
+%Main
+\draw [fill = basecolor] (8.25,5.5) rectangle +(0.125,-5);
+\draw[fill = bgcolor] (7.25,5.75) rectangle +(2,0.75) node[midway] {\small Main-Thread};
+
+%I/O
+%\draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small (0)-I/O-(64)};
+\end{tikzpicture}
+\end{frame}
+\section{Coroutines}
+%wenn wir die Ui dauerhaft updaten wollen müssen wir unsere Prozesse aufteilen um nicht zu blockieren
+%normalerweise mit threads -> besser mit coroutines -> nicht native in java native in Kotlin (code beispiele  java import -> Kotlin launch{})-> wegen hardware und schnelligkeit
+
+\begin{frame}[fragile]{Android: Coroutines} 
+
+  \begin{tikzpicture}
+
+    \node at (8,2) {
+
+\begin{lstlisting}[language=Kotlin]
+launch {
+    //coroutine  
+}
+\end{lstlisting}
+
+
+  };
+  \node at (4,0) {
+
+\begin{lstlisting}[language=Kotlin]
+ suspend fun pingServer() {
+        //ping Server
+    }
+\end{lstlisting}
+
+
+  };
+      \node at (9,4) {
+
+\begin{lstlisting}[language=Java]
+new Fiber<Void>(() -> {
+    //coroutine
+    return null;
+}).start();
+\end{lstlisting}
+
+
+  };
+
+\uncover<1,3->{
+\fill[white] (5.5,5) rectangle (15,1); 
+
+}
+
+\uncover<1-4,7->{
+\fill[white] (0,1) rectangle (15,-2); 
+
+}
   
 %linker Thread
 \draw[fill = bgcolor] (0.25,5) rectangle +(5,0.75) node[midway] {\small Thread};
@@ -709,6 +822,9 @@ public void setName(String name) { this.name = name; }
 \draw[fill = basecolor] (6.5+0.25,3.25) rectangle +(5,0.75) node[midway] {\small fun5};
 %\draw[fill = basecolor] (6.5+0.25,4) rectangle +(5,0.75) node[midway] {\small  fun3 - Server ping};
 
+\draw[fill = bgcolor] (6.75,5) rectangle +(5,0.75) node[midway] {\small Thread};
+
+\draw[fill = bgcoloralt] (6.5,1.5) rectangle +(5.5,3.5) node[midway] {\small Stack};
 
 }
 
@@ -726,6 +842,22 @@ public void setName(String name) { this.name = name; }
 \draw[fill = basecolor!60] (9+0.25,2.5) rectangle +(2.5,0.75) node[midway] {\small async\{\}};
 }
 
+%ab hier
+\uncover<2>{
+\draw[fill = basecolor] (0.25,2.5) rectangle +(5,0.75) node[midway] {\small launch Coroutine};
+%\draw[fill = basecolor!60] (6.5+0.25,2.5) rectangle +(2.5,0.75) node[midway] {\small launch\{\}};
+
+
+
+
+
+%\draw[fill = basecolor!60] (9+0.25,2.5) rectangle +(2.5,0.75) node[midway] {\small async\{\}};
+}
+
+
+
+
+
 \uncover<3-6>{
 \draw[fill = basecolor] (6.5+0.25,1.75) rectangle +(5,0.75) node[midway] {\small Coroutine};
 }
@@ -739,6 +871,7 @@ public void setName(String name) { this.name = name; }
 \uncover<5-6>{
 
 \draw[fill = bgcolor] (5.75,6) rectangle +(6.5,0.75) node[midway] {\small Suspends: delay(),yield(),withContext(),...};
+\draw[fill = bgcolor] (5.75,6) rectangle +(6.5,0.75) node[midway] {\small suspends: delay(),yield(),withContext(),...};
 
 }
 
@@ -790,21 +923,20 @@ public void setName(String name) { this.name = name; }
 
   \end{tikzpicture}
 \end{frame}
-
-\begin{frame}{Android: Coroutines: Beispiel}
+\section{Beispiel}
+\begin{frame}{Android: Coroutines: Beispiel} 
 \begin{center}
 \iffalse
     Multithreading mit Coroutines\\
     Single Thread\\
     Multithreading\\
     \fi
+
     Beispiel Coroutines
 \end{center}
 \end{frame}
 \iffalse
 \begin{frame}{Android: Coroutines: Beispiel}
-
-%\begin{center}
 \begin{tikzpicture}
 
 % Phone body
@@ -1017,6 +1149,7 @@ public void setName(String name) { this.name = name; }
 
 };
 \uncover<6-9>{
+\uncover<6->{
 \draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
 
 \foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
@@ -1046,6 +1179,7 @@ public void setName(String name) { this.name = name; }
 \uncover<11->{
 \draw[fill = textcolor] (2.2,5.6) rectangle +(1.25,0.3);
 };
+
 % Speaker
 \draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
 
@@ -1059,6 +1193,9 @@ public void setName(String name) { this.name = name; }
 \node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Dispatcher.};
 %Default
 \draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small (2)-Default-(Cores)};
+%\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Dispatcher.};
+%Default
+\draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small Default};
 %\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
 \draw [fill = defaultcolor] (6.75+0,5.5) rectangle +(0.125,-5);
 \draw [fill = defaultcolor] (5.75+0 ,5.5) rectangle +(0.125,-5);
@@ -1070,6 +1207,7 @@ public void setName(String name) { this.name = name; }
 
 %I/O
 \draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small (0)-I/O-(64)};
+\draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small I/O};
 %\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
 %\draw [fill = bgcolor] (6.75+0.125,2.5) rectangle +(0.125,-2);
 %\draw [fill = altbgcolor] (6.75,3) rectangle +(0.375,-1);
