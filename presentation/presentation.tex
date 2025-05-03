@@ -407,11 +407,6 @@ var carl = Verkaufsperson("Carl Mueller", 0.1)
 println(carl.name)
 carl.provision = 0.2
   \end{lstlisting}
-  \pause
-  \begin{itemize}
-    \item Kotlin erstellt synthetic properties
-    \item Aufruf über getter/setter Methoden weiterhin möglich
-  \end{itemize}
 \end{frame}
 
 \section{Mapped Types}
@@ -424,8 +419,8 @@ carl.provision = 0.2
   \pause[\thebeamerpauses] \vspace{0.2cm}
   \begin{itemize}[<+->]
     \item \texttt{java.lang.Object} $\Rightarrow$ \texttt{kotlin.Any!}
-    \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
     \item primitive typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
+    \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
   \end{itemize}
 \end{frame}
 
