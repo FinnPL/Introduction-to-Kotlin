@@ -292,8 +292,6 @@ var b : String? = "b ist nullable"
 \section{Safe call Operator}
 
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
-  Ziel: sicherer Zugriff auf Datenfelder und Methoden durch \texttt{?.}
-  \pause
   \begin{lstlisting}[language=Java, title=in Java, xleftmargin=1em]
 private final Verkaufsperson vorgesetzter;
 
@@ -379,14 +377,6 @@ fun Verkaufsperson?.print() {
 var sales: Verkaufsperson? = null
 sales.print()
   \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperabilität}
-  \begin{itemize}[<+->]
-    \item Kotlin aufbauend auf Java entworfen
-    \item Kotlin bietet einfachen Zugriff auf Java Code und umgekehrt
-    \item bestehender Java Code kann weiter verwendet werden
-  \end{itemize}
 \end{frame}
 
 \begin{frame}{Interoperabilität}
