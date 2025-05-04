@@ -273,29 +273,27 @@ System.out.println(person.name);
   \begin{itemize}[<+->]
     \item Code wirft \texttt{java.lang.NullPointerException}
     \item Kann zu Programmabbruch führen oder weitere Fehler nach sich ziehen
-    \item Konzept verhindert NullPointerExceptions
+    \item Konzept verhindert \texttt{NullPointerExceptions}
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Null Safety}
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 var a : String = "a ist non-nullable"
 var b : String? = "b ist nullable"
   \end{lstlisting}
   \pause \vspace{1cm}
   \begin{itemize}[<+->]
     \item Unterscheidung zwischen \textit{nullable} und \textit{non-nullable} types
-    \item Programmierer muss Null safety gewährleisten
+    \item Programmierer muss \textit{Null safety} gewährleisten
   \end{itemize}
 \end{frame}
 
 \section{Safe call Operator}
 
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
-  Ziel: sicherer Zugriff auf Datenfelder und Methoden durch \texttt{?.}
-  \pause
-  \begin{lstlisting}[language=Java, title=in Java]
-private final Verkaufsperson? vorgesetzter;
+  \begin{lstlisting}[language=Java, title=in Java, xleftmargin=1em]
+private final Verkaufsperson vorgesetzter;
 
 public void printVorgesetzter() {
   if (vorgesetzter == null) System.out.println(null);
@@ -303,7 +301,7 @@ public void printVorgesetzter() {
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin, title=in Kotlin]
+  \begin{lstlisting}[language=Kotlin, title=in Kotlin, xleftmargin=1em]
 val vorgesetzter: Verkaufsperson? = null
 
 fun printVorgesetzter() {
@@ -313,12 +311,12 @@ fun printVorgesetzter() {
 \end{frame}
 
 \begin{frame}[fragile]{Null Safety: Safe call Operator}
-  \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators]
-    var name: String? = vorgesetzter?.vorgesetzter?.name
+  \begin{lstlisting}[language=Kotlin, title=Verkettung des Operators, xleftmargin=1em]
+var name: String? = vorgesetzter?.vorgesetzter?.name
   \end{lstlisting}
-  \vspace{1cm}
-  \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator]
-    vorgesetzter?.vorgesetzter?.provision = 0.0
+  \pause \vspace{1cm}
+  \begin{lstlisting}[language=Kotlin, title=Zuweisungen mit dem Operator, xleftmargin=1em]
+vorgesetzter?.vorgesetzter?.provision = 0.0
   \end{lstlisting}
 \end{frame}
 
@@ -330,7 +328,7 @@ fun printVorgesetzter() {
     \item Ermöglicht setzen von Default-Werten anstelle \textit{null}
   \end{itemize}
   \pause[\thebeamerpauses]
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 public void printVorgesetzter() {
   if (vorgesetzter == null)
     System.out.println("Kein Vorgesetzter");
@@ -338,7 +336,7 @@ public void printVorgesetzter() {
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 fun printVorgesetzter() {
   println(vorgesetzter?.name ?: "Kein Vorgesetzter")
 }
@@ -348,9 +346,10 @@ fun printVorgesetzter() {
 \section{Not-null assertion Operator}
 
 \begin{frame}[fragile]{Null Safety: Not-null assertion Operator}
-  \begin{lstlisting}[language=Java]
+
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 val a: String? = null
-var b: String = possiblyNull!!
+var b: String = a!!
   \end{lstlisting}
   \pause
   \begin{itemize}[<+->]
@@ -367,25 +366,17 @@ var b: String = possiblyNull!!
     \item Null Werte werden innerhalb der Methode behandelt
   \end{itemize}
   \pause \vspace{1cm}
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 fun Verkaufsperson?.print() {
   if (this == null) return println("Diese Person existiert nicht")
   return println("$name: $provision Anteil")
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 var sales: Verkaufsperson? = null
 sales.print()
   \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]{Interoperabilität}
-  \begin{itemize}[<+->]
-    \item Kotlin aufbauend auf Java entworfen
-    \item Kotlin bietet einfachen Zugriff auf Java Code und umgekehrt
-    \item bestehender Java Code kann weiter verwendet werden
-  \end{itemize}
 \end{frame}
 
 \begin{frame}{Interoperabilität}
@@ -398,7 +389,7 @@ sales.print()
 \section{Zugriff auf Klassen und Instanzen}
 
 \begin{frame}[fragile]{Interoperabilität}
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 public class Verkaufsperson {
   private final String name;
   private double provision;
@@ -411,70 +402,74 @@ public class Verkaufsperson {
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 var carl = Verkaufsperson("Carl Mueller", 0.1)
 println(carl.name)
 carl.provision = 0.2
   \end{lstlisting}
-  \pause
-  \begin{itemize}
-    \item Kotlin erstellt synthetic properties
-    \item Aufruf über getter/setter Methoden weiterhin möglich
-  \end{itemize}
 \end{frame}
 
 \section{Mapped Types}
 
 \begin{frame}[fragile]{Interoperabilität: Mapped Types}
   \begin{itemize}[<+->]
-    \item normalerweise werden die java-Typen übernommen
+    \item Normalerweise werden die java-Typen übernommen
     \item Manche haben einen zugehörige Kotlin Typ
   \end{itemize}
   \pause[\thebeamerpauses] \vspace{0.2cm}
   \begin{itemize}[<+->]
     \item \texttt{java.lang.Object} $\Rightarrow$ \texttt{kotlin.Any!}
+    \item Primitiver Typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
     \item \texttt{java.lang.Integer} $\Rightarrow$ \texttt{kotlin.Int?}
-    \item primitive typ \texttt{int} $\Rightarrow$ \texttt{kotlin.Int}
   \end{itemize}
 \end{frame}
 
 \section{Null safety mit Java}
 
 \begin{frame}[fragile]{Interoperabilität: Null safety mit Java}
-  \begin{lstlisting}[language=Java]
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
 public Verkaufsperson erstellePerson() {
   return null;
 }
   \end{lstlisting}
   \pause
-  \begin{lstlisting}[language=Kotlin]
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
 val person: Verkaufsperson = erstellePerson()
 println(person.name)
   \end{lstlisting}
   \pause
   \begin{itemize}[<+->]
-    \item Aus Java zurückgegebene Instanzen können \textit{null} sein
     \item haben spezial-Typ: \textit{platform type}
     \item gelockerte Regeln bezüglich Null safety
-    \item anfälliger für NullPointerExceptions
+    \item anfälliger für \texttt{NullPointerExceptions}
   \end{itemize}
 \end{frame}
 
 \section{Kotlin Properties in Java}
 
 \begin{frame}[fragile]{Interoperabilität: Kotlin Properties in Java}
-  \begin{lstlisting}[language=Kotlin]
-var name: String
-    \end{lstlisting}
-    \pause
-    \begin{lstlisting}[language=Java]
-private String name;
-public String getName() { return name; }
-public void setName(String name) { this.name = name; }
-      \end{lstlisting}
+  \begin{lstlisting}[language=Kotlin, xleftmargin=1em]
+class Verkaufsperson() {
+  val name: String
+}
+  \end{lstlisting}
+  \pause
+  \begin{lstlisting}[language=Java, xleftmargin=1em]
+public class Verkaufsperson {
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+}
+  \end{lstlisting}
 \end{frame}
 
-\begin{frame}{Multiplatform}
+\begin{frame}{Multiplatform Entwicklung}
   \begin{center}
 \begin{tikzpicture}[
   node distance=1cm and 2.5cm,
@@ -484,12 +479,12 @@ public void setName(String name) { this.name = name; }
 
 
 \begin{scope}[on background layer]
-\uncover<1->{
+\uncover<2->{
   \fill[basecolor!30] (-6,2.3) rectangle (6,1.1);        % Common Source Set
   \node[draw=none, fill=none, font=\Large\bfseries] at (-4,1.8) {\small Common Source Set};
   \node[fill=basecolor!60] (common) at (0,1.7) {commonMain};
   }
-\uncover<2->{
+\uncover<3->{
   \fill[secondarycolor!30] (-6,1.1) rectangle (6,-0.7);  % Intermediate Source Sets
   \node[draw=none, fill=none, font=\Large\bfseries] at (-4,0.8) {\small Intermediate Source Sets};
 
@@ -502,7 +497,7 @@ public void setName(String name) { this.name = name; }
 \draw[->, thick] (common) -- (native);
 
   }
-  \uncover<3->{
+  \uncover<4->{
   \fill[bgcolor!30] (-6,-0.7) rectangle (6,-2.8);        % Targets
   \node[draw=none, fill=none, font=\Large\bfseries] at (-4,-1.0) {\small Targets};
 
@@ -512,7 +507,7 @@ public void setName(String name) { this.name = name; }
 \draw[->, thick] (jvm) -- (android);
 \draw[->, thick] (native) -- (ios);
   }
-  \uncover<4->{
+  \uncover<5->{
   
 \node[draw=none, fill=none, font=\Large\bfseries] at (4,1.8) {\small expected};
 \node[draw=none, fill=none, font=\Large\bfseries] at (4,0.8) {\small expected/actual};
@@ -553,9 +548,9 @@ public void setName(String name) { this.name = name; }
 
 
 % Screen area
-\only<1-3>\draw[fill=bgcoloralt, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
-%\only<3>{\draw[fill=bgpopcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
-\uncover<4>{\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+\only<1-2>\draw[fill=bgcoloralt, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
+\uncover<3,4>{\draw[fill=bgpopcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
+%\uncover<4>{\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
 \uncover<5->{\draw[fill=basecolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);}
 \begin{scope}
     
@@ -766,7 +761,7 @@ new Fiber<Void>(() -> {
 
 \uncover<5-6>{
 
-\draw[fill = bgcolor] (5.75,6) rectangle +(6.5,0.75) node[midway] {\small suspends: delay(),yield(),withContext(),...};
+\fill[white] (5.75,6) rectangle +(6.5,0.75) %node[midway] {\small suspends: delay(),yield(),withContext(),...};
 
 }
 
@@ -818,158 +813,29 @@ new Fiber<Void>(() -> {
 
   \end{tikzpicture}
 \end{frame}
-\section{Beispiel}
-\begin{frame}{Android: Coroutines: Beispiel} 
-\begin{center}
 
-    Beispiel Coroutines
-\end{center}
-\end{frame}
-
-\begin{frame}{Android: Coroutines: Beispiel}
-\begin{tikzpicture}
-
-
-% Phone body
-\draw[fill = black, rounded corners=0.5cm, thick] (0,0) rectangle (4,8);
-
-% Screen area
-\uncover<1-5>{\draw[fill=altbgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
-
-
-\foreach \x in {0.6, 1.6, 2.6} {
-  \foreach \y in {1.4, 2.4, 3.4, 4.4} {
-    \draw[fill=altbasecolor] (\x,\y) rectangle +(0.8,0.8);
-  };
-  \draw[fill=altpopcolor] (2.6,3.4) rectangle +(0.8,0.8);
-%\draw[fill=altsecondarycolor]; 
-\draw[fill=altsecondarycolor, rounded corners=0.3cm] (0.6,5.4) rectangle +(2.8,1.9) node[midway] { \Huge\texttt{\textcolor{alttextcolor}{12:30}}};
-}
-
-
-
-
-};
-\uncover<6->{
-\draw[fill=bgcolor, rounded corners=0.3cm] (0.3,1) rectangle (3.7,7.5);
-
-\foreach \x in { 0.6} { %{0.6, 1.6, 2.6}
-  \foreach \y in {1.4, 2.4, 3.4, 4.4, 5.4, 6.4} {
-    \draw[fill=basecolor] (\x,\y) rectangle +(2.8,0.8);
-    \draw[fill=secondarycolor] (\x+0.1,\y+0.1) rectangle +(0.6,0.6);
-    \draw[fill = textcolor] (\x+0.9,\y+0.1) rectangle +(1.8,0.05);
-    \draw[fill = textcolor] (\x+0.9,\y+0.25) rectangle +(1.8,0.05);
-    \draw[fill = textcolor] (\x+0.9,\y+0.4) rectangle +(0.9,0.2);
-  };
-}
-
-};
-
-% Speaker
-\draw[fill=white] (1.7,7.6) rectangle (2.3,7.7);
-
-% Home button (circle)
-\draw[fill=black!20] (2,0.4) circle (0.3);
-
-
-%right side slide
-\uncover<1->{\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Coroutines};}
-\uncover<2->{
-%\node[draw,fill = bgcolor, minimum width=7.5cm, minimum height=0.75cm, align=center] at (8.25,7) {Dispatcher.};
-%Default
-\draw[fill = bgcolor] (4.25,5.75) rectangle +(3,0.75) node[midway] {\small Default};
-%\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
-\draw [fill = defaultcolor] (6.75+0,5.5) rectangle +(0.125,-5);
-\draw [fill = defaultcolor] (5.75+0 ,5.5) rectangle +(0.125,-5);
-
-
-%Main
-\draw [fill = basecolor] (8.25,5.5) rectangle +(0.125,-5);
-\draw[fill = bgcolor] (7.25,5.75) rectangle +(2,0.75) node[midway] {\small Main/Ui};
-
-%I/O
-\draw[fill = bgcolor] (9.25,5.75) rectangle +(3,0.75) node[midway] {\small I/O};
-%\draw [fill = basecolor] (8 ,5.5) rectangle +(0.125,-5);
-%\draw [fill = bgcolor] (6.75+0.125,2.5) rectangle +(0.125,-2);
-%\draw [fill = altbgcolor] (6.75,3) rectangle +(0.375,-1);
-
-
-%\draw [fill = bgcolor] (5.75+0.125,4.5) rectangle +(0.125,-4);
-%\draw [fill = altbgcolor] (5.75,5) rectangle +(0.375,-1);
-
-%\draw [fill = altbgcolor] (4.75,1.25) rectangle +(0.375,-1);
-};
-\uncover<3->{
-%\draw [fill = defaultcolor] (4.75+0,5.5) rectangle +(0.125,-5);
-
-
-\draw [fill = iocolor] (6.75+5,5.5) rectangle +(0.125,-5);
-\draw [fill = iocolor] (5.75+5 ,5.5) rectangle +(0.125,-5);
-\draw [fill = iocolor] (4.75+5,5.5) rectangle +(0.125,-5);
-
-};
-\uncover<3>{
-\draw [fill = altbgcolor] (6.75+5-0.125,5.6) rectangle +(0.375,-1) node[midway] {1};
-\draw [fill = altbgcolor] (5.75+5-0.125,5.6) rectangle +(0.375,-1) node[midway] {2};
-\draw [fill = altbgcolor] (4.75+5-0.125,5.6) rectangle +(0.375,-1) node[midway] {3};
-
-};
-\uncover<4>{
-
-\draw [fill = bgcolor] (6.75+5,2.5) rectangle +(0.125,-2);
-\draw [fill = altbgcolor] (6.75+5-0.125,3) rectangle +(0.375,-1) node[midway] {1};
-\draw [fill = bgcolor] (5.75+5,3.5) rectangle +(0.125,-3);
-\draw [fill = altbgcolor] (5.75+5-0.125,4) rectangle +(0.375,-1) node[midway] {2};
-\draw [fill = bgcolor] (4.75+5,4) rectangle +(0.125,-3.5);
-\draw [fill = altbgcolor] (4.75+5-0.125,4.5) rectangle +(0.375,-1) node[midway] {3};
-
-};
-
-\uncover<5>{
-
-\draw [fill = bgcolor] (6.75+5,4) rectangle +(0.125,-3.5);
-\draw [fill = altbgcolor] (6.75+5-0.125,4.5) rectangle +(0.375,-1) node[midway] {4};
-\draw [fill = bgcolor] (5.75+5,4.5) rectangle +(0.125,-4);
-\draw [fill = altbgcolor] (5.75+5-0.125,5) rectangle +(0.375,-1) node[midway] {5};
-\draw [fill = bgcolor] (4.75+5,3) rectangle +(0.125,-2.5);
-\draw [fill = altbgcolor] (4.75+5-0.125,3.5) rectangle +(0.375,-1) node[midway] {6};
-%paused coroutines
-\draw[fill = alttextcolor] (4+5-0.25+0.0625,5.5) rectangle +(0.5,-5); %node[midway] {3};
-\draw [fill = altbgcoloralt] (4+5-0.125,5) rectangle +(0.375,-1) node[midway] {3};
-\draw [fill = altbgcoloralt] (4+5-0.125,3.5) rectangle +(0.375,-1) node[midway] {2};
-\draw [fill = altbgcoloralt] (4+5-0.125,2) rectangle +(0.375,-1) node[midway] {1};
-
-};
-\uncover<6>{
-
-%\draw [fill = bgcolor] (6.75+5,2.5) rectangle +(0.125,-2);
-\draw [fill = altbgcolor] (6.75+5-0.125,3) rectangle +(0.375,-1) node[midway] {1};
-%\draw [fill = bgcolor] (5.75+5,3.5) rectangle +(0.125,-3);
-\draw [fill = altbgcolor] (5.75+5-0.125,4) rectangle +(0.375,-1) node[midway] {2};
-%\draw [fill = bgcolor] (4.75+5,4) rectangle +(0.125,-3.5);
-\draw [fill = altbgcolor] (8.25-0.125,1.5) rectangle +(0.375,-1) node[midway] {3};
-%paused coroutines
-\draw[fill = alttextcolor] (4+5-0.25+0.0625,5.5) rectangle +(0.5,-5); %node[midway] {3};
-\draw [fill = altbgcoloralt] (4+5-0.125,5) rectangle +(0.375,-1) node[midway] {6};
-\draw [fill = altbgcoloralt] (4+5-0.125,3.5) rectangle +(0.375,-1) node[midway] {5};
-\draw [fill = altbgcoloralt] (4+5-0.125,2) rectangle +(0.375,-1) node[midway] {4};
-
-};
-
-\end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Zusammenfassung} %Der gesamten Präsentation
+\begin{frame}[fragile]{Zusammenfassung} %Der gesamten Präsentation
 
   \begin{itemize}
-    \item Moderne Programmiersprache mit präziser Syntax und innovativen Features.
-    \item Verbesserte Klassenstrukturen und Null-Sicherheit.
-    \item Nahtlose Interoperabilität mit Java
-    \item Multiplattform-Entwicklung (Android)
+    \item Moderne Programmiersprache mit präziser Syntax und innovativen Features.\lstinline{ public static void main(String[] args) -> fun main()}
+    \vspace{0.25cm}
+    \item Verbesserte Klassenstrukturen und Null-Sicherheit. \lstinline{...! ...?}
+    \item Nahtlose Interoperabilität mit Java \adjustbox{valign=B}{\includegraphics[height=3ex]{Java Logo.png}}
+$\leftrightarrow$
+\adjustbox{valign=B}{\includegraphics[height=3ex]{Kotlin Full Color Logo Mark RGB.png}}
+    
+    \item Multiplattform-Entwicklung (Android) \adjustbox{valign=B}{ \begin{tikzpicture}
+        \fill[white] (0,0) rectangle +(0.1,0.1)
+        \draw[fill = white] (20,0) rectangle +(0.1,0.1)
+        \draw[fill = basecolor!60] (0.5,0.25) rectangle +(2.25,0.5) node[midway] {Common}
+        \draw[fill = secondarycolor!60] (0.5+2.25,0.25) rectangle +(2.25,0.5) node[midway] {Intermediate}
+        \draw[fill = bgcolor!60] (0.5+4.5,0.25) rectangle +(2.25,0.5) node[midway] {Target}
+    \end{tikzpicture}
+    }
 
   \end{itemize}
-
-  \vspace{1cm}
+    
+  \vspace{0.25cm}
   \pause\textbf{Aussicht:}
   \begin{itemize}
     \item Erweiterte Features: Smart Casts, Delegation, Destructuring \ldots
